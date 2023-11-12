@@ -1,0 +1,12 @@
+.bg-top {
+    width: 100%;
+    height: calc(50vh + 30vw) ;
+    background: url("../images/back-1.png") center no-repeat;
+}
+
+.bg-medium {
+    width: 100%;
+    height: calc(50vh + 30vw) ;
+    background: url("../images/back-2.png") center no-repeat;
+    background-position: 50% 100%;
+}

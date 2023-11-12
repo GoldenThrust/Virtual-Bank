@@ -1,0 +1,39 @@
+/* body {
+    background: url("../images/back.png") top no-repeat;
+} */
+
+.menu {
+    background: url("../images/menu.png") center no-repeat;
+    width: 80px;
+    height: 80px;
+}
+
+.tagline {
+    font-family: Agbalumo;
+    font-size: 6.7vw;
+}
+
+.circular-text {
+    font-size: calc(1.2vw + 1.2vh);
+    font-family: "Flow Circular";
+}
+
+.intro-1 {
+    margin-top: 100px;
+    background: linear-gradient(228deg, #5700E5 26.5%, #EE6767 99.48%);
+    background-clip: text;
+    font-size: calc(5vw + 3vh);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.intro-1 div:last-child {
+    width: 100%;
+    height: 500px;
+}
+
+.intro-1 .img {
+    background: url("../images/computer.png");
+    background-size: cover;
+    background-size: 100%;
+}
