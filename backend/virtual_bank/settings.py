@@ -21,6 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-wv0w$*$_w$e29xc^-qzu&^fh1=f!clvb5wdp&aolk1k-bt$=0n'
+FIELD_ENCRYPTION_KEY = 'N-J7zpv_Y5eIhtXONYBlTzt76p0GH6Z34EStVm4WXrM='
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -29,8 +30,19 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+AUTH_USER_MODEL = 'users.User'
 
 INSTALLED_APPS = [
+    'encrypted_model_fields',
+    'users.apps.UsersConfig',
+    'accounts.apps.AccountsConfig',
+    'credit_cards.apps.CreditCardsConfig',
+    'deposits.apps.DepositsConfig',
+    'merchants.apps.MerchantsConfig',
+    'notifications.apps.NotificationsConfig',
+    'payments.apps.PaymentsConfig',
+    'transactions.apps.TransactionsConfig',
+    'transfers.apps.TransfersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
