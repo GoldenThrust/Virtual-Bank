@@ -13,6 +13,7 @@ Pillow==10.1.0
 pyasn1==0.5.0
 pycparser==2.21
 pycrypto==2.6.1
+python-dotenv==1.0.0
 python-keyczar==0.716
 pytz==2023.3.post1
 PyYAML==6.0.1
