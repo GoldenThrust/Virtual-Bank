@@ -1,16 +1,17 @@
 from django.db import models
 from users.models import User
 
+
 class Notification(models.Model):
     NOTIFICATION_TYPES = [
-        ('TRANSACTION_ALERT', 'Transaction Alert'),
-        ('ACCOUNT_UPDATE', 'Account Update'),
-        ('SECURITY_NOTIFICATION', 'Security Notification'),
+        ("TRANSACTION_ALERT", "Transaction Alert"),
+        ("ACCOUNT_UPDATE", "Account Update"),
+        ("SECURITY_NOTIFICATION", "Security Notification"),
     ]
 
     STATUS_CHOICES = [
-        ('READ', 'Read'),
-        ('UNREAD', 'Unread'),
+        ("READ", "Read"),
+        ("UNREAD", "Unread"),
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -20,4 +21,4 @@ class Notification(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Notification ID: {self.pk} - Type: {self.get_type_display()} - User: {self.user.username}"
+        return f"Notification ID: {self.pk} - Type: {self.get_notification_type_display()} - User: {self.user.username}"
