@@ -17,6 +17,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - uses: ikalnytskyi/action-setup-postgres@v4
+      with:
+        username: postgres
+        password: fakepassword001
+        database: virtual_bank
+        port: 5432
+      id: postgres
+
+    - run: pytest -vv tests/
+      env:
+        CONNECTION_STR: ${{ steps.postgres.outputs.connection-uri }}
+  
+    - run: pytest -vv tests/
+      env:
+        CONNECTION_STR: service=${{ steps.postgres.outputs.service-name }}
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
