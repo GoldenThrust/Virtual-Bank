@@ -20,7 +20,7 @@ jobs:
     - uses: ikalnytskyi/action-setup-postgres@v4
       with:
         username: postgres
-        password: fakepassword001
+        password: root
         database: virtual_bank
         port: 5432
       id: postgres
