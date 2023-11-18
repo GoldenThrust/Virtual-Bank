@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+if [ "$#" -lt 1 ]; then
+    echo "You got this!"
+    echo "Usage: createfiles <filename> [-e <exclude folders>]"
+    exit 1
+fi
+file=$1
+exclude_folders=()
+
+if [ "$2" == "-e" ]; then
+    if [ "$#" -lt 3 ]; then
+        echo "No exclude folder provided after '-e'"
+        exit 1
+    fi
+    exclude_folders=("${@:3}")
+fi
+
+folders=(*)
+
+for folder in "${folders[@]}"; do
+    if [ -d "$folder" ] && [[ ! " ${exclude_folders[*]} " =~ " $folder " ]]; then
+        touch "$folder/$file"
+        echo "$folder/$file created successfully"
+    fi
+done

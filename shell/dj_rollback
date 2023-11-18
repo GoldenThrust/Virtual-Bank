@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+folders=(*)
+
+for folder in "${folders[@]}"; do
+    if [ -d "$folder" ]; then
+        python3 ./manage.py migrate $folder zero
+    fi
+done
