@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+APPS=("users" "accounts" "credit_cards" "merchants" "notifications" "payments" "transactions" "transfers")
+file=$1
+
+for app in "${APPS[@]}"
+do
+    touch ../backend/$app/$file
+    echo "$app/$file created"
+done

@@ -4,5 +4,5 @@ APPS=("users" "accounts" "credit_cards" "merchants" "notifications" "payments" "
 
 for app in "${APPS[@]}"
 do
-    python3 backend/manage.py migrate $app zero
+    python3 ../backend/manage.py migrate $app zero
 done
