@@ -1,5 +1,4 @@
 from django.db import models
-from encrypted_model_fields.fields import EncryptedCharField, EncryptedDateField
 from accounts.models import Account
 
 class CreditCard(models.Model):
@@ -7,11 +6,11 @@ class CreditCard(models.Model):
     limit = models.DecimalField(max_digits=10, decimal_places=2, default=2000.00)
     available_credit = models.DecimalField(max_digits=10, decimal_places=2, default=2000.00)
 
-    card_number = EncryptedCharField(max_length=16)
-    cvv = EncryptedCharField(max_length=4)
-    expiration_date = EncryptedDateField()
+    card_number = models.BigIntegerField()
+    cvv = models.CharField(max_length=4)
+    expiration_date = models.DateTimeField()
 
-    created_date = models.DateField(auto_now_add=True)
+    created_date = models.DateTimeField(auto_now_add=True) 
 
     def __str__(self):
         return f"{self.card_number} - User: {self.account.user.username}"

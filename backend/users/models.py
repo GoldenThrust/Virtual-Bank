@@ -2,9 +2,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
-    date_of_birth = models.DateField(null=True)
+    date_of_birth = models.DateTimeField(null=True)
     profile_picture = models.ImageField(default="profile.png")
-    phone_number = models.IntegerField(null=True)
+    phone_number = models.BigIntegerField(null=True)
     address = models.CharField(max_length=255, null=True)
     city = models.CharField(max_length=100, null=True)
     state = models.CharField(max_length=100, null=True)

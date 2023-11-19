@@ -12,7 +12,7 @@ class Payment(models.Model):
 
     transaction = models.OneToOneField(Transaction, on_delete=models.CASCADE, related_name='payment')
     payee = models.ForeignKey(User, on_delete=models.CASCADE)
-    due_date = models.DateField()
+    due_date = models.DateTimeField()
     status = models.CharField(max_length=10, choices=STATUS_CHOICES)
 
     def __str__(self):

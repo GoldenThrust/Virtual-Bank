@@ -25,7 +25,7 @@ class Merchant(models.Model):
     api_key = models.CharField(max_length=255)
     public_key = models.TextField()
     private_key = models.TextField()
-    created_date = models.DateField(auto_now_add=True)
+    created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.user.username} - Category: {self.get_category_display()}"
