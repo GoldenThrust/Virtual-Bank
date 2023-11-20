@@ -1,0 +1,52 @@
+[
+    {
+        "account": 1,
+        "transaction_type": "DEPOSIT",
+        "amount": "500.00"
+    },
+    {
+        "account": 2,
+        "transaction_type": "TRANSFER",
+        "amount": "250.00"
+    },
+    {
+        "account": 3,
+        "transaction_type": "DEPOSIT",
+        "amount": "1200.00"
+    },
+    {
+        "account": 4,
+        "transaction_type": "PAYMENT",
+        "amount": "100.00"
+    },
+    {
+        "account": 5,
+        "transaction_type": "TRANSFER",
+        "amount": "1000.00"
+    },
+    {
+        "account": 6,
+        "transaction_type": "TRANSFER",
+        "amount": "150.00"
+    },
+    {
+        "account": 7,
+        "transaction_type": "PAYMENT",
+        "amount": "75.00"
+    },
+    {
+        "account": 8,
+        "transaction_type": "TRANSFER",
+        "amount": "800.00"
+    },
+    {
+        "account": 9,
+        "transaction_type": "TRANSFER",
+        "amount": "300.00"
+    },
+    {
+        "account": 10,
+        "transaction_type": "PAYMENT",
+        "amount": "50.00"
+    }
+]

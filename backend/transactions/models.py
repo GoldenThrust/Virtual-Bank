@@ -10,10 +10,10 @@ class Transaction(models.Model):
     ]
 
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
-    type = models.CharField(max_length=20, choices=TRANSACTION_TYPES)
+    transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPES)
     amount = models.DecimalField(max_digits=15, decimal_places=2)
     identifier = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Transaction ID: {self.pk} - Type: {self.get_type_display()} - Amount: {self.amount}"
+        return f"Transaction ID: {self.pk} - Type: {self.get_transaction_type_display()} - Amount: {self.amount}"

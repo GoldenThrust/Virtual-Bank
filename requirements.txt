@@ -1,12 +1,8 @@
 asgiref==3.7.2
 certifi==2023.7.22
-cffi==1.16.0
 charset-normalizer==3.3.2
-cryptography==41.0.5
 Django==4.2.7
 django-cors-headers==4.3.0
-django-encrypted-fields==1.1.2
-django-encrypted-model-fields==0.6.5
 djangorestframework==3.14.0
 idna==3.4
 Pillow==10.1.0

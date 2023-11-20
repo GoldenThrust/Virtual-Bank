@@ -1,0 +1,72 @@
+[
+    {
+        "user": 1,
+        "name": "Biznumd",
+        "account_type": "SAVINGS",
+        "balance": 7500,
+        "currency": "USD"
+    },
+    {
+        "user": 2,
+        "name": "Invstarted",
+        "account_type": "CREDIT_CARD",
+        "balance": 4300,
+        "currency": "USD"
+    },
+    {
+        "user": 3,
+        "name": "Joshdash",
+        "account_type": "SAVINGS",
+        "balance": 8900,
+        "currency": "GBP"
+    },
+    {
+        "user": 4,
+        "name": "sarah_green",
+        "account_type": "CREDIT_CARD",
+        "balance": 6100,
+        "currency": "NGN"
+    },
+    {
+        "user": 5,
+        "name": "capeyright",
+        "account_type": "SAVINGS",
+        "balance": 7800,
+        "currency": "EUR"
+    },
+    {
+        "user": 6,
+        "name": "lobey",
+        "account_type": "CREDIT_CARD",
+        "balance": 6800,
+        "currency": "NGN"
+    },
+    {
+        "user": 7,
+        "name": "rela1",
+        "account_type": "SAVINGS",
+        "balance": 5900,
+        "currency": "EUR"
+    },
+    {
+        "user": 8,
+        "name": "invest",
+        "account_type": "CREDIT_CARD",
+        "balance": 6300,
+        "currency": "NGN"
+    },
+    {
+        "user": 9,
+        "name": "tedrey",
+        "account_type": "SAVINGS",
+        "balance": 7000,
+        "currency": "GBP"
+    },
+    {
+        "user": 10,
+        "name": "Biz_Wine",
+        "account_type": "CREDIT_CARD",
+        "balance": 8200,
+        "currency": "NGN"
+    }
+]

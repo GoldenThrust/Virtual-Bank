@@ -4,4 +4,4 @@ from .models import Deposit
 class DepositSerializer(serializers.ModelSerializer):
     class Meta:
         model = Deposit
-        fields = []
+        fields = ['id','transaction']

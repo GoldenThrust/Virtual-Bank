@@ -1,0 +1,20 @@
+[
+    {
+        "transaction": 4,
+        "payee": 2,
+        "due_date": "2023-12-01",
+        "status": "PAID"
+    },
+    {
+        "transaction": 7,
+        "payee": 3,
+        "due_date": "2023-12-05",
+        "status": "PENDING"
+    },
+    {
+        "transaction": 10,
+        "payee": 1,
+        "due_date": "2023-11-28",
+        "status": "OVERDUE"
+    }
+]

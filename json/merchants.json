@@ -1,0 +1,172 @@
+[
+    {
+        "user": 1,
+        "account": 1,
+        "description": "Delicious Italian cuisine with a cozy atmosphere.",
+        "category": "Restaurant",
+        "payment_methods_accepted": "CREDIT_CARD",
+        "business_hours": {
+            "Monday": "9:00 AM - 10:00 PM",
+            "Tuesday": "9:00 AM - 10:00 PM",
+            "Wednesday": "9:00 AM - 10:00 PM",
+            "Thursday": "9:00 AM - 10:00 PM",
+            "Friday": "9:00 AM - 11:00 PM",
+            "Saturday": "10:00 AM - 11:00 PM",
+            "Sunday": "Closed"
+        },
+        "website_url": "https://example-restaurant.com"
+    },
+    {
+        "user": 2,
+        "account": 2,
+        "description": "A trendy coffee shop serving artisanal brews.",
+        "category": "Cafe",
+        "payment_methods_accepted": "CREDIT_CARD",
+        "business_hours": {
+            "Monday": "8:00 AM - 6:00 PM",
+            "Tuesday": "8:00 AM - 6:00 PM",
+            "Wednesday": "8:00 AM - 6:00 PM",
+            "Thursday": "8:00 AM - 6:00 PM",
+            "Friday": "8:00 AM - 8:00 PM",
+            "Saturday": "9:00 AM - 8:00 PM",
+            "Sunday": "10:00 AM - 4:00 PM"
+        },
+        "website_url": "https://example-cafe.com"
+    },
+    {
+        "user": 3,
+        "account": 3,
+        "description": "High-quality clothing store with a wide variety of brands.",
+        "category": "Retail",
+        "payment_methods_accepted": "DEPOSIT",
+        "business_hours": {
+            "Monday": "10:00 AM - 7:00 PM",
+            "Tuesday": "10:00 AM - 7:00 PM",
+            "Wednesday": "10:00 AM - 7:00 PM",
+            "Thursday": "10:00 AM - 9:00 PM",
+            "Friday": "10:00 AM - 9:00 PM",
+            "Saturday": "11:00 AM - 6:00 PM",
+            "Sunday": "Closed"
+        },
+        "website_url": "https://example-clothing-store.com"
+    },
+    {
+        "user": 4,
+        "account": 4,
+        "description": "Family-friendly amusement park with thrilling rides.",
+        "category": "Entertainment",
+        "payment_methods_accepted": "TRANSFER",
+        "business_hours": {
+            "Monday": "10:00 AM - 6:00 PM",
+            "Tuesday": "10:00 AM - 6:00 PM",
+            "Wednesday": "10:00 AM - 6:00 PM",
+            "Thursday": "Closed",
+            "Friday": "10:00 AM - 8:00 PM",
+            "Saturday": "9:00 AM - 9:00 PM",
+            "Sunday": "11:00 AM - 7:00 PM"
+        },
+        "website_url": "https://example-amusement-park.com"
+    },
+    {
+        "user": 5,
+        "account": 5,
+        "description": "Cozy bookstore with a wide selection of books and a coffee shop.",
+        "category": "Bookstore",
+        "payment_methods_accepted": "CREDIT_CARD",
+        "business_hours": {
+            "Monday": "9:00 AM - 8:00 PM",
+            "Tuesday": "9:00 AM - 8:00 PM",
+            "Wednesday": "9:00 AM - 8:00 PM",
+            "Thursday": "9:00 AM - 8:00 PM",
+            "Friday": "9:00 AM - 9:00 PM",
+            "Saturday": "10:00 AM - 9:00 PM",
+            "Sunday": "10:00 AM - 6:00 PM"
+        },
+        "website_url": "https://example-bookstore.com"
+    },
+    {
+        "user": 6,
+        "account": 6,
+        "description": "Fitness center with state-of-the-art equipment and personal trainers.",
+        "category": "Fitness",
+        "payment_methods_accepted": "DEPOSIT",
+        "business_hours": {
+            "Monday": "5:00 AM - 10:00 PM",
+            "Tuesday": "5:00 AM - 10:00 PM",
+            "Wednesday": "5:00 AM - 10:00 PM",
+            "Thursday": "5:00 AM - 10:00 PM",
+            "Friday": "5:00 AM - 9:00 PM",
+            "Saturday": "7:00 AM - 7:00 PM",
+            "Sunday": "8:00 AM - 6:00 PM"
+        },
+        "website_url": "https://example-fitness-center.com"
+    },
+    {
+        "user": 7,
+        "account": 7,
+        "description": "Authentic Mexican restaurant known for its delicious tacos.",
+        "category": "Restaurant",
+        "payment_methods_accepted": "TRANSFER",
+        "business_hours": {
+            "Monday": "11:00 AM - 9:00 PM",
+            "Tuesday": "11:00 AM - 9:00 PM",
+            "Wednesday": "11:00 AM - 9:00 PM",
+            "Thursday": "11:00 AM - 9:00 PM",
+            "Friday": "11:00 AM - 10:00 PM",
+            "Saturday": "12:00 PM - 10:00 PM",
+            "Sunday": "Closed"
+        },
+        "website_url": "https://example-mexican-restaurant.com"
+    },
+    {
+        "user": 8,
+        "account": 8,
+        "description": "Tech store offering a wide range of gadgets and accessories.",
+        "category": "Electronics",
+        "payment_methods_accepted": "CREDIT_CARD",
+        "business_hours": {
+            "Monday": "10:00 AM - 7:00 PM",
+            "Tuesday": "10:00 AM - 7:00 PM",
+            "Wednesday": "10:00 AM - 7:00 PM",
+            "Thursday": "10:00 AM - 7:00 PM",
+            "Friday": "10:00 AM - 8:00 PM",
+            "Saturday": "11:00 AM - 8:00 PM",
+            "Sunday": "12:00 PM - 6:00 PM"
+        },
+        "website_url": "https://example-tech-store.com"
+    },
+    {
+        "user":9,
+        "account": 9,
+        "description": "Local pet store offering a variety of pet supplies and grooming services.",
+        "category": "Pet Store",
+        "payment_methods_accepted": "CREDIT_CARD",
+        "business_hours": {
+            "Monday": "9:00 AM - 6:00 PM",
+            "Tuesday": "9:00 AM - 6:00 PM",
+            "Wednesday": "9:00 AM - 6:00 PM",
+            "Thursday": "9:00 AM - 6:00 PM",
+            "Friday": "9:00 AM - 7:00 PM",
+            "Saturday": "10:00 AM - 5:00 PM",
+            "Sunday": "Closed"
+        },
+        "website_url": "https://example-petstore.com"
+    },
+    {
+        "user": 10,
+        "account": 10,
+        "description": "Local art gallery showcasing contemporary paintings and sculptures.",
+        "category": "Art Gallery",
+        "payment_methods_accepted": "TRANSFER",
+        "business_hours": {
+            "Monday": "Closed",
+            "Tuesday": "10:00 AM - 6:00 PM",
+            "Wednesday": "10:00 AM - 6:00 PM",
+            "Thursday": "10:00 AM - 6:00 PM",
+            "Friday": "10:00 AM - 8:00 PM",
+            "Saturday": "11:00 AM - 5:00 PM",
+            "Sunday": "12:00 PM - 4:00 PM"
+        },
+        "website_url": "https://example-artgallery.com"
+    }
+]

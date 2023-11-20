@@ -1,0 +1,62 @@
+[
+    {
+        "account": 1,
+        "limit": 5000,
+        "available_credit": 3200,
+        "expiration_date": "2025-12-25"
+    },
+    {
+        "account": 2,
+        "limit": 8000,
+        "available_credit": 5000,
+        "expiration_date": "2024-06-24"
+    },
+    {
+        "account": 3,
+        "limit": 3000,
+        "available_credit": 1000,
+        "expiration_date": "2027-09-27"
+    },
+    {
+        "account": 4,
+        "limit": 7000,
+        "available_credit": 4500,
+        "expiration_date": "2023-03-23"
+    },
+    {
+        "account": 5,
+        "limit": 10000,
+        "available_credit": 7500,
+        "expiration_date": "2022-08-22"
+    },
+    {
+        "account": 6,
+        "limit": 4000,
+        "available_credit": 2000,
+        "expiration_date": "2026-05-26"
+    },
+    {
+        "account": 7,
+        "limit": 6000,
+        "available_credit": 4800,
+        "expiration_date": "2028-11-28"
+    },
+    {
+        "account": 8,
+        "limit": 9000,
+        "available_credit": 8200,
+        "expiration_date": "2030-04-30"
+    },
+    {
+        "account": 9,
+        "limit": 2000,
+        "available_credit": 1500,
+        "expiration_date": "2021-07-21"
+    },
+    {
+        "account": 10,
+        "limit": 7500,
+        "available_credit": 6200,
+        "expiration_date": "2029-02-29"
+    }
+]

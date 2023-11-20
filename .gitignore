@@ -161,4 +161,5 @@ cython_debug/
 
 # Virtual Environment
 venv/
-.env
+
+media/

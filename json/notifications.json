@@ -1,0 +1,62 @@
+[
+    {
+        "user": 1,
+        "notification_type": "TRANSACTION_ALERT",
+        "content": "Your recent transaction of $50 was successful.",
+        "status": "READ"
+    },
+    {
+        "user": 2,
+        "notification_type": "ACCOUNT_UPDATE",
+        "content": "Your account details have been updated.",
+        "status": "UNREAD"
+    },
+    {
+        "user": 3,
+        "notification_type": "SECURITY_NOTIFICATION",
+        "content": "Please update your password for security reasons.",
+        "status": "UNREAD"
+    },
+    {
+        "user": 4,
+        "notification_type": "TRANSACTION_ALERT",
+        "content": "Transaction declined due to insufficient funds.",
+        "status": "UNREAD"
+    },
+    {
+        "user": 5,
+        "notification_type": "ACCOUNT_UPDATE",
+        "content": "Your account information has been modified.",
+        "status": "READ"
+    },
+    {
+        "user": 6,
+        "notification_type": "SECURITY_NOTIFICATION",
+        "content": "Suspicious login attempt detected.",
+        "status": "UNREAD"
+    },
+    {
+        "user": 7,
+        "notification_type": "TRANSACTION_ALERT",
+        "content": "A new transaction of $100 has been initiated.",
+        "status": "UNREAD"
+    },
+    {
+        "user": 8,
+        "notification_type": "ACCOUNT_UPDATE",
+        "content": "Your account status has been changed.",
+        "status": "READ"
+    },
+    {
+        "user": 9,
+        "notification_type": "SECURITY_NOTIFICATION",
+        "content": "Password changed successfully.",
+        "status": "READ"
+    },
+    {
+        "user": 10,
+        "notification_type": "TRANSACTION_ALERT",
+        "content": "Transaction failed. Please contact support.",
+        "status": "UNREAD"
+    }
+]
