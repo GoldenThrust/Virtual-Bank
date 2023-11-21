@@ -17,14 +17,22 @@ urlpatterns = [
     # path('', views, name='home'),
     path('users/', users_views.UserList.as_view(), name='users_list'),
     path('users/<int:pk>/', users_views.UserDetail.as_view(), name='users_detail'),
+    path('users/create/', users_views.UserCreate.as_view(), name='user_create'),
+    path('users/update/<email>/', users_views.UserUpdate.as_view(), name='user_update'),
     path('accounts/', accounts_views.AccountList.as_view(), name='accounts_list'),
     path('accounts/<int:pk>/', accounts_views.AccountDetail.as_view(), name='accounts_detail'),
+    path('accounts/create/', accounts_views.AccountCreate.as_view(), name='account_create'),
+    path('accounts/details/', accounts_views.UserAccountDetail.as_view(), name='user_account_detail'),
     path('credit_cards/', credit_cards_views.CreditCardList.as_view(), name='credit_cards'),
     path('credit_cards/<int:pk>/', credit_cards_views.CreditCardDetail.as_view(), name='credit_cards_detail'),
+    path('credit_cards/lists/', credit_cards_views.CreditCardList.as_view(), name='credit_cards_list'),
+    path('credit_cards/details/<int:pk>/', credit_cards_views.UserCreditCardDetail.as_view(), name='user_credit_cards_detail'),
     path('deposits/', deposits_views.DepositList.as_view(), name='deposits_list'),
     path('deposits/<int:pk>/', deposits_views.DepositDetail.as_view(), name='deposits_detail'),
     path('merchants/', merchants_views.MerchantList.as_view(), name='merchants_list'),
     path('merchants/<int:pk>/', merchants_views.MerchantDetail.as_view(), name='merchants_detail'),
+    path('merchants/create/', merchants_views.MerchantCreate.as_view(), name='merchants_create'),
+    path('merchants/details/', merchants_views.MerchantDataManipulator.as_view(), name='merchants_details'),
     path('notifications/', notifications_views.NotificationList.as_view(), name='notifications_list'),
     path('notifications/<int:pk>/', notifications_views.NotificationDetail.as_view(), name='notifications_detail'),
     path('payments/', payments_views.PaymentList.as_view(), name='payments_list'),
@@ -34,3 +42,7 @@ urlpatterns = [
     path('transfers/', transfers_views.TransferList.as_view(), name='transfers_list'),
     path('transfers/<int:pk>/', transfers_views.TransferDetail.as_view(), name='transfers_detail'),
 ]
+
+
+
+# TODO: login and logout using JWT authentication, reset password

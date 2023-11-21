@@ -18,7 +18,7 @@ class Merchant(models.Model):
     payment_methods_accepted = models.CharField(max_length=20, choices=PAYMENT_METHODS)
     business_hours = models.JSONField()
     website_url = models.URLField(max_length=200)
-    api_key = models.CharField(max_length=255, null=True)
+    api_key = models.CharField(max_length=255, null=True) # API key for now
     # public_key = models.TextField()
     # private_key = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)

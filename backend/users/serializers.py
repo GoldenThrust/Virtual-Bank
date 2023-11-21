@@ -5,6 +5,11 @@ from django.contrib.auth.admin import UserAdmin
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
+    extra_kwargs = {
+        'ip_address': {
+            'read_only': True,
+        }
+    }
 
     class Meta:
         model = User

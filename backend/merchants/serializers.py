@@ -11,6 +11,23 @@ def generate_api_key():
 
 class MerchantSerializer(serializers.ModelSerializer):
     created_date = serializers.DateTimeField(read_only=True)
+    api_key = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = Merchant
+        fields = ['id', 'user', 'account', 'description', 'category', 'payment_methods_accepted', 'business_hours', 'website_url', 'api_key', 'created_date']
+
+    def create(self, validated_data):
+        validated_data['api_key'] = generate_api_key()
+        return super().create(validated_data)
+    
+
+class MerchantCreateSerializer(serializers.ModelSerializer):
+    created_date = serializers.DateTimeField(read_only=True)
+    api_key = serializers.CharField(read_only=True)
+    extra_kwargs = {
+        "user": {"read_only": True},
+    }
 
     class Meta:
         model = Merchant
