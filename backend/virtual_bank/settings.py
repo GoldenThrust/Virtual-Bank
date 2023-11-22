@@ -42,7 +42,6 @@ AUTH_USER_MODEL = 'users.User'
 
 INSTALLED_APPS = [
     'rest_framework',
-    'encrypted_model_fields',
     'users.apps.UsersConfig',
     'accounts.apps.AccountsConfig',
     'credit_cards.apps.CreditCardsConfig',
