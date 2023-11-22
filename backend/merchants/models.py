@@ -1,5 +1,4 @@
 from django.db import models
-from users.models import User
 from accounts.models import Account
 
 
@@ -11,8 +10,8 @@ class Merchant(models.Model):
         ("CREDIT_CARD", "Credit Card"),
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    account = models.OneToOneField(Account, on_delete=models.CASCADE)
+    # account = models.ForeignKey(Account, on_delete=models.CASCADE)
     description = models.TextField(blank=True, null=True)
     category = models.CharField(max_length=20)
     payment_methods_accepted = models.CharField(max_length=20, choices=PAYMENT_METHODS)
@@ -24,4 +23,4 @@ class Merchant(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.username} - Category: {self.category}"
+        return f"{self.account.user.username} - Category: {self.category}"

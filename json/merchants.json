@@ -1,6 +1,5 @@
 [
     {
-        "user": 1,
         "account": 1,
         "description": "Delicious Italian cuisine with a cozy atmosphere.",
         "category": "Restaurant",
@@ -17,7 +16,6 @@
         "website_url": "https://example-restaurant.com"
     },
     {
-        "user": 2,
         "account": 2,
         "description": "A trendy coffee shop serving artisanal brews.",
         "category": "Cafe",
@@ -34,7 +32,6 @@
         "website_url": "https://example-cafe.com"
     },
     {
-        "user": 3,
         "account": 3,
         "description": "High-quality clothing store with a wide variety of brands.",
         "category": "Retail",
@@ -51,7 +48,6 @@
         "website_url": "https://example-clothing-store.com"
     },
     {
-        "user": 4,
         "account": 4,
         "description": "Family-friendly amusement park with thrilling rides.",
         "category": "Entertainment",
@@ -68,7 +64,6 @@
         "website_url": "https://example-amusement-park.com"
     },
     {
-        "user": 5,
         "account": 5,
         "description": "Cozy bookstore with a wide selection of books and a coffee shop.",
         "category": "Bookstore",
@@ -85,7 +80,6 @@
         "website_url": "https://example-bookstore.com"
     },
     {
-        "user": 6,
         "account": 6,
         "description": "Fitness center with state-of-the-art equipment and personal trainers.",
         "category": "Fitness",
@@ -102,7 +96,6 @@
         "website_url": "https://example-fitness-center.com"
     },
     {
-        "user": 7,
         "account": 7,
         "description": "Authentic Mexican restaurant known for its delicious tacos.",
         "category": "Restaurant",
@@ -119,7 +112,6 @@
         "website_url": "https://example-mexican-restaurant.com"
     },
     {
-        "user": 8,
         "account": 8,
         "description": "Tech store offering a wide range of gadgets and accessories.",
         "category": "Electronics",
@@ -136,7 +128,6 @@
         "website_url": "https://example-tech-store.com"
     },
     {
-        "user":9,
         "account": 9,
         "description": "Local pet store offering a variety of pet supplies and grooming services.",
         "category": "Pet Store",
@@ -153,7 +144,6 @@
         "website_url": "https://example-petstore.com"
     },
     {
-        "user": 10,
         "account": 10,
         "description": "Local art gallery showcasing contemporary paintings and sculptures.",
         "category": "Art Gallery",
