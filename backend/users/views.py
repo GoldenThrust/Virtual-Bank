@@ -51,10 +51,8 @@ class UserUpdate(generics.UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.AllowAny]
-    lookup_field = 'email'
 
     def update(self, request, *args, **kwargs):
-        look_up_fields = 'pk'
         username = request.data.get('username')
         password = request.data.get('password')
 

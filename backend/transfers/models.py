@@ -4,7 +4,6 @@ from transactions.models import Transaction
 
 class Transfer(models.Model):
     transaction = models.OneToOneField(Transaction, on_delete=models.CASCADE, related_name='transfer')
-    sender_account = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='sender_transfers')
     receiver_account = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='receiver_transfers')
 
     def __str__(self):

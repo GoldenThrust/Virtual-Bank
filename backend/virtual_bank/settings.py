@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'accounts.apps.AccountsConfig',
     'credit_cards.apps.CreditCardsConfig',
+    'debit_cards.apps.DebitCardsConfig',
     'deposits.apps.DepositsConfig',
     'merchants.apps.MerchantsConfig',
     'notifications.apps.NotificationsConfig',

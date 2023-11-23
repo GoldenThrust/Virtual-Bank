@@ -26,7 +26,7 @@ class MerchantCreate(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        account = Account.objects.get(pk=serializer.validated_data['account'].id)
+        account = Account.objects.get(pk=serializer.validated_data["account"].id)
 
         if account.user != self.request.user:
             raise PermissionDenied("Account does not belong to this user")
@@ -34,9 +34,7 @@ class MerchantCreate(generics.CreateAPIView):
         serializer.save(account=account)
 
 
-
-
-class MerchantDataManipulator(generics.RetrieveUpdateDestroyAPIView):
+class MerchantDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Merchant.objects.all()
     serializer_class = MerchantCreateSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -50,6 +48,6 @@ class MerchantDataManipulator(generics.RetrieveUpdateDestroyAPIView):
 
     def perform_update(self, serializer):
         serializer.save(account__user=self.request.user)
-    
+
     def perform_destroy(self, instance):
         instance.delete()

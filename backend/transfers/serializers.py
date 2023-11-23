@@ -4,4 +4,4 @@ from .models import Transfer
 class TransferSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transfer
-        fields = ['id', 'transaction', 'sender_account', 'receiver_account']
+        fields = ['id', 'transaction', 'receiver_account']
