@@ -5,7 +5,7 @@ from users.models import User
 class Account(models.Model):
     ACCOUNT_TYPES = [
         ("SAVINGS", "Savings"),
-        ("CREDIT_CARD", "Credit Card"),
+        ("CURRENT", "Current"),
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)

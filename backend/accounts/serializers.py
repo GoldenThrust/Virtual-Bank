@@ -16,7 +16,6 @@ class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = [
-            "id",
             "user",
             "name",
             "account_type",
@@ -44,7 +43,6 @@ class AccountCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = [
-            "id",
             "name",
             "account_type",
             "balance",

@@ -26,7 +26,10 @@ class MerchantCreate(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        account = Account.objects.get(pk=serializer.validated_data["account"].id)
+        account = Account.objects.get(number=serializer.validated_data["account_number"])
+
+        if not account:
+            raise PermissionDenied("Not Found")
 
         if account.user != self.request.user:
             raise PermissionDenied("Account does not belong to this user")

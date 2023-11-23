@@ -24,18 +24,19 @@ urlpatterns = [
 
     path('accounts/', accounts_views.AccountList.as_view(), name='accounts_list'),
     path('accounts/<int:pk>/', accounts_views.AccountDetail.as_view(), name='accounts_detail'),
+    path('accounts/lists/', accounts_views.UserAccountList.as_view(), name='account_list'),
     path('accounts/create/', accounts_views.AccountCreate.as_view(), name='account_create'),
-    path('accounts/details/', accounts_views.UserAccountDetail.as_view(), name='user_account_detail'),
+    path('accounts/details/<int:number>/', accounts_views.UserAccountDetail.as_view(), name='user_account_detail'),
 
     path('credit_cards/', credit_cards_views.CreditCardList.as_view(), name='credit_cards'),
     path('credit_cards/<int:pk>/', credit_cards_views.CreditCardDetail.as_view(), name='credit_cards_detail'),
-    path('credit_cards/lists/', credit_cards_views.CreditCardList.as_view(), name='credit_cards_list'),
-    path('credit_cards/details/<int:pk>/', credit_cards_views.UserCreditCardDetail.as_view(), name='user_credit_cards_detail'),
+    path('credit_cards/lists/', credit_cards_views.UserCreditCardList.as_view(), name='credit_cards_list'),
+    path('credit_cards/details/<int:number>/', credit_cards_views.UserCreditCardDetail.as_view(), name='user_credit_cards_detail'),
 
     path('debit_cards/', debit_cards_views.DebitCardList.as_view(), name='debit_cards'),
     path('debit_cards/<int:pk>/', debit_cards_views.DebitCardDetail.as_view(), name='debit_cards_detail'),
-    path('debit_cards/lists/', debit_cards_views.DebitCardList.as_view(), name='debit_cards_list'),
-    path('debit_cards/details/<int:pk>/', debit_cards_views.UserDebitCardDetail.as_view(), name='user_debit_cards_detail'),
+    path('debit_cards/lists/', debit_cards_views.UserDebitCardList.as_view(), name='debit_cards_list'),
+    path('debit_cards/details/<int:number>/', debit_cards_views.UserDebitCardDetail.as_view(), name='user_debit_cards_detail'),
     
     path('deposits/', deposits_views.DepositList.as_view(), name='deposits_list'),
     path('deposits/<int:pk>/', deposits_views.DepositDetail.as_view(), name='deposits_detail'),

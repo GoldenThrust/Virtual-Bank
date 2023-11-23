@@ -10,6 +10,7 @@ class Transaction(models.Model):
         ('PAYMENT', 'Payment'),
     ]
 
+    account = models.ForeignKey(Account, on_delete=models.CASCADE, default=11)
     account_number = models.BigIntegerField()
     transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPES, default="DEPOSIT")
     amount = models.DecimalField(max_digits=15, decimal_places=2)

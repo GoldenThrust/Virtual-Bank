@@ -15,7 +15,7 @@ class MerchantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Merchant
-        fields = ['id', 'account', 'description', 'category', 'payment_methods_accepted', 'business_hours', 'website_url', 'api_key', 'created_date']
+        fields = ['account_number', 'description', 'category', 'payment_methods_accepted', 'business_hours', 'website_url', 'api_key', 'created_date']
 
     def create(self, validated_data):
         validated_data['api_key'] = generate_api_key()
@@ -28,7 +28,7 @@ class MerchantCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Merchant
-        fields = ['id', 'account', 'description', 'category', 'payment_methods_accepted', 'business_hours', 'website_url', 'api_key', 'created_date']
+        fields = ['account_number', 'description', 'category', 'payment_methods_accepted', 'business_hours', 'website_url', 'api_key', 'created_date']
 
     def create(self, validated_data):
         validated_data['api_key'] = generate_api_key()

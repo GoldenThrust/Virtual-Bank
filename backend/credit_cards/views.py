@@ -19,7 +19,7 @@ class CreditCardDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAdminUser]
 
 
-class CreditCardList(generics.ListAPIView):
+class UserCreditCardList(generics.ListAPIView):
     queryset = CreditCard.objects.all()
     serializer_class = CreditCardSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -32,12 +32,12 @@ class CreditCardList(generics.ListAPIView):
 class UserCreditCardDetail(generics.RetrieveAPIView):
     queryset = CreditCard.objects.all()
     serializer_class = CreditCardSerializer
-    lookup_field = 'pk'
+    lookup_field = 'number'
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
         user = self.request.user
-        credit_card = CreditCard.objects.filter(pk=self.kwargs['pk'], account__user=user).first()
+        credit_card = CreditCard.objects.filter(account__number=self.kwargs['number']).first()
         if not credit_card:
             raise PermissionDenied("Credit Card not found for this Account.")
         return credit_card

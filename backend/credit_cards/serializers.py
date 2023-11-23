@@ -74,7 +74,7 @@ class CreditCardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CreditCard
-        fields = ['id', 'account', 'limit', 'available_credit', 'card_number', 'cvv', 'expiration_date', 'created_date']
+        fields = ['account', 'limit', 'available_credit', 'card_number', 'cvv', 'expiration_date', 'created_date']
 
     def create(self, validated_data):
         validated_data['card_number'] = generate_valid_credit_card_number()

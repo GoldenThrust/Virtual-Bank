@@ -10,10 +10,12 @@ class DebitCardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DebitCard
-        fields = ['id', 'account', 'card_number', 'cvv', 'expiration_date', 'created_date']
+        fields = ["account", "card_number", "cvv", "expiration_date", "created_date"]
 
     def create(self, validated_data):
-        validated_data['card_number'] = generate_valid_credit_card_number()
-        validated_data['cvv'] = generate_cvv(validated_data['card_number'], validated_data['expiration_date'])
+        validated_data["card_number"] = generate_valid_credit_card_number()
+        validated_data["cvv"] = generate_cvv(
+            validated_data["card_number"], validated_data["expiration_date"]
+        )
         credit_card = DebitCard.objects.create(**validated_data)
         return credit_card

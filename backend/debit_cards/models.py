@@ -5,7 +5,7 @@ import datetime
 
 class DebitCard(models.Model):
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
-    
+
     card_number = models.BigIntegerField()
     cvv = models.CharField(max_length=4)
     expiration_date = models.DateTimeField(

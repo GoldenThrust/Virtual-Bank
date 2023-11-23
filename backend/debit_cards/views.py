@@ -19,7 +19,7 @@ class DebitCardDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAdminUser]
 
 
-class DebitCardList(generics.ListAPIView):
+class UserDebitCardList(generics.ListAPIView):
     queryset = DebitCard.objects.all()
     serializer_class = DebitCardSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -28,15 +28,19 @@ class DebitCardList(generics.ListAPIView):
         user = self.request.user
         return DebitCard.objects.filter(account__user=user)
 
+
 class UserDebitCardDetail(generics.RetrieveAPIView):
     queryset = DebitCard.objects.all()
     serializer_class = DebitCardSerializer
     permission_classes = [permissions.IsAuthenticated]
-    lookup_field = 'pk'
+    lookup_field = "number"
 
     def get_object(self):
         user = self.request.user
-        credit_card = DebitCard.objects.filter(pk=self.kwargs['pk'], account__user=user).first()
-        if not credit_card:
+        print(self.kwargs)
+        debit_card = DebitCard.objects.filter(
+            account__number=self.kwargs["number"]
+        ).first()
+        if not debit_card:
             raise PermissionDenied("Debit Card not found for this Account.")
-        return credit_card
+        return debit_card
