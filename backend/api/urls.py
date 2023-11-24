@@ -8,7 +8,7 @@ from debit_cards import views as debit_cards_views
 from deposits import views as deposits_views
 from merchants import views as merchants_views
 from notifications import views as notifications_views
-from payments import views as payments_views
+# from payments import views as payments_views
 from transactions import views as transactions_views
 from transfers import views as transfers_views
 
@@ -21,6 +21,7 @@ urlpatterns = [
     path('users/<int:pk>/', users_views.UserDetail.as_view(), name='users_detail'),
     path('users/create/', users_views.UserCreate.as_view(), name='user_create'),
     path('users/update/', users_views.UserUpdate.as_view(), name='user_update'),
+    path('users/lists/', users_views.UserList.as_view(), name='user_list' ),
 
     path('accounts/', accounts_views.AccountList.as_view(), name='accounts_list'),
     path('accounts/<int:pk>/', accounts_views.AccountDetail.as_view(), name='accounts_detail'),
@@ -32,14 +33,19 @@ urlpatterns = [
     path('credit_cards/<int:pk>/', credit_cards_views.CreditCardDetail.as_view(), name='credit_cards_detail'),
     path('credit_cards/lists/', credit_cards_views.UserCreditCardList.as_view(), name='credit_cards_list'),
     path('credit_cards/details/<int:number>/', credit_cards_views.UserCreditCardDetail.as_view(), name='user_credit_cards_detail'),
+    # path('credit_cards/create/', transactions_views.CreditCardCreate.as_view(), name='credit_cards_create'),
 
     path('debit_cards/', debit_cards_views.DebitCardList.as_view(), name='debit_cards'),
     path('debit_cards/<int:pk>/', debit_cards_views.DebitCardDetail.as_view(), name='debit_cards_detail'),
     path('debit_cards/lists/', debit_cards_views.UserDebitCardList.as_view(), name='debit_cards_list'),
     path('debit_cards/details/<int:number>/', debit_cards_views.UserDebitCardDetail.as_view(), name='user_debit_cards_detail'),
-    
+    # path('debit_cards/recieve_payment/', transactions_views.DebitCardPayment.as_view(), name='user_debit_cards_detail'),
+
     path('deposits/', deposits_views.DepositList.as_view(), name='deposits_list'),
     path('deposits/<int:pk>/', deposits_views.DepositDetail.as_view(), name='deposits_detail'),
+    path('deposits/create/', transactions_views.TransactionDepositCreate.as_view(), name='deposit_create'),
+    path('deposits/lists/', deposits_views.UserDepositList.as_view(), name='user_deposits_list'),
+    # path('deposits/details', deposits_views.UserDepositDetail.as_view(), name='user_deposits_detail'),
 
     path('merchants/', merchants_views.MerchantList.as_view(), name='merchants_list'),
     path('merchants/<int:pk>/', merchants_views.MerchantDetail.as_view(), name='merchants_detail'),
@@ -49,20 +55,16 @@ urlpatterns = [
     path('notifications/', notifications_views.NotificationList.as_view(), name='notifications_list'),
     path('notifications/<int:pk>/', notifications_views.NotificationDetail.as_view(), name='notifications_detail'),
 
-    path('payments/', payments_views.PaymentList.as_view(), name='payments_list'),
-    path('payments/<int:pk>/', payments_views.PaymentDetail.as_view(), name='payments_detail'),
+    # path('payments/', payments_views.PaymentList.as_view(), name='payments_list'),
+    # path('payments/<int:pk>/', payments_views.PaymentDetail.as_view(), name='payments_detail'),
 
     path('transactions/', transactions_views.TransactionList.as_view(), name='transactions_list'),
     path('transactions/<int:pk>/', transactions_views.TransactionDetail.as_view(), name='transactions_detail'),
-
-    path('deposits/create/', transactions_views.TransactionDepositCreate.as_view(), name='deposit_create'),
+    # path('transactions/history/', transactions_views.TransactionHistory.as_view(), name='transactions_detail'),
 
     path('transfers/', transfers_views.TransferList.as_view(), name='transfers_list'),
     path('transfers/<int:pk>/', transfers_views.TransferDetail.as_view(), name='transfers_detail'),
     path('transfers/create/', transactions_views.TransactionTransferCreate.as_view(), name='transfers_create'),
-    # path('transfers/details/', transfers_views.TransferDetails.as_view(), name='transfers_details'),
+    # path('transfers/lists/', transfer_views.UserTransferList.as_view(), name='users_transfer_list'),
+    # path('transfers/details/', transfers_views.UserTransferDetails.as_view(), name='users_transfers_detail'),
 ]
-
-
-
-# TODO: login and logout using JWT authentication, reset password

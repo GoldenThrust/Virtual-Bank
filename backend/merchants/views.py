@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import MerchantSerializer, MerchantCreateSerializer
+from .serializers import MerchantSerializer
 from rest_framework.exceptions import PermissionDenied
 from .models import Merchant
 from rest_framework import generics
@@ -22,11 +22,13 @@ class MerchantDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class MerchantCreate(generics.CreateAPIView):
     queryset = Merchant.objects.all()
-    serializer_class = MerchantCreateSerializer
+    serializer_class = MerchantSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        account = Account.objects.get(number=serializer.validated_data["account_number"])
+        account = Account.objects.get(
+            number=serializer.validated_data.pop("account_number")
+        )
 
         if not account:
             raise PermissionDenied("Not Found")
@@ -34,12 +36,16 @@ class MerchantCreate(generics.CreateAPIView):
         if account.user != self.request.user:
             raise PermissionDenied("Account does not belong to this user")
 
+        merchant = Merchant.objects.filter(account=account)
+        if merchant:
+            raise PermissionDenied("Merchant Account Exists")
+
         serializer.save(account=account)
 
 
 class MerchantDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Merchant.objects.all()
-    serializer_class = MerchantCreateSerializer
+    serializer_class = MerchantSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
@@ -50,6 +56,8 @@ class MerchantDetails(generics.RetrieveUpdateDestroyAPIView):
         return merchant
 
     def perform_update(self, serializer):
+        if serializer.validated_data['account_number']:
+            serializer.validated_data.pop('account_number')
         serializer.save(account__user=self.request.user)
 
     def perform_destroy(self, instance):

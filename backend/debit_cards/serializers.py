@@ -1,12 +1,14 @@
 from rest_framework import serializers
 from .models import DebitCard
 from credit_cards.serializers import generate_valid_credit_card_number, generate_cvv
+from accounts.serializers import AccountSerializer
 
 
 class DebitCardSerializer(serializers.ModelSerializer):
     card_number = serializers.CharField(read_only=True)
     cvv = serializers.CharField(read_only=True)
     created_date = serializers.DateTimeField(read_only=True)
+    account = AccountSerializer()
 
     class Meta:
         model = DebitCard

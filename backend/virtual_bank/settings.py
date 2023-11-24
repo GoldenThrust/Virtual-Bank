@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'deposits.apps.DepositsConfig',
     'merchants.apps.MerchantsConfig',
     'notifications.apps.NotificationsConfig',
-    'payments.apps.PaymentsConfig',
+    # 'payments.apps.PaymentsConfig',
     'transactions.apps.TransactionsConfig',
     'transfers.apps.TransfersConfig',
     'django.contrib.admin',

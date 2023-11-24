@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
+    email = models.EmailField(unique=True)
     date_of_birth = models.DateTimeField(null=True)
     profile_picture = models.ImageField(default="profile.png")
     phone_number = models.BigIntegerField(null=True)

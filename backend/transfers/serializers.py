@@ -1,7 +1,10 @@
 from rest_framework import serializers
 from .models import Transfer
+from transactions.serializers import TransactionSerializer
 
 class TransferSerializer(serializers.ModelSerializer):
+    transaction = TransactionSerializer()
+
     class Meta:
         model = Transfer
-        fields = ['id', 'transaction', 'receiver_account']
+        fields = ['transaction', 'receiver_account']

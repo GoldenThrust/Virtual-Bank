@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Account
+from users.serializers import UserSerializer
 import random
 
 
@@ -10,8 +11,7 @@ def generate_account_number():
 class AccountSerializer(serializers.ModelSerializer):
     number = serializers.CharField(read_only=True)
     created_date = serializers.DateTimeField(read_only=True)
-
-    extra_kwargs = {"currency": {"read_only": True}}
+    user = serializers.SerializerMethodField()
 
     class Meta:
         model = Account
@@ -25,6 +25,9 @@ class AccountSerializer(serializers.ModelSerializer):
             "created_date",
         ]
 
+    def get_user(self, obj):
+        return obj.user.username if obj.user else None
+
     def create(self, validated_data):
         validated_data["number"] = generate_account_number()
         account = Account.objects.create(**validated_data)
@@ -34,15 +37,13 @@ class AccountSerializer(serializers.ModelSerializer):
 class AccountCreateSerializer(serializers.ModelSerializer):
     number = serializers.CharField(read_only=True)
     created_date = serializers.DateTimeField(read_only=True)
+    user = serializers.SerializerMethodField()
 
-    extra_kwargs = {
-        "currency": {"read_only": True},
-        "user": {"read_only": True},
-    }
 
     class Meta:
         model = Account
         fields = [
+            "user",
             "name",
             "account_type",
             "balance",
@@ -50,6 +51,13 @@ class AccountCreateSerializer(serializers.ModelSerializer):
             "currency",
             "created_date",
         ]
+
+        extra_kwargs = {
+        "user": {"read_only": True},
+        }
+
+    def get_user(self, obj):
+        return obj.user.username if obj.user else None
 
     def create(self, validated_data):
         validated_data["number"] = generate_account_number()

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .serializers import DebitCardSerializer
 from .models import DebitCard
+from accounts.models import Account
 from rest_framework import generics
 from rest_framework.exceptions import PermissionDenied
 

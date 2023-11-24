@@ -6,7 +6,7 @@ import json
 from .models import Transaction
 from accounts.models import Account
 from deposits.models import Deposit
-from payments.models import Payment
+# from payments.models import Payment
 from transfers.models import Transfer
 from .serializers import TransactionSerializer, TransferTransactionSerializer
 # from deposits.serializers import DepositSerializer
@@ -30,28 +30,6 @@ class TransactionDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAdminUser]
 
 
-# def Transfer(account, receiver_account_number, amount):
-#     reciever_account= Account.objects.filter(number=receiver_account_number)
-
-#     transaction = Transaction.objects.create(account=account, amount=amount, transaction_type="TRANSFER")
-#     transfer = Transfer.objects.create(transaction=transaction, sender_account=account, receiver_account=reciever_account)
-
-#     sender = Account.objects.filter(user=account.user)
-#     reciever = Account.objects.filter(user=reciever_account.user)
-
-#     if (sender.balance > amount):
-#         sender.balance - amount
-#         reciever.balance += amount
-
-#         sender.save()
-#         reciever.save()
-#     else:
-#         try:
-#             raise InsufficentBalanceException("Insufficient funds")
-#         except Exception:
-#             return json.loads({"error": Exception })
-
-
 class TransactionDepositCreate(generics.CreateAPIView):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
@@ -67,7 +45,7 @@ class TransactionDepositCreate(generics.CreateAPIView):
         if account.user != self.request.user:
             raise PermissionDenied("Account does not belong to this user")
 
-        serializer.save(transaction_type="DEPOSIT")
+        serializer.save(transaction_type="DEPOSIT", account=account)
 
         # Update Account Balance
         transaction_amount = serializer.validated_data.get("amount")
@@ -116,7 +94,7 @@ class TransactionTransferCreate(generics.CreateAPIView):
         
 
         if account.balance >= transaction_amount:
-            serializer.save(transaction_type="TRANSFER")
+            serializer.save(transaction_type="TRANSFER", account=account)
 
             # Update Account Balances
             account.balance -= transaction_amount

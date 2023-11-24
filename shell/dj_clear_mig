@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+find . -maxdepth 5 -type d -name "migrations" -exec sh -c 'rm -r $0/*' {} \;
+find . -maxdepth 5 -type d -name "migrations" -exec sh -c 'touch $0/__init__.py' {} \;

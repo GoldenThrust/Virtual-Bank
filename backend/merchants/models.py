@@ -11,7 +11,6 @@ class Merchant(models.Model):
     ]
 
     account = models.OneToOneField(Account, on_delete=models.CASCADE)
-    account_number = models.BigIntegerField()
     description = models.TextField(blank=True, null=True)
     category = models.CharField(max_length=20)
     payment_methods_accepted = models.CharField(max_length=20, choices=PAYMENT_METHODS)

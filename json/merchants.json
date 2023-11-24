@@ -1,6 +1,6 @@
 [
     {
-        "account": 1,
+        "account_number": 1,
         "description": "Delicious Italian cuisine with a cozy atmosphere.",
         "category": "Restaurant",
         "payment_methods_accepted": "CREDIT_CARD",
@@ -16,7 +16,7 @@
         "website_url": "https://example-restaurant.com"
     },
     {
-        "account": 2,
+        "account_number": 2,
         "description": "A trendy coffee shop serving artisanal brews.",
         "category": "Cafe",
         "payment_methods_accepted": "CREDIT_CARD",
@@ -32,7 +32,7 @@
         "website_url": "https://example-cafe.com"
     },
     {
-        "account": 3,
+        "account_number": 3,
         "description": "High-quality clothing store with a wide variety of brands.",
         "category": "Retail",
         "payment_methods_accepted": "DEPOSIT",
@@ -48,7 +48,7 @@
         "website_url": "https://example-clothing-store.com"
     },
     {
-        "account": 4,
+        "account_number": 108533509038,
         "description": "Family-friendly amusement park with thrilling rides.",
         "category": "Entertainment",
         "payment_methods_accepted": "TRANSFER",
@@ -64,7 +64,7 @@
         "website_url": "https://example-amusement-park.com"
     },
     {
-        "account": 5,
+        "account_number": 5,
         "description": "Cozy bookstore with a wide selection of books and a coffee shop.",
         "category": "Bookstore",
         "payment_methods_accepted": "CREDIT_CARD",
@@ -80,7 +80,7 @@
         "website_url": "https://example-bookstore.com"
     },
     {
-        "account": 6,
+        "account_number": 6,
         "description": "Fitness center with state-of-the-art equipment and personal trainers.",
         "category": "Fitness",
         "payment_methods_accepted": "DEPOSIT",
@@ -96,7 +96,7 @@
         "website_url": "https://example-fitness-center.com"
     },
     {
-        "account": 7,
+        "account_number": 7,
         "description": "Authentic Mexican restaurant known for its delicious tacos.",
         "category": "Restaurant",
         "payment_methods_accepted": "TRANSFER",
@@ -112,7 +112,7 @@
         "website_url": "https://example-mexican-restaurant.com"
     },
     {
-        "account": 8,
+        "account_number": 8,
         "description": "Tech store offering a wide range of gadgets and accessories.",
         "category": "Electronics",
         "payment_methods_accepted": "CREDIT_CARD",
@@ -128,7 +128,7 @@
         "website_url": "https://example-tech-store.com"
     },
     {
-        "account": 9,
+        "account_number": 9,
         "description": "Local pet store offering a variety of pet supplies and grooming services.",
         "category": "Pet Store",
         "payment_methods_accepted": "CREDIT_CARD",
@@ -144,7 +144,7 @@
         "website_url": "https://example-petstore.com"
     },
     {
-        "account": 10,
+        "account_number": 10,
         "description": "Local art gallery showcasing contemporary paintings and sculptures.",
         "category": "Art Gallery",
         "payment_methods_accepted": "TRANSFER",

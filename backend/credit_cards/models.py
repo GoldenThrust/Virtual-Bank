@@ -12,9 +12,7 @@ class CreditCard(models.Model):
 
     card_number = models.BigIntegerField()
     cvv = models.CharField(max_length=4)
-    expiration_date = models.DateTimeField(
-        default=datetime.datetime.now() + datetime.timedelta(days=365 * 3)
-    )
+    expiration_date = models.DateTimeField()
 
     created_date = models.DateTimeField(auto_now_add=True)
 
