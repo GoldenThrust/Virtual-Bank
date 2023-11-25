@@ -26,15 +26,16 @@ class TransactionSerializer(serializers.ModelSerializer):
 
 class TransferTransactionSerializer(serializers.ModelSerializer):
     date = serializers.DateTimeField(read_only=True)
-    receiver_account_number = serializers.CharField(write_only=True)
-    account = AccountSerializer()
+    transaction_partner_account_number = serializers.CharField(write_only=True)
+    account = AccountSerializer(read_only=True)
     account_number = serializers.CharField(write_only=True)
 
     class Meta:
         model = Transaction
         fields = [
             "account",
-            "receiver_account_number",
+            "account_number",
+            "transaction_partner_account_number",
             "transaction_type",
             "amount",
             "identifier",
@@ -42,5 +43,28 @@ class TransferTransactionSerializer(serializers.ModelSerializer):
         ]
 
         extra_kwargs = {
-            "account": {"read_only": True},
+            "transaction_type": {"read_only": True},
         }
+
+
+class DebitCardPaymentSerializer(serializers.ModelSerializer):
+    account = AccountSerializer(read_only=True)
+    cvv = serializers.CharField(write_only=True)
+    card_number = serializers.CharField(write_only=True)
+    expiry_date = serializers.CharField(write_only=True)
+    cvv = serializers.CharField(write_only=True)
+
+
+    class Meta:
+        model = Transaction
+        fields = [
+            "account",
+            "account_number",
+            "card_number",
+            "transaction_type",
+            "expiry_date",
+            "cvv",
+            "amount",
+            "identifier",
+            "date",
+        ]

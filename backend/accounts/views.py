@@ -3,7 +3,7 @@ from .serializers import AccountSerializer, AccountCreateSerializer
 from .models import Account
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.exceptions import PermissionDenied
+from rest_framework import exceptions
 from debit_cards.models import DebitCard
 from credit_cards.serializers import generate_cvv, generate_valid_credit_card_number
 import datetime
@@ -35,7 +35,7 @@ class AccountCreate(generics.CreateAPIView):
         duplicate_account = Account.objects.filter(name=serializer.validated_data['name'])
 
         if duplicate_account:
-            raise PermissionDenied("account with this name already exists.")
+            raise exceptions.PermissionDenied("account with this name already exists.")
 
         account = serializer.save(user=self.request.user)
         if account_type == "CURRENT":
@@ -68,7 +68,7 @@ class UserAccountDetail(generics.RetrieveUpdateDestroyAPIView):
         user = self.request.user
         account = Account.objects.filter(user=user, number=self.kwargs['number']).first()
         if not account:
-            raise PermissionDenied("Not found")
+            raise exceptions.NotFound("Not found")
 
         return account
 

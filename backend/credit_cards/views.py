@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .serializers import CreditCardSerializer
 from .models import CreditCard
 from rest_framework import generics
-from rest_framework.exceptions import PermissionDenied
+from rest_framework import exceptions
 
 from rest_framework import permissions
 
@@ -39,5 +39,5 @@ class UserCreditCardDetail(generics.RetrieveAPIView):
         user = self.request.user
         credit_card = CreditCard.objects.filter(account__number=self.kwargs['number']).first()
         if not credit_card:
-            raise PermissionDenied("Credit Card not found for this Account.")
+            raise exceptions.NotFound("Credit Card not found for this Account.")
         return credit_card

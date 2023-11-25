@@ -16,3 +16,6 @@
 6. Payment method
 7. Special Serializer for admin
 8. Update json in json folder when writing tests
+9. use selenium and django test client for testing
+10. Install django CORS and set it up
+11. save transaction identifier inside a file

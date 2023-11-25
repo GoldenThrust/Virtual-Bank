@@ -3,7 +3,7 @@ from .serializers import DebitCardSerializer
 from .models import DebitCard
 from accounts.models import Account
 from rest_framework import generics
-from rest_framework.exceptions import PermissionDenied
+from rest_framework import exceptions
 
 from rest_framework import permissions
 
@@ -43,5 +43,5 @@ class UserDebitCardDetail(generics.RetrieveAPIView):
             account__number=self.kwargs["number"]
         ).first()
         if not debit_card:
-            raise PermissionDenied("Debit Card not found for this Account.")
+            raise exceptions.NotFound()
         return debit_card

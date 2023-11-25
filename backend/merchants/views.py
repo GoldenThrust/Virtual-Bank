@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .serializers import MerchantSerializer
-from rest_framework.exceptions import PermissionDenied
+from rest_framework import exceptions
 from .models import Merchant
 from rest_framework import generics
 from rest_framework import permissions
@@ -31,14 +31,14 @@ class MerchantCreate(generics.CreateAPIView):
         )
 
         if not account:
-            raise PermissionDenied("Not Found")
+            raise exceptions.NotFound()
 
         if account.user != self.request.user:
-            raise PermissionDenied("Account does not belong to this user")
+            raise exceptions.PermissionDenied("Account does not belong to this user")
 
         merchant = Merchant.objects.filter(account=account)
         if merchant:
-            raise PermissionDenied("Merchant Account Exists")
+            raise exceptions.PermissionDenied("Merchant Account Exists")
 
         serializer.save(account=account)
 
@@ -52,7 +52,7 @@ class MerchantDetails(generics.RetrieveUpdateDestroyAPIView):
         user = self.request.user
         merchant = Merchant.objects.filter(account__user=user).first()
         if not merchant:
-            raise PermissionDenied("Merchant account not found for this user")
+            raise exceptions.PermissionDenied("Merchant account not found for this user")
         return merchant
 
     def perform_update(self, serializer):

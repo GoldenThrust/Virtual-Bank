@@ -15,3 +15,4 @@ class TransferDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Transfer.objects.all()
     serializer_class = TransferSerializer
     permission_classes = [permissions.IsAdminUser]
+

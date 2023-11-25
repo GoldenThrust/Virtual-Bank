@@ -16,6 +16,8 @@ class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = [
+            "id",
+
             "user",
             "name",
             "account_type",
@@ -26,7 +28,7 @@ class AccountSerializer(serializers.ModelSerializer):
         ]
 
     def get_user(self, obj):
-        return obj.user.username if obj.user else None
+        return (f'{obj.user.first_name} {obj.user.last_name}') if obj.user else None
 
     def create(self, validated_data):
         validated_data["number"] = generate_account_number()
@@ -43,6 +45,8 @@ class AccountCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = [
+            "id",
+
             "user",
             "name",
             "account_type",

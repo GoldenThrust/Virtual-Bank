@@ -9,6 +9,7 @@ class DebitCardSerializer(serializers.ModelSerializer):
     cvv = serializers.CharField(read_only=True)
     created_date = serializers.DateTimeField(read_only=True)
     account = AccountSerializer()
+    expiration_date = serializers.SerializerMethodField()
 
     class Meta:
         model = DebitCard
@@ -21,3 +22,6 @@ class DebitCardSerializer(serializers.ModelSerializer):
         )
         credit_card = DebitCard.objects.create(**validated_data)
         return credit_card
+
+    def get_expiration_date(self, obj):
+        return obj.expiration_date.strftime("%m/%y") if obj.expiration_date else None    

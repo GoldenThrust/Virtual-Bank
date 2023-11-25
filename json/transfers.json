@@ -1,27 +1,12 @@
 [
     {
-        "transaction": 2,
-        "sender_account": 1,
-        "receiver_account": 2
+        "account_number": 2,
+        "transaction_partner_account_number": 1,
+        "amount": 500
     },
     {
-        "transaction": 5,
-        "sender_account": 2,
-        "receiver_account": 3
-    },
-    {
-        "transaction": 6,
-        "sender_account": 3,
-        "receiver_account": 1
-    },
-    {
-        "transaction": 8,
-        "sender_account": 1,
-        "receiver_account": 2
-    },
-    {
-        "transaction": 9,
-        "sender_account": 2,
-        "receiver_account": 3
+        "account_number": 2,
+        "transaction_partner_account_number": 1,
+        "amount": 500
     }
 ]
