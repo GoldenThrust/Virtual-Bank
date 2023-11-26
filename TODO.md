@@ -19,3 +19,4 @@
 9. use selenium and django test client for testing
 10. Install django CORS and set it up
 11. save transaction identifier inside a file
+12. Use external api to convert currency

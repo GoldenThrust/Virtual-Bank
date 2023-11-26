@@ -21,6 +21,8 @@ urlpatterns = [
     # users urlpattern
     path('users/', users_views.UserList.as_view(), name='users_list'),
     path('users/<int:pk>/', users_views.UserDetail.as_view(), name='users_detail'),
+
+    # user api url
     path('users/create/', users_views.UserCreate.as_view(), name='user_create'),
     path('users/update/', users_views.UserUpdate.as_view(), name='user_update'),
     path('users/lists/', users_views.UserUserList.as_view(), name='user_list' ),
@@ -28,6 +30,8 @@ urlpatterns = [
     # accounts urlpattern
     path('accounts/', accounts_views.AccountList.as_view(), name='accounts_list'),
     path('accounts/<int:pk>/', accounts_views.AccountDetail.as_view(), name='accounts_detail'),
+
+    # user api url
     path('accounts/lists/', accounts_views.UserAccountList.as_view(), name='account_list'),
     path('accounts/create/', accounts_views.AccountCreate.as_view(), name='account_create'),
     path('accounts/details/<int:number>/', accounts_views.UserAccountDetail.as_view(), name='user_account_detail'),
@@ -42,16 +46,22 @@ urlpatterns = [
     # debit_cards urlpattern
     path('debit_cards/', debit_cards_views.DebitCardList.as_view(), name='debit_cards'),
     path('debit_cards/<int:pk>/', debit_cards_views.DebitCardDetail.as_view(), name='debit_cards_detail'),
-    # path('debit_cards_transactions/', debit_cards_views.TransactionDebitCard.as_view(), name='user_debit_cards_transactions_detail'),
-    # path('debit_cards_transactions/<int:pk>', debit_cards_views.TransactionDebitCardDetail.as_view(), name='user_debit_cards_transactions_detail'),
+    path('debit_cards_transactions/', debit_cards_views.TransactionDebitCard.as_view(), name='debit_cards_transactions'),
+    path('debit_cards_transactions/<int:pk>', debit_cards_views.TransactionDebitCardDetail.as_view(), 
+    name='debit_cards_transactions_detail'),
+
+    # user api url
     path('debit_cards/lists/', debit_cards_views.UserDebitCardList.as_view(), name='debit_cards_list'),
     path('debit_cards/details/<int:number>/', debit_cards_views.UserDebitCardDetail.as_view(), name='user_debit_cards_detail'),
-    # path('debit_cards_transactions/details/', debit_cards_views.UserTransactionDebitCardDetail.as_view(), name='user_debit_cards_transactions_detail'),
-    path('debit_cards/recieve_payment/', transactions_views.TransactionDebitCardCreate.as_view(), name='user_debit_cards_detail'),
+    path('debit_cards_transactions/lists/', debit_cards_views.UserTransactionDebitCardList.as_view(), name='user_debit_cards_transactions_lists'),
+    path('debit_cards_transactions/details/<identifier>/', debit_cards_views.UserTransactionDebitCardDetail.as_view(), name='user_debit_cards_transactions_detail'),
+    path('debit_cards/recieve_payment/', transactions_views.TransactionDebitCardCreate.as_view(), name='user_debit_cards_transactions'),
 
     # deposits urlpattern
     path('deposits/', deposits_views.DepositList.as_view(), name='deposits_list'),
     path('deposits/<int:pk>/', deposits_views.DepositDetail.as_view(), name='deposits_detail'),
+
+    # user api url
     path('deposits/create/', transactions_views.TransactionDepositCreate.as_view(), name='deposit_create'),
     path('deposits/lists/', deposits_views.UserDepositList.as_view(), name='user_deposits_list'),
     # path('deposits/details/<identifier>', deposits_views.UserDepositDetail.as_view(), name='user_deposits_detail'),
@@ -59,12 +69,16 @@ urlpatterns = [
     # merchants urlpattern
     path('merchants/', merchants_views.MerchantList.as_view(), name='merchants_list'),
     path('merchants/<int:pk>/', merchants_views.MerchantDetail.as_view(), name='merchants_detail'),
+
+    # user api url
     path('merchants/create/', merchants_views.MerchantCreate.as_view(), name='merchants_create'),
     path('merchants/details/', merchants_views.MerchantDetails.as_view(), name='merchants_details'),
 
     # notifications urlpattern
     path('notifications/', notifications_views.NotificationList.as_view(), name='notifications_list'),
     path('notifications/<int:pk>/', notifications_views.NotificationDetail.as_view(), name='notifications_detail'),
+
+    # user api url
     # path('notifications/lists/', notifications_views.NotificationList.as_view(), name='notifications_list'),
     # path('notifications/lists/<type>', notifications_views.NotificationList.as_view(), name='notifications_list'),
 
@@ -75,12 +89,16 @@ urlpatterns = [
     # transactions urlpattern
     path('transactions/', transactions_views.TransactionList.as_view(), name='transactions_list'),
     path('transactions/<int:pk>/', transactions_views.TransactionDetail.as_view(), name='transactions_detail'),
+
+    # user api url
     # path('transactions/history/', transactions_views.TransactionHistory.as_view(), name='transactions_detail'),
-    # path('transactions/detials/<identifier>', transactions_views.UserTransactionDetails.as_view(), name='transactions_detail'),
+    # path('transactions/details/<identifier>', transactions_views.UserTransactionDetails.as_view(), name='transactions_detail'),
 
     # transfers urlpattern
     path('transfers/', transfers_views.TransferList.as_view(), name='transfers_list'),
     path('transfers/<int:pk>/', transfers_views.TransferDetail.as_view(), name='transfers_detail'),
+
+    # user api url
     path('transfers/create/', transactions_views.TransactionTransferCreate.as_view(), name='transfers_create'),
     # path('transfers/lists/', transfer_views.UserTransferList.as_view(), name='users_transfer_list'),
     # path('transfers/details/', transfers_views.UserTransferDetails.as_view(), name='users_transfers_detail'),

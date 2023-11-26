@@ -19,4 +19,4 @@ class DebitCardTransaction(models.Model):
     transaction_partner_account = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='transaction_partner_debit_card')
 
     def __str__(self):
-        return f"Transfer ID: {self.pk} - Sender: {self.transaction.account.user.first_name} {self.transaction.account.user.last_name} - Transaction_partner: {self.transaction_partner_account.user.first_name} {self.transaction_partner_account.user.last_name} - Amount: {self.transaction.amount}"
+        return f"Transfer ID: {self.pk} - Receiver: {self.transaction.account.user.first_name} {self.transaction.account.user.last_name} - Transaction_partner: {self.transaction_partner_account.user.first_name} {self.transaction_partner_account.user.last_name} - Amount: {self.transaction.amount}"
