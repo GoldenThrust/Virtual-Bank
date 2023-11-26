@@ -8,4 +8,4 @@ class DepositSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Deposit
-        fields = ['transaction']
+        fields = ['id', 'transaction']

@@ -5,7 +5,7 @@ from accounts.serializers import AccountSerializer
 
 class TransactionSerializer(serializers.ModelSerializer):
     date = serializers.DateTimeField(read_only=True)
-    account = AccountSerializer()
+    account = AccountSerializer(read_only=True)
     account_number = serializers.CharField(write_only=True)
 
     class Meta:
