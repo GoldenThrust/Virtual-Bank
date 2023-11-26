@@ -9,3 +9,12 @@ class DepositSerializer(serializers.ModelSerializer):
     class Meta:
         model = Deposit
         fields = ['id', 'transaction']
+
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        request_user = self.context["request"].user
+
+        if request_user != instance.transaction.account.user:
+            ret["transaction"]['account'].pop("balance", None)
+
+        return ret

@@ -64,7 +64,7 @@ urlpatterns = [
     # user api url
     path('deposits/create/', transactions_views.TransactionDepositCreate.as_view(), name='deposit_create'),
     path('deposits/lists/', deposits_views.UserDepositList.as_view(), name='user_deposits_list'),
-    # path('deposits/details/<identifier>', deposits_views.UserDepositDetail.as_view(), name='user_deposits_detail'),
+    path('deposits/details/<identifier>/', deposits_views.UserDepositDetail.as_view(), name='user_deposits_detail'),
 
     # merchants urlpattern
     path('merchants/', merchants_views.MerchantList.as_view(), name='merchants_list'),

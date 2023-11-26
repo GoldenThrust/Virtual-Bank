@@ -83,8 +83,6 @@ class UserTransactionDebitCardDetail(generics.RetrieveAPIView):
             transaction__identifier=self.kwargs["identifier"]
         ).first()
 
-        print(debit_card)
-
         if not debit_card:
             raise exceptions.NotFound()
 
