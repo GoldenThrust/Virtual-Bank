@@ -92,7 +92,7 @@ urlpatterns = [
 
     # user api url
     # path('transactions/history/', transactions_views.TransactionHistory.as_view(), name='transactions_detail'),
-    # path('transactions/details/<identifier>', transactions_views.UserTransactionDetails.as_view(), name='transactions_detail'),
+    # path('transactions/details/<identifier>/', transactions_views.UserTransactionDetails.as_view(), name='transactions_detail'),
 
     # transfers urlpattern
     path('transfers/', transfers_views.TransferList.as_view(), name='transfers_list'),
@@ -100,6 +100,6 @@ urlpatterns = [
 
     # user api url
     path('transfers/create/', transactions_views.TransactionTransferCreate.as_view(), name='transfers_create'),
-    # path('transfers/lists/', transfer_views.UserTransferList.as_view(), name='users_transfer_list'),
-    # path('transfers/details/', transfers_views.UserTransferDetails.as_view(), name='users_transfers_detail'),
+    path('transfers/lists/', transfers_views.UserTransferList.as_view(), name='users_transfer_list'),
+    path('transfers/details/<identifier>/', transfers_views.UserTransferDetails.as_view(), name='users_transfers_detail'),
 ]
