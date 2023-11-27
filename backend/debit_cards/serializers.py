@@ -14,7 +14,7 @@ class DebitCardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DebitCard
-        fields = ["account", "card_number", "cvv", "expiration_date", "created_date"]
+        fields = ["id", "account", "card_number", "cvv", "expiration_date", "created_date"]
 
     def create(self, validated_data):
         validated_data["card_number"] = generate_valid_credit_card_number()
@@ -39,7 +39,7 @@ class TransactionDebitCardSerializer(serializers.ModelSerializer):
 
     def get_transaction_direction(self, obj):
         request_user = self.context["request"].user
-        if request_user == obj.transaction_partner_account.user:
+        if request_user == obj.transaction_partner_account.user or request_user != obj.transaction.account.user:
             return "DEBITED"
         else:
             return "CREDITED"

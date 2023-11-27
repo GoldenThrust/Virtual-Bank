@@ -7,6 +7,7 @@ from datetime import datetime
 from .models import Transaction
 from accounts.models import Account
 from deposits.models import Deposit
+from django.db.models import Q
 
 # from payments.models import Payment
 from transfers.models import Transfer
@@ -14,6 +15,7 @@ from .serializers import (
     TransactionSerializer,
     TransferTransactionSerializer,
     DebitCardPaymentSerializer,
+    TransactionHistorySerializer,
 )
 
 # from deposits.serializers import DepositSerializer
@@ -260,3 +262,38 @@ class TransactionDebitCardCreate(generics.CreateAPIView):
         return Response(
             serialized_data, status=status.HTTP_201_CREATED, headers=headers
         )
+
+
+
+class TransactionHistory(generics.ListAPIView):
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionHistorySerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.serializer_class(queryset, many=True, context={'request': self.request})
+
+        serialized_data = []
+
+        for data in serializer.data:
+            if data is not None:
+                serialized_data.append(data)
+
+        return Response(serialized_data, status=status.HTTP_200_OK)
+    
+class UserTransactionDetail(generics.RetrieveAPIView):
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionHistorySerializer
+    permission_classes = [permissions.IsAuthenticated]
+    lookup_field = "identifier"
+
+    def get_object(self):
+        debit_card = Transaction.objects.filter(
+            identifier=self.kwargs["identifier"]
+        ).first()
+
+        if not debit_card:
+            raise exceptions.NotFound()
+
+        return debit_card

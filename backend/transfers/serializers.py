@@ -11,12 +11,12 @@ class TransferSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Transfer
-        fields = ['transaction', 'transaction_partner_account', 'transaction_direction']
+        fields = ['id', 'transaction', 'transaction_partner_account', 'transaction_direction']
     
     
     def get_transaction_direction(self, obj):
         request_user = self.context["request"].user
-        if request_user == obj.transaction.account.user:
+        if request_user == obj.transaction.account.user or request_user != obj.transaction_partner_account.user:
             return "DEBITED"
         else:
             return "CREDITED"

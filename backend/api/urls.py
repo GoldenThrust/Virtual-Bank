@@ -91,8 +91,8 @@ urlpatterns = [
     path('transactions/<int:pk>/', transactions_views.TransactionDetail.as_view(), name='transactions_detail'),
 
     # user api url
-    # path('transactions/history/', transactions_views.TransactionHistory.as_view(), name='transactions_detail'),
-    # path('transactions/details/<identifier>/', transactions_views.UserTransactionDetails.as_view(), name='transactions_detail'),
+    path('transactions/history/', transactions_views.TransactionHistory.as_view(), name='transactions_detail'),
+    path('transactions/history/<identifier>/', transactions_views.UserTransactionDetail.as_view(), name='transactions_detail'),
 
     # transfers urlpattern
     path('transfers/', transfers_views.TransferList.as_view(), name='transfers_list'),
