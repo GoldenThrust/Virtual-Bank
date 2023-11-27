@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import DebitCard, DebitCardTransaction
-from credit_cards.serializers import generate_valid_credit_card_number, generate_cvv
+from .utils import generate_valid_credit_card_number, generate_cvv
 from accounts.serializers import AccountSerializer
 from transactions.serializers import TransactionSerializer
 
