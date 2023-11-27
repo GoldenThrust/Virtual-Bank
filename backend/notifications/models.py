@@ -18,7 +18,7 @@ class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     notification_type = models.CharField(max_length=30, choices=NOTIFICATION_TYPES)
     content = models.TextField()
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=10, default='UNREAD', choices=STATUS_CHOICES)
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
