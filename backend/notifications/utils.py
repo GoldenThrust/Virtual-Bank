@@ -3,7 +3,7 @@ from users.models import User
 
 def process_notifications(user, type, message):
     if type not in ['user_notification', 'account_notification', 'transaction_notification', 'security_notification']:
-        raise Exception('Unknown security notification type')
+        raise Exception('Unknown notification type')
 
     users_to_notify = User.objects.filter(superuser=True) if user == 'admin' else [user]
 
@@ -22,10 +22,10 @@ def send_user_notification(user, message):
     Notification.objects.create(user=user, notification_type='USER_NOTIFICATION', content=message)
 
 def send_account_notification(user, message):
-    Notification.objects.create(user=user, notification_type='ACCOUNT_ALERT', content=message)
+    Notification.objects.create(user=user, notification_type='ACCOUNT_NOTIFICATION', content=message)
 
 def send_transaction_notification(user, message):
-    Notification.objects.create(user=user, notification_type='TRANSACTION_ALERT', content=message)
+    Notification.objects.create(user=user, notification_type='TRANSACTION_NOTIFICATION', content=message)
 
 def send_security_notification(user, message):
     Notification.objects.create(user=user, notification_type='SECURITY_NOTIFICATION', content=message)

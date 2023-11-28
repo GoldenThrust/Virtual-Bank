@@ -31,10 +31,6 @@ class AccountCreate(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         account_type = self.request.data.get("account_type")
-        duplicate_account = Account.objects.filter(name=serializer.validated_data['name'])
-
-        if duplicate_account:
-            raise exceptions.PermissionDenied("account with this name already exists.")
 
         account = serializer.save(user=self.request.user)
         notification_message  = 'A new Account has been successfully created.'
@@ -76,7 +72,15 @@ class UserAccountDetail(generics.RetrieveUpdateDestroyAPIView):
 
         return account
 
-    def perform_create(self, serializer):
+    def perform_update(self, serializer):
+        serializer.validated_data.pop('account_type', None)
+        serializer.validated_data.pop('balance', None)
+        serializer.validated_data.pop('currency', None)
         serializer.save(user=self.request.user)
-        notification_message  = 'Account updated successfully'
+        notification_message = 'Account updated successfully'
+        process_notifications(self.request.user, 'account_notification', notification_message)
+
+    def perform_destroy(self, instance):
+        instance.delete()
+        notification_message  = 'Account deleted successfully'
         process_notifications(self.request.user, 'account_notification', notification_message)
