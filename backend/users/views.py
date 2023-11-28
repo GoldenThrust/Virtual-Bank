@@ -7,16 +7,7 @@ from rest_framework.exceptions import NotFound, AuthenticationFailed
 from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
 from notifications.utils import process_notifications
-
-def get_client_ip(request):
-    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(",")[0]
-    else:
-        ip = request.META.get("REMOTE_ADDR")
-
-    return ip
-
+from .utils import get_client_ip
 
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
