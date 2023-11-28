@@ -6,7 +6,7 @@ from rest_framework import permissions, generics, status
 from rest_framework.exceptions import NotFound, AuthenticationFailed
 from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
-from notifications.utils import send_user_notification
+from notifications.utils import process_notifications
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
@@ -61,7 +61,7 @@ class UserCreate(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(ip_address=self.user_ip)
         notification_message = f"{serializer.validated_data['first_name']} {serializer.validated_data['last_name']} has joined the system"
-        send_user_notification("admin", notification_message)
+        process_notifications("admin", "user_notification", notification_message)
 
 class UserGet(generics.RetrieveAPIView):
     serializer_class = UserSerializer
@@ -91,6 +91,7 @@ class UserUpdate(generics.UpdateAPIView):
             raise AuthenticationFailed("Invalid password")
 
         notification_message = "Your profile information has been successfully updated. Your changes are now reflected in your profile."
-        send_user_notification(user, notification_message)
+        process_notifications("admin", "user_notification", notification_message)
+
 
         return super().update(request, *args, **kwargs)

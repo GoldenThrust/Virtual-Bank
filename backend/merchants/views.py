@@ -4,7 +4,7 @@ from rest_framework import exceptions
 from .models import Merchant
 from rest_framework import generics
 from rest_framework import permissions
-
+from notifications.utils import send_user_notification
 from accounts.models import Account
 
 
@@ -26,6 +26,7 @@ class MerchantCreate(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
+        user = self.request.user
         account = Account.objects.get(
             number=serializer.validated_data.pop("account_number")
         )
@@ -33,7 +34,7 @@ class MerchantCreate(generics.CreateAPIView):
         if not account:
             raise exceptions.NotFound()
 
-        if account.user != self.request.user:
+        if account.user != user:
             raise exceptions.PermissionDenied("Account does not belong to this user")
 
         merchant = Merchant.objects.filter(account=account)
@@ -41,6 +42,10 @@ class MerchantCreate(generics.CreateAPIView):
             raise exceptions.PermissionDenied("Merchant Account Exists")
 
         serializer.save(account=account)
+
+        send_user_notification(user,)
+
+
 
 
 class MerchantDetails(generics.RetrieveUpdateDestroyAPIView):

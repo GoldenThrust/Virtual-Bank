@@ -36,7 +36,19 @@ class UserNotificationDetail(generics.RetrieveAPIView):
     queryset = Notification.objects.all()
     serializer_class = NotificationSerializer
     permission_classes = [permissions.IsAuthenticated]
+    lookup_field = 'notification_number'
 
     def get_queryset(self):
         user = self.request.user
-        return self.queryset.filter(user=user, id=self.kwargs['pk'])
+        return self.queryset.filter(user=user).order_by('-created_date')
+    
+    def get_object(self):
+        queryset = self.get_queryset()
+        notification_number = self.kwargs.get('notification_number') 
+
+        try:
+            notification = queryset[int(notification_number) - 1]
+        except (IndexError, ValueError):
+            return []
+        
+        return notification
