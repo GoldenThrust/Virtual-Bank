@@ -5,7 +5,7 @@ def process_notifications(user, type, message):
     if type not in ['user_notification', 'account_notification', 'transaction_notification', 'security_notification']:
         raise Exception('Unknown security notification type')
 
-    users_to_notify = User.objects.filter(is_superuser=True) if user == 'admin' else [user]
+    users_to_notify = User.objects.filter(superuser=True) if user == 'admin' else [user]
 
     for target_user in users_to_notify:
         if type == 'user_notification':
