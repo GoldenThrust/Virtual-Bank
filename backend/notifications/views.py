@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import NotificationSerializer, NotificationStatusSerializer
+from .serializers import NotificationSerializer
 from .models import Notification
 from rest_framework import generics, permissions, exceptions
 

@@ -7,10 +7,9 @@ from rest_framework import exceptions
 from debit_cards.models import DebitCard
 from credit_cards.serializers import generate_cvv, generate_valid_credit_card_number
 import datetime
-
+from notifications.utils import process_notifications
 
 from rest_framework import permissions
-from users.permissions import IsOwnerOrReadOnly
 
 
 class AccountList(generics.ListCreateAPIView):
@@ -38,6 +37,9 @@ class AccountCreate(generics.CreateAPIView):
             raise exceptions.PermissionDenied("account with this name already exists.")
 
         account = serializer.save(user=self.request.user)
+        notification_message  = 'A new Account has been successfully created.'
+        process_notifications(self.request.user, 'account_notification', notification_message)
+
         if account_type == "CURRENT":
             debit_card = DebitCard(account=account)
             card_number = generate_valid_credit_card_number()
@@ -46,6 +48,8 @@ class AccountCreate(generics.CreateAPIView):
             debit_card.cvv = generate_cvv(card_number, expiry_date)
             debit_card.expiration_date = expiry_date
             debit_card.save()
+            notification_message = f'A debit card has been successfully created for your account ({account.number}).'
+            process_notifications(self.request.user, 'account_notification', notification_message)
 
 
 class UserAccountList(generics.ListAPIView):
@@ -74,3 +78,5 @@ class UserAccountDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+        notification_message  = 'Account updated successfully'
+        process_notifications(self.request.user, 'account_notification', notification_message)

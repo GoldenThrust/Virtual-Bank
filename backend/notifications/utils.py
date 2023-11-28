@@ -1,7 +1,7 @@
 from .models import Notification
 from users.models import User
 
-def process_notifications(user, message, type):
+def process_notifications(user, type, message):
     if type not in ['user_notification', 'account_notification', 'transaction_notification', 'security_notification']:
         raise Exception('Unknown security notification type')
 

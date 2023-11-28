@@ -84,5 +84,4 @@ class UserUpdate(generics.UpdateAPIView):
         notification_message = "Your profile information has been successfully updated. Your changes are now reflected in your profile."
         process_notifications("admin", "user_notification", notification_message)
 
-
         return super().update(request, *args, **kwargs)
