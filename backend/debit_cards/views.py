@@ -85,5 +85,12 @@ class UserTransactionDebitCardDetail(generics.RetrieveAPIView):
 
         if not debit_card:
             raise exceptions.NotFound()
+        
+        # if self.request.user != debit_card.account.user:
+        #     peek_user = self.request.user
+        #     transaction_date = localtime(debit_card.transaction.date).strftime('%m/%d/%Y')
+        #     user_name = f'{peek_user.first_name} {peek_user.last_name}'
+        #     notification_message = f'{user_name} has reviewed the transaction ({self.kwargs["identifier"]}) that was initiated on {transaction_date}.'
+        #     process_notifications(debit_card.account.user, 'security_notification', notification_message)
 
         return debit_card

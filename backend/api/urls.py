@@ -81,8 +81,8 @@ urlpatterns = [
 
     # user api url
     path('notifications/lists/', notifications_views.UserNotificationList.as_view(), name='user_notifications_list'),
-    path('notifications/lists/<type>', notifications_views.UserNotificationDetailList.as_view(), name='user_notifications_details_list'),
-    path('notifications/details/<int:notification_number>', notifications_views.UserNotificationDetail.as_view(), name='user_notifications_details'),
+    path('notifications/lists/<type>/', notifications_views.UserNotificationDetailList.as_view(), name='user_notifications_details_list'),
+    path('notifications/details/<int:notification_number>/', notifications_views.UserNotificationDetail.as_view(), name='user_notifications_details'),
 
     # payments urlpattern archive
     # path('payments/', payments_views.PaymentList.as_view(), name='payments_list'),

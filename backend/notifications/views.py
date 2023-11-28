@@ -29,7 +29,7 @@ class UserNotificationDetailList(generics.ListAPIView):
     lookup_field = 'type'
 
     def get_queryset(self):
-        return self.queryset.filter(user=self.request.user, notification_type=self.kwargs['lookup_field'])
+        return self.queryset.filter(user=self.request.user, notification_type=self.kwargs['type'].upper())
 
 
 class UserNotificationDetail(generics.RetrieveAPIView):
@@ -51,4 +51,7 @@ class UserNotificationDetail(generics.RetrieveAPIView):
         except (IndexError, ValueError):
             return []
         
+        notification.status = 'READ'
+        notification.save()
+
         return notification
