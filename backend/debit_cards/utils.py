@@ -1,6 +1,16 @@
 import hashlib
 import random
 
+
+def luhn_checksum(card_number):
+    digits = [int(x) for x in card_number]
+    odd_digits = digits[-1::-2]
+    even_digits = digits[-2::-2]
+    checksum = sum(odd_digits)
+    for digit in even_digits:
+        checksum += sum(divmod(digit * 2, 10))
+    return checksum % 10
+
 def generate_valid_credit_card_number():
     '''
     Generate a random credit card number using the Luhn algorithm.
@@ -9,15 +19,6 @@ def generate_valid_credit_card_number():
     - str: A valid 16-digit credit card number with a starting digit '5'.
     '''
     card_number = '5' + ''.join(str(random.randint(0, 9)) for _ in range(13))
-
-    def luhn_checksum(card_number):
-        digits = [int(x) for x in card_number]
-        odd_digits = digits[-1::-2]
-        even_digits = digits[-2::-2]
-        checksum = sum(odd_digits)
-        for digit in even_digits:
-            checksum += sum(divmod(digit * 2, 10))
-        return checksum % 10
     
     checksum = luhn_checksum(card_number)
     

@@ -34,31 +34,31 @@ class TransactionHistorySerializer(serializers.ModelSerializer):
         from transfers.serializers import TransferSerializer
         from debit_cards.serializers import TransactionDebitCardSerializer
         from deposits.serializers import DepositSerializer
-        transaction_type = instance.transaction_type
 
-        serializer = None
+        transaction_type = instance.transaction_type
         user = self.context['request'].user
         url_name = self.context['request'].resolver_match.url_name
-    
+        
+        serializer = None
+        related_instance = None
+        
         if transaction_type == 'TRANSFER':
-            transfer_instance = instance.transfer
-            if (transfer_instance.transaction.account.user == user or transfer_instance.transaction_partner_account.user == user) or url_name == 'transactions_detail':
-                serializer = TransferSerializer(instance=transfer_instance, context={'request': self.context['request']})
+            related_instance = instance.transfer
         elif transaction_type == 'DEBIT_CARD':
-            debit_card_instance = instance.debit_card
-            if (debit_card_instance.transaction.account.user == user or debit_card_instance.transaction_partner_account.user == user) or url_name == 'transactions_detail':
-                serializer = TransactionDebitCardSerializer(instance=debit_card_instance, context={'request': self.context['request']})
+            related_instance = instance.debit_card
         elif transaction_type == 'DEPOSIT':
-            deposit_instance = instance.deposit
-            if deposit_instance.transaction.account.user == user or url_name == 'transactions_detail':
-                serializer = DepositSerializer(instance=deposit_instance, context={'request': self.context['request']})
-        if serializer:
-            if hasattr(serializer, 'data'):
-                return serializer.data
-            else:
-                return serializer
-        else:
-            return None
+            related_instance = instance.deposit
+        
+        if related_instance:
+            if transaction_type == 'DEPOSIT' or (related_instance.transaction.account.user == user or url_name == 'transactions_detail'):
+                if transaction_type == 'TRANSFER':
+                    serializer = TransferSerializer(instance=related_instance, context={'request': self.context['request']})
+                elif transaction_type == 'DEBIT_CARD':
+                    serializer = TransactionDebitCardSerializer(instance=related_instance, context={'request': self.context['request']})
+                elif transaction_type == 'DEPOSIT':
+                    serializer = DepositSerializer(instance=related_instance, context={'request': self.context['request']})
+
+        return serializer.data if (serializer and hasattr(serializer, 'data')) else serializer
 
 
 

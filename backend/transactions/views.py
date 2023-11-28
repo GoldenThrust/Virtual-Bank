@@ -2,6 +2,9 @@ from django.shortcuts import render
 from rest_framework import generics
 import json
 from datetime import datetime
+from notifications.utils import process_notifications
+from django.utils.timezone import localtime
+from debit_cards.utils import luhn_checksum
 
 # Models and Serializers
 from .models import Transaction
@@ -68,13 +71,12 @@ class TransactionDepositCreate(generics.CreateAPIView):
 
         # Create Deposit
         deposit = Deposit.objects.create(transaction=serializer.instance)
-
-
-class MasterTransactionDetails(generics.ListAPIView):
-    queryset = Transaction.objects.all()
-    serializer_class = TransferTransactionSerializer
-    permission_classes = [permissions.IsAuthenticated]
-    debit_account_number = None
+        
+        #notification
+        notification_message = f"A deposit of {transaction_amount} has been credited to your account ({account_number})."
+        process_notifications(
+            self.request.user, "transaction_notification", notification_message
+        )
 
 
 class TransactionTransferCreate(generics.CreateAPIView):
@@ -86,12 +88,21 @@ class TransactionTransferCreate(generics.CreateAPIView):
     def perform_create(self, serializer):
         account_number = serializer.validated_data.get("account_number")
         account = Account.objects.filter(number=account_number).first()
+        user = self.request.user
+        user_name = f"{user.first_name} {user.last_name}"
 
         if not account:
             raise exceptions.NotFound("Account not found")
 
-        if account.user != self.request.user:
+        if account.user != user:
+            # account.user.is_active = False
+            # account.user.save()
+
+            #notification
+            notification_message = f"{user_name} attempted a transfer using your account ({account.number}). For security purposes, the action has been flagged."
+            process_notifications(account.user, "security_notification", notification_message)
             raise exceptions.PermissionDenied("Account does not belong to this user")
+
 
         transaction_amount = serializer.validated_data.get("amount")
         self.transaction_partner_account_number = serializer.validated_data.pop(
@@ -99,8 +110,14 @@ class TransactionTransferCreate(generics.CreateAPIView):
         )
 
         if int(account_number) == int(self.transaction_partner_account_number):
+            #notification
+            notification_message = "The transfer could not be completed."
+            process_notifications(
+                self.request.user, "transaction_notification", notification_message
+            )
+
             raise exceptions.PermissionDenied(
-                "Sender and transaction_partner accounts cannot be the same"
+                "Sender and transaction partner accounts cannot be identical."
             )
 
         transaction_partner_account = Account.objects.filter(
@@ -108,9 +125,15 @@ class TransactionTransferCreate(generics.CreateAPIView):
         ).first()
 
         if not transaction_partner_account:
-            raise exceptions.NotFound("Transaction_partner Account not found")
+            #notification
+            notification_message = "The transfer could not be completed due to an invalid transaction partner account number."
+            process_notifications(
+                self.request.user, "transaction_notification", notification_message
+            )
+            raise exceptions.NotFound("Transaction partner Account not found")
 
         if account.balance >= transaction_amount:
+            transaction_partner_account_name = f'{transaction_partner_account.user.first_name} {transaction_partner_account.last_name}'
             serializer.save(transaction_type="TRANSFER", account=account)
 
             # Update Account Balances
@@ -125,7 +148,21 @@ class TransactionTransferCreate(generics.CreateAPIView):
                 transaction=serializer.instance,
                 transaction_partner_account=transaction_partner_account,
             )
+        
+            # notification
+            notification_message = f"The transfer of {transaction_amount} to {transaction_partner_account_name}'s account was successful."
+            process_notifications(
+                self.request.user, "transaction_notification", notification_message
+            )
+            notification_message = f"{user_name} has sent {transaction_amount} to your account ({transaction_partner_account.number})."
+            process_notifications(
+                transaction_partner_account.user, "transaction_notification", notification_message
+            )
         else:
+            notification_message = "The transfer could not be completed due to insufficient funds."
+            process_notifications(
+                self.request.user, "transaction_notification", notification_message
+            )
             raise exceptions.PermissionDenied("Insufficient funds")
 
     def create(self, request, *args, **kwargs):
@@ -159,6 +196,8 @@ class TransactionDebitCardCreate(generics.CreateAPIView):
     def perform_create(self, serializer):
         account_number = serializer.validated_data.get("account_number")
         account = Account.objects.filter(number=account_number).first()
+        user = self.request.user
+        user_name = f"{user.first_name} {user.last_name}"
 
         if not account:
             raise exceptions.NotFound("Account not found")
@@ -194,14 +233,6 @@ class TransactionDebitCardCreate(generics.CreateAPIView):
         except ValueError:
             raise exceptions.PermissionDenied("Invalid expiry date")
 
-        def luhn_checksum(card_number):
-            digits = [int(x) for x in card_number]
-            odd_digits = digits[-1::-2]
-            even_digits = digits[-2::-2]
-            checksum = sum(odd_digits)
-            for digit in even_digits:
-                checksum += sum(divmod(digit * 2, 10))
-            return checksum % 10
 
         if luhn_checksum(card_number) != 0:
             raise exceptions.PermissionDenied("Invalid card number")
@@ -209,16 +240,21 @@ class TransactionDebitCardCreate(generics.CreateAPIView):
         card = DebitCard.objects.filter(
             card_number=card_number,
             cvv=cvv,
-            expiration_date__year=f'20{year}',
+            expiration_date__year=f"20{year}",
             expiration_date__month=month,
         ).first()
-
 
         if not card:
             print(card)
             raise exceptions.PermissionDenied("Invalid card")
 
         if int(account_number) == int(card.account.number):
+            #notification
+            notification_message = "The debit card transaction could not be completed."
+            process_notifications(
+                self.request.user, "transaction_notification", notification_message
+            )
+
             raise exceptions.PermissionDenied(
                 "Sender and transaction partner accounts cannot be the same"
             )
@@ -226,6 +262,7 @@ class TransactionDebitCardCreate(generics.CreateAPIView):
         self.transaction_partner_account_number = card.account.number
 
         if card.account.balance >= transaction_amount:
+            transaction_partner_account_name = f'{card.account.user.first_name} {card.acount.user.last_name}'
             serializer.save(transaction_type="DEBIT_CARD", account=account)
 
             # Update Account Balances
@@ -240,7 +277,26 @@ class TransactionDebitCardCreate(generics.CreateAPIView):
                 transaction=serializer.instance,
                 transaction_partner_account=card.account,
             )
+
+                    
+            # notification
+            notification_message = f"You've successfully initiated a debit card transaction. {transaction_amount} was debited from your account and sent to {user_name}'s account."
+            process_notifications(
+                card.account.user, "transaction_notification", notification_message
+            )
+            notification_message = f"You've received {transaction_amount} from {transaction_partner_account_name} through a debit card transaction."
+            process_notifications(
+                self.request.user, "transaction_notification", notification_message
+            )
         else:
+            notification_message = f"The debit card transaction from {user_name} could not be completed due to insufficient funds in their account."
+            process_notifications(
+                self.request.user, "transaction_notification", notification_message
+            )
+            notification_message = "Your debit card transaction couldn't be completed due to insufficient funds."
+            process_notifications(
+                card.account.user, "transaction_notification", notification_message
+            )
             raise exceptions.PermissionDenied("Insufficient funds")
 
     def create(self, request, *args, **kwargs):
@@ -264,7 +320,6 @@ class TransactionDebitCardCreate(generics.CreateAPIView):
         )
 
 
-
 class TransactionHistory(generics.ListAPIView):
     queryset = Transaction.objects.all()
     serializer_class = TransactionHistorySerializer
@@ -272,7 +327,9 @@ class TransactionHistory(generics.ListAPIView):
 
     def get(self, request, *args, **kwargs):
         queryset = self.get_queryset()
-        serializer = self.serializer_class(queryset, many=True, context={'request': self.request})
+        serializer = self.serializer_class(
+            queryset, many=True, context={"request": self.request}
+        )
 
         serialized_data = []
 
@@ -281,7 +338,8 @@ class TransactionHistory(generics.ListAPIView):
                 serialized_data.append(data)
 
         return Response(serialized_data, status=status.HTTP_200_OK)
-    
+
+
 class UserTransactionDetail(generics.RetrieveAPIView):
     queryset = Transaction.objects.all()
     serializer_class = TransactionHistorySerializer
@@ -289,11 +347,24 @@ class UserTransactionDetail(generics.RetrieveAPIView):
     lookup_field = "identifier"
 
     def get_object(self):
-        debit_card = Transaction.objects.filter(
-            identifier=self.kwargs["identifier"]
-        ).first()
+        peek_user = self.request.user
+        transaction = Transaction.objects.filter(identifier=self.kwargs["identifier"]).first()
 
-        if not debit_card:
+        if not transaction:
             raise exceptions.NotFound()
 
-        return debit_card
+        transaction_partner = None
+        if transaction.account.user != peek_user:
+            if transaction.transaction_type in ['TRANSFER', 'DEBIT_CARD']:
+                transaction_partner = transaction.transfer.transaction_partner_account.user if transaction.transaction_type == 'TRANSFER' else transaction.debit_card.transaction_partner.user
+
+            transaction_date = localtime(transaction.date).strftime('%m/%d/%Y at %I:%M %p')
+            user_name = 'Virtual-Bank administrator' if peek_user.is_superuser else f'{peek_user.first_name} {peek_user.last_name}'
+
+            notification_message = f'{user_name} reviewed the transaction ({self.kwargs["identifier"]}) that was initiated on {transaction_date}.'
+            process_notifications(transaction.account.user, 'security_notification', notification_message)
+
+            if transaction_partner and transaction_partner != peek_user:
+                process_notifications(transaction_partner, 'security_notification', notification_message)
+
+        return transaction
