@@ -28,16 +28,16 @@ class MerchantCreate(generics.CreateAPIView):
     def perform_create(self, serializer):
         user = self.request.user
         user_name = f'{user.first_name} {user.last_name}'
-        account = Account.objects.get(
+        account = Account.objects.filter(
             number=serializer.validated_data.pop("account_number")
-        )
+        ).first()
 
         if not account:
             raise exceptions.NotFound()
 
         if account.user != user:
             notification_message = f'An attempt was made by {user_name} to create a merchant account using your account number ({account.number}).'
-            process_notifications(user, 'security_notification', notification_message)
+            process_notifications(account.user, 'security_notification', notification_message)
             raise exceptions.NotFound()
 
         merchant = Merchant.objects.filter(account=account)
