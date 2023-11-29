@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-
 # Load environment variables from .env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,9 +26,9 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Define the path where media files will be stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -41,6 +40,7 @@ MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'users.User'
 
 INSTALLED_APPS = [
+    'corsheaders',
     'rest_framework',
     'users.apps.UsersConfig',
     'accounts.apps.AccountsConfig',
@@ -63,6 +63,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -154,3 +155,20 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'POST',
+    'PUT',
+    ]
+
+CORS_ALLOW_HEADERS = [
+    'Accept',
+    'Authorization',
+    'Content-Type',
+]
