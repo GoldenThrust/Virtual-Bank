@@ -5,6 +5,13 @@
     background-size: cover;
 }
 
+.bg-bottom {
+    width: 100%;
+    height: calc(25vh + 50vw);
+    background: url("../images/footer.png") -10px -10px no-repeat;
+    background-size: cover;
+}
+
 @media (min-width: 768px) {
     .bg-top {
         background-size: contain;
