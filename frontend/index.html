@@ -9,8 +9,7 @@
     <!-- load font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Pacifico&family=Flow+Circular&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Flow+Circular&display=swap" rel="stylesheet">
 
     <!-- load bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -28,14 +27,16 @@
         <div class="bg-top">
 
         </div>
-        <div class="bg-medium">
-            
+        <div class="bg-bottom bottom-0">
+
         </div>
     </aside>
     <header class="container-fluid text-white mt-1">
         <div class="row align-items-center d-none d-md-flex">
             <div class="col-12 col-sm-auto text-center">
-                <h1 class="logo">Virtual Bank</h1>
+                <h1 class="logo d-flex fs-4"><img src="images/virtual bank logo.svg" alt="logo" class="w-100">Virtual
+                    Bank
+                </h1> <!--place holder-->
             </div>
             <div class="col-12 col-md d-flex justify-content-center justify-content-md-end">
                 <nav>
@@ -55,18 +56,18 @@
 
         <div class="row align-items-center .d-inline-flex d-md-none">
             <div class="col">
-                <h1 class="logo fs-1">Virtual Bank</h1>
+                <h1 class="logo d-flex fs-3"><img src="images/virtual bank logo.svg" alt="logo" class="w-100">Virtual
+                    Bank
+                </h1> <!--place holder-->
             </div>
             <a data-bs-toggle="offcanvas" class="col-2 menu" href="#offcanvasMenu" role="button"
                 aria-controls="offcanvasMenu">
-                <!-- <img src="" alt=""> -->
+                <!-- <img src="" alt="menu"> -->
             </a>
 
             <div class="offcanvas bg-dark offcanvas-start" tabindex="-1" id="offcanvasMenu"
                 aria-labelledby="offcanvasMenuLabel">
                 <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasMenuLabel">Offcanvas</h5>
-                    filter: invert(1);
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
                         style="filter: invert(1)"></button>
                 </div>
@@ -94,24 +95,73 @@
         </div>
     </header>
 
-    <main class="container-fluid text-white px-5">
-        <div class="tagline w-50">
+    <main class="container-fluid px-5">
+        <div class="tagline w-50 text-white">
             Safe, Simulated, Seamless Transactions
         </div>
-        <div class="circular-text w-25">
+        <div class="circular-text w-25 text-white">
             Safe, Simulated, Seamless Transactions
         </div>
-        <div class="row align-items-start intro-1 container-fluid justify-content-center">
-            <div class="col">
+        <div class="row intro-1 container-fluid text-white mb-5">
+            <div class="col discover">
                 Discover a world of convenient and secure online banking.
             </div>
 
-            <div class="img w-100 col d-none d-md-flex" style="border: 2px solid red;">
-                    <!-- <img src="" alt=""> -->
+            <div class="img w-100 col d-none d-md-flex">
+                <!-- <img src="" alt="Laptop image"> -->
             </div>
         </div>
-        <div class="display-2 float-end" style="color: black;">
+
+        <div class="display-2 float-end font-md-smaller d-none d-md-block mb-5" style="text-align: start; width: 35%;">
             Secure Transaction Flow
+        </div>
+
+        <div class="prototype" class="mt-auto mb-5">
+            <img src="images/investment.svg" alt="transaction flow" class="w-100">
+        </div>
+
+        <div class="about mt-5 mx-md-0">
+            <h2 class="display-4 fw-bold">Developer-Friendly</h2>
+            <p class="fs-4">Empower your development journey with our Virtual Bank API. Developers, dive into a seamless
+                integration
+                experience that lets you simulate real banking transactions for robust testing. Build and refine your
+                applications with ease, ensuring they're ready for the complexities of financial interactions.</p>
+        </div>
+
+
+        <div  class="fun_about d-flex flex-wrap justify-content-evenly">
+            <div>
+                <img class="w-100" src="images/integration.png" alt="Easy Integration">
+                <p class="fw-bold fs-3 mt-2 ps-2">Easy Integration</p>
+                <p class="fs-6 mt-2 ps-2">Effortlessly integrate our Virtual Bank API into your applications, allowing
+                    you to simulate a
+                    wide range of banking transactions.</p>
+            </div>
+
+            <div> <img class="w-100" src="images/testing.png" alt="Realistic Testing">
+                <p class="fw-bold fs-3 mt-2 ps-2">Realistic Testing</p>
+                <p class="fs-6 mt-2 ps-2">Test your e-commerce website or mobile app's transactional capabilities in a
+                    safe environment
+                    before going live with real bank APIs.</p>
+            </div>
+
+            <div>
+                <img class="w-100" src="images/transaction.png" alt="Secure Transactions">
+                <p class="fw-bold fs-3 mt-2 ps-2">Secure Transactions</p>
+                <p class="fs-5 mt-2 ps-2">Rest assured that your simulated transactions are carried out in a secure and
+                    encrypted
+                    environment, mimicking real-world banking standards.</p>
+            </div>
+
+            <div>
+                <img class="w-100" src="images/use_case.png" alt="Versatile Use Cases">
+                <p class="fw-bold fs-3 mt-2 ps-2">Versatile Use Cases</p>
+                <p class="fs-6 mt-2 ps-2">From testing payment gateways to validating financial record-keeping, our
+                    Virtual Bank
+                    API caters
+                    to diverse use cases for developers.</p>
+            </div>
+
         </div>
     </main>
 

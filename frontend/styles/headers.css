@@ -1,6 +1,10 @@
 .logo {
-    font-family: Pacifico;
-    /* font-size: 50px; */
+    width: 50px;
+    font-family: monospace;
     color: rgb(255, 255, 255);
-    text-shadow: 2px 2px 10px red;
+    text-shadow: 20px 20px 3px #323232;
+}
+
+.logo img {
+    filter: invert(1);
 }
