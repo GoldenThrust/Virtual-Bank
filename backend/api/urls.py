@@ -55,7 +55,7 @@ urlpatterns = [
     path('debit_cards/lists/', debit_cards_views.UserDebitCardList.as_view(), name='debit_cards_list'),
     path('debit_cards/details/<int:number>/', debit_cards_views.UserDebitCardDetail.as_view(), name='user_debit_cards_detail'),
     path('debit_cards_transactions/lists/', debit_cards_views.UserTransactionDebitCardList.as_view(), name='user_debit_cards_transactions_lists'),
-    path('debit_cards_transactions/details/<identifier>/', debit_cards_views.UserTransactionDebitCardDetail.as_view(), name='user_debit_cards_transactions_detail'),
+    path('debit_cards_transactions/details/<uuid:identifier>/', debit_cards_views.UserTransactionDebitCardDetail.as_view(), name='user_debit_cards_transactions_detail'),
     path('debit_cards/recieve_payment/', transactions_views.TransactionDebitCardCreate.as_view(), name='user_debit_cards_transactions'),
 
     # deposits urlpattern
@@ -65,7 +65,7 @@ urlpatterns = [
     # user api url
     path('deposits/create/', transactions_views.TransactionDepositCreate.as_view(), name='deposit_create'),
     path('deposits/lists/', deposits_views.UserDepositList.as_view(), name='user_deposits_list'),
-    path('deposits/details/<identifier>/', deposits_views.UserDepositDetail.as_view(), name='user_deposits_detail'),
+    path('deposits/details/<uuid:identifier>/', deposits_views.UserDepositDetail.as_view(), name='user_deposits_detail'),
 
     # merchants urlpattern
     path('merchants/', merchants_views.MerchantList.as_view(), name='merchants_list'),
@@ -95,7 +95,7 @@ urlpatterns = [
 
     # user api url
     path('transactions/history/', transactions_views.TransactionHistory.as_view(), name='transactions_detail'),
-    path('transactions/history/<identifier>/', transactions_views.UserTransactionDetail.as_view(), name='transactions_detail'),
+    path('transactions/history/<uuid:identifier>/', transactions_views.UserTransactionDetail.as_view(), name='transactions_detail'),
 
     # transfers urlpattern
     path('transfers/', transfers_views.TransferList.as_view(), name='transfers_list'),
@@ -104,5 +104,5 @@ urlpatterns = [
     # user api url
     path('transfers/create/', transactions_views.TransactionTransferCreate.as_view(), name='transfers_create'),
     path('transfers/lists/', transfers_views.UserTransferList.as_view(), name='users_transfer_list'),
-    path('transfers/details/<identifier>/', transfers_views.UserTransferDetails.as_view(), name='users_transfers_detail'),
+    path('transfers/details/<uuid:identifier>/', transfers_views.UserTransferDetails.as_view(), name='users_transfers_detail'),
 ]

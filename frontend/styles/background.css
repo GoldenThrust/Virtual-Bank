@@ -17,3 +17,11 @@
         background-size: contain;
     }
 }
+
+@media (max-width: 1250px) {
+    .bg-bottom {
+        width: 0;
+        height: 0;
+        background: none;
+    }
+}

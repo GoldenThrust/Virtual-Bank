@@ -85,3 +85,10 @@ class UserUpdate(generics.UpdateAPIView):
         process_notifications("admin", "user_notification", notification_message)
 
         return super().update(request, *args, **kwargs)
+
+
+class SignUp():
+    pass
+
+class SignIn():
+    pass
