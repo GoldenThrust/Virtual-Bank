@@ -1,0 +1,28 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+    <div class="content-section my-2">
+        <div class="my-3">
+            <img src="{% static 'users/images/logo.svg' %}" alt="" srcset="" class="logo">
+            <span class="h3">Virtual Bank</span>
+        </div>
+        <form method="POST" class="border border-primary px-5 py-2 shadow p-3 mb-5 bg-body-tertiary rounded">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Sign In</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group mb-3">
+                <button class="btn btn-outline-info w-100" type="submit">Sign In</button>
+            </div>
+
+            <div class="border-top mx-5">
+                <small class="text-muted mb-5">
+                    Need An Account? <a class="ml-2" href="{% url 'users:register' %}">Sign Up Now</a>
+                </small>
+            </div>
+
+        </form>
+    </div>
+{% endblock content %}

@@ -9,6 +9,13 @@ from rest_framework.generics import get_object_or_404
 from notifications.utils import process_notifications
 from .utils import get_client_ip
 
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.views import View
+from .forms import UserRegisterForm
+
+
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -54,6 +61,7 @@ class UserCreate(generics.CreateAPIView):
         notification_message = f"{serializer.validated_data['first_name']} {serializer.validated_data['last_name']} has joined the system"
         process_notifications("admin", "user_notification", notification_message)
 
+
 class UserGet(generics.RetrieveAPIView):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -77,7 +85,6 @@ class UserUpdate(generics.UpdateAPIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-
         if not user.check_password(password):
             raise AuthenticationFailed("Invalid password")
 
@@ -87,8 +94,20 @@ class UserUpdate(generics.UpdateAPIView):
         return super().update(request, *args, **kwargs)
 
 
-class SignUp():
-    pass
+class RegisterView(View):
+    form_class = UserRegisterForm
+    template_name = "users/register.html"
 
-class SignIn():
-    pass
+    def get(self, request):
+        form = self.form_class()
+        return render(request, self.template_name, {"form": form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, f"Your account has been created! You are now able to log in"
+            )
+            return redirect("users:login")
+        return render(request, self.template_name, {"form": form})
