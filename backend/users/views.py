@@ -13,6 +13,7 @@ from .utils import get_client_ip
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.views import View
+from django.views.generic.edit import FormView
 from .forms import UserRegisterForm
 
 
@@ -94,7 +95,7 @@ class UserUpdate(generics.UpdateAPIView):
         return super().update(request, *args, **kwargs)
 
 
-class RegisterView(View):
+class RegisterView(FormView):
     form_class = UserRegisterForm
     template_name = "users/register.html"
 
@@ -111,3 +112,10 @@ class RegisterView(View):
             )
             return redirect("users:login")
         return render(request, self.template_name, {"form": form})
+
+
+class DashBoard(View):
+    template_name = "users/dashboard.html"
+
+    def get(self, request):
+        return render(request, self.template_name, {'title': 'Dashboard'})

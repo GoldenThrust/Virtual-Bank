@@ -1,0 +1,14 @@
+footer {
+    margin: 200px auto 80px;
+}
+
+.my_pics {
+    width: 30vw;
+}
+
+@media (max-width: 1250px) {
+    footer {
+        background: linear-gradient(143deg, #5B0E4F 10.3%, #0A2540 73.98%);
+        margin-bottom: 0;
+    }
+}

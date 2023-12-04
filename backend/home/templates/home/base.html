@@ -1,13 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="images/virtual bank logo.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'home/images/virtual bank logo.svg' %}" type="image/x-icon">
+    {% if title %}
+    <title>Virtual Bank - {{ title }}</title>
+    {% else %}
     <title>Virtual Bank</title>
-
-    <script src="scripts/main.js" defer></script>
+    {% endif %}
 
     <!-- load font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,10 +22,10 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <!-- load css -->
-    <link rel="stylesheet" href="styles/background.css">
-    <link rel="stylesheet" href="styles/headers.css">
-    <link rel="stylesheet" href="styles/body.css">
-    <link rel="stylesheet" href="styles/footer.css">
+    <link rel="stylesheet" href="{% static 'home/styles/headers.css' %}">
+    <link rel="stylesheet" href="{% static 'home/styles/background.css' %}">
+    <link rel="stylesheet" href="{% static 'home/styles/body.css' %}">
+    <link rel="stylesheet" href="{% static 'home/styles/footer.css' %}">
 </head>
 
 <body class="bs5-bg card">
@@ -37,7 +40,7 @@
     <header class="container-fluid text-white mt-1">
         <div class="row align-items-center d-none d-md-flex">
             <div class="col-12 col-sm-auto text-center">
-                <h1 class="logo d-flex fs-4"><img src="images/virtual bank logo.svg" alt="logo" class="w-100">Virtual
+                <h1 class="logo d-flex fs-4"><img src="{% static 'home/images/virtual bank logo.svg' %}" alt="logo" class="w-100">Virtual
                     Bank
                 </h1> <!--place holder-->
             </div>
@@ -51,15 +54,19 @@
             </div>
             <div class="col-12 col-sm-auto text-center text-md-end">
                 <div class="register">
-                    <a href="#" class="text-decoration-none text-white mx-2 link-primary signin">Sign In</a>
-                    <a href="#" class="text-decoration-none text-white mx-2 btn  btn-primary rounded-pill signup">Sign Up</a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'users:dashboard' %}" class="text-decoration-none text-white mx-2 btn  btn-primary rounded-pill">Dashboard</a>
+                    {% else %}
+                    <a href="{% url 'users:login' %}" class="text-decoration-none text-white mx-2 link-primary signin">Sign In</a>
+                    <a href="{% url 'users:register' %}" class="text-decoration-none text-white mx-2 btn  btn-primary rounded-pill signup">Sign Up</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
 
         <div class="row align-items-center .d-inline-flex d-md-none">
             <div class="col">
-                <h1 class="logo d-flex fs-3"><img src="images/virtual bank logo.svg" alt="logo" class="w-100">Virtual
+                <h1 class="logo d-flex fs-3"><img src="{% static 'home/images/virtual bank logo.svg' %}" alt="logo" class="w-100">Virtual
                     Bank
                 </h1> <!--place holder-->
             </div>
@@ -88,88 +95,19 @@
                     </div>
                     <div class="col-12 col-md-auto">
                         <div class="register">
-                            <a href="#" class="text-decoration-none text-white row mx-2 mb-3 link-primary signin">Sign In</a>
-                            <a href="#" class="text-decoration-none text-white mx-2 btn btn-primary row signup">Sign
-                                Up</a>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'users:dashboard' %}"  class="text-decoration-none text-white mx-2 btn  btn-primary rounded-pill">Dashboard</a>
+                            {% else %}
+                                <a href="{% url 'users:login' %}" class="text-decoration-none text-white mx-2 link-primary signin">Sign In</a>
+                                <a href="{% url 'users:register' %}" class="text-decoration-none text-white mx-2 btn  btn-primary rounded-pill signup">Sign Up</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-
-    <main class="container-fluid px-5">
-        <div class="tagline w-50 text-white">
-            Safe, Simulated, Seamless Transactions
-        </div>
-        <div class="circular-text w-25 text-white">
-            Safe, Simulated, Seamless Transactions
-        </div>
-        <div class="row intro-1 container-fluid text-white mb-5">
-            <div class="col discover">
-                Discover a world of convenient and secure online banking.
-            </div>
-
-            <div class="img w-100 col d-none d-md-flex">
-                <!-- <img src="" alt="Laptop image"> -->
-            </div>
-        </div>
-
-        <div class="display-2 float-end font-md-smaller d-none d-md-block mb-5" style="text-align: start; width: 35%;">
-            Secure Transaction Flow
-        </div>
-
-        <div class="prototype" class="mt-auto mb-5">
-            <img src="images/investment.svg" alt="transaction flow" class="w-100">
-        </div>
-
-        <div class="about mt-5 mx-md-0">
-            <h2 class="display-4 fw-bold">Developer-Friendly</h2>
-            <p class="fs-4">Empower your development journey with our Virtual Bank API. Developers, dive into a seamless
-                integration
-                experience that lets you simulate real banking transactions for robust testing. Build and refine your
-                applications with ease, ensuring they're ready for the complexities of financial interactions.</p>
-        </div>
-
-
-        <div class="fun_about d-flex flex-wrap justify-content-evenly">
-            <div>
-                <img class="w-100" src="images/integration.png" alt="Easy Integration">
-                <p class="fw-bold fs-3 mt-2 ps-2">Easy Integration</p>
-                <p class="fs-6 mt-2 ps-2">Effortlessly integrate our Virtual Bank API into your applications, allowing
-                    you to simulate a
-                    wide range of banking transactions.</p>
-            </div>
-
-            <div> <img class="w-100" src="images/testing.png" alt="Realistic Testing">
-                <p class="fw-bold fs-3 mt-2 ps-2">Realistic Testing</p>
-                <p class="fs-6 mt-2 ps-2">Test your e-commerce website or mobile app's transactional capabilities in a
-                    safe environment
-                    before going live with real bank APIs.</p>
-            </div>
-
-            <div>
-                <img class="w-100" src="images/transaction.png" alt="Secure Transactions">
-                <p class="fw-bold fs-3 mt-2 ps-2">Secure Transactions</p>
-                <p class="fs-5 mt-2 ps-2">Rest assured that your simulated transactions are carried out in a secure and
-                    encrypted
-                    environment, mimicking real-world banking standards.</p>
-            </div>
-
-            <div>
-                <img class="w-100" src="images/use_case.png" alt="Versatile Use Cases">
-                <p class="fw-bold fs-3 mt-2 ps-2">Versatile Use Cases</p>
-                <p class="fs-6 mt-2 ps-2">From testing payment gateways to validating financial record-keeping, our
-                    Virtual Bank
-                    API caters
-                    to diverse use cases for developers.</p>
-            </div>
-
-        </div>
-    </main>
-
-
-
+    {% block content %}{% endblock %}
     <footer>
         <div class="d-flex justify-content-evenly align-items-evnly text-white py-3 mx-5">
             <div class="row">
@@ -185,17 +123,18 @@
                         <a href="mailto:adenijiolajid01@gmail.com"
                             class="fs-5 mb-5 text-decoration-none">adenijiolajid01@gmail.com</a>
                         <div class="">
-                            <a href="https://github.com/GoldenThrust" target="_blank" rel="noopener noreferrer"><img src="images/socials/github.svg"
+                            <a href="https://github.com/GoldenThrust" target="_blank" rel="noopener noreferrer"><img src="{% static 'home/images/socials/github.svg' %}"
                                     alt="Github"></a>
-                            <a href="https://x.com/Goldenthrust3" target="_blank" rel="noopener noreferrer"><img src="images/socials/x.svg"
-                                    alt="Twiter"></a>
-                            <a href="https://www.linkedin.com/in/olajide-adeniji-0286a32a2/" target="_blank" rel="noopener noreferrer"><img src="images/socials/linkedin.svg"
-                                    alt="LinkedIn"></a>
+                            <a href="https://x.com/Goldenthrust3" target="_blank" rel="noopener noreferrer">
+                                <img src="{% static 'home/images/socials/x.svg' %}"
+                                    alt="Twitter"></a>
+                            <a href="https://www.linkedin.com/in/olajide-adeniji-0286a32a2/" target="_blank" rel="noopener noreferrer"><img src="{% static 'home/images/socials/linkedin.svg' %}"
+                                alt="LinkedIn"></a>
                             <a href="https://www.instagram.com/imagination_purely/" target="_blank" rel="noopener noreferrer"><img
-                                    src="images/socials/instagram.svg" alt=""></a>
-                            <a href="https://www.youtube.com/channel/UCTNcZa-UmGQJWPpz-keC2xQ" target="_blank" rel="noopener noreferrer"><img src="images/socials/youtube.svg"
+                                    src="{% static 'home/images/socials/instagram.svg' %}" alt=""></a>
+                            <a href="https://www.youtube.com/channel/UCTNcZa-UmGQJWPpz-keC2xQ" target="_blank" rel="noopener noreferrer"><img src="{% static 'home/images/socials/youtube.svg' %}"
                                     alt="Youtube"></a>
-                            <a href="https://medium.com/@adenijiolajid01" target="_blank" rel="noopener noreferrer"><img src="images/socials/meduim.svg"
+                            <a href="https://medium.com/@adenijiolajid01" target="_blank" rel="noopener noreferrer"><img src="{% static 'home/images/socials/meduim.svg' %}"
                                     alt="Meduim"></a>
                         </div>
                         <span class="text-secondary fw-lighter fs-6">Safe, Simulated, Seamless Transactions</span>
@@ -224,7 +163,7 @@
                         </a>
                     </nav>
                 </div>
-                <div class="col"><img src="images/olajide.jfif" alt="" class="rounded-circle mb-5 my_pics"><span
+                <div class="col"><img src="{% static 'home/images/olajide.jfif' %}" alt="" class="rounded-circle mb-5 my_pics"><span
                         class="row h6 float-end">Lagos Nigeria <br> @2023 All
                         rights
                         reserved</span></div>

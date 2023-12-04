@@ -42,6 +42,7 @@ AUTH_USER_MODEL = 'users.User'
 INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
+    'home.apps.HomeConfig',
     'users.apps.UsersConfig',
     'accounts.apps.AccountsConfig',
     'credit_cards.apps.CreditCardsConfig',
@@ -179,3 +180,7 @@ CORS_ALLOW_HEADERS = [
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+LOGOUT_REDIRECT_URL = "http://localhost:5500/home/"
+
+LOGIN_REDIRECT_URL = '/users/dashboard/'
