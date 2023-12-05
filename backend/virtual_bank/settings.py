@@ -181,6 +181,8 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-LOGOUT_REDIRECT_URL = "http://localhost:5500/home/"
+LOGOUT_REDIRECT_URL = "home:homepage"
 
-LOGIN_REDIRECT_URL = '/users/dashboard/'
+LOGIN_REDIRECT_URL = 'users:dashboard'
+
+LOGIN_URL = 'users:login'

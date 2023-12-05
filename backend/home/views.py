@@ -4,5 +4,5 @@ from django.views.generic import View, TemplateView
 class HomePage(TemplateView):
     template_name = "home/index.html"
 
-    def get(self, request):
-        return render(request, self.template_name)
+class AboutPage(TemplateView):
+    template_name = "home/about.html"

@@ -30,8 +30,8 @@
 
 <body class="bs5-bg card">
     <aside class="background position-absolute top-0 z-n1 w-100 h-100">
-        <div class="bg-top">
-
+        <div class="{% if request.resolver_match.url_name == 'homepage' %}bg-top{% else %}bg-top-2{% endif %}
+         text-primary">
         </div>
         <div class="bg-bottom position-absolute bottom-0">
 
@@ -40,13 +40,15 @@
     <header class="container-fluid text-white mt-1">
         <div class="row align-items-center d-none d-md-flex">
             <div class="col-12 col-sm-auto text-center">
+            <a href="{% url 'home:homepage' %}" style="text-decoration: none;">
                 <h1 class="logo d-flex fs-4"><img src="{% static 'home/images/virtual bank logo.svg' %}" alt="logo" class="w-100">Virtual
                     Bank
-                </h1> <!--place holder-->
+                </h1>
+            </a>
             </div>
             <div class="col-12 col-md d-flex justify-content-center justify-content-md-end">
                 <nav>
-                    <a href="#" class="text-decoration-none text-white mx-2 link-secondary">About Us</a>
+                    <a href="{% url 'home:about' %}" class="text-decoration-none text-white mx-2 link-secondary">About Us</a>
                     <a href="#" class="text-decoration-none text-white mx-2 link-secondary">Contact Us</a>
                     <a href="#" class="text-decoration-none text-white mx-2 link-secondary">Developers</a>
                     <a href="#" class="text-decoration-none text-white mx-2 link-secondary">Guides</a>
