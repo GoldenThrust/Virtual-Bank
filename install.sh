@@ -14,6 +14,9 @@ cd Virtual-Bank
 python3 -m venv venv
 source venv/bin/activate
 
+# install pip
+sudo apt install python3-pip
+
 # Upgrade pip and install requirements within the virtual environment
 python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
