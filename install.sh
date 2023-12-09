@@ -10,6 +10,9 @@ sudo apt-get -y install postgresql
 git clone https://github.com/GoldenThrust/Virtual-Bank.git
 cd Virtual-Bank
 
+# install Python virtual environmen
+sudo apt install python3.8-venv
+
 # Create a Python virtual environment and activate it
 python3 -m venv venv
 source venv/bin/activate

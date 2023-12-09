@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Bank Transactions History</title>
+</head>
+<body>
+    <h1>Virtual Bank Transactions History</h1>
+    <div id="transactionHistory"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const apiEndpoint = 'http://www.virtualbank.tech/api/v1/transactions/history/';
+
+            // Fetch data from the API
+            fetch(apiEndpoint, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Basic bWF4X21pbGxlcjptYXhtMTIzNA==',
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the data on the website
+                const transactionHistoryElement = document.getElementById('transactionHistory');
+
+                if (data && data.length > 0) {
+                    const transactionList = document.createElement('ul');
+
+                    data.forEach(req => {
+                        const transactionItem = document.createElement('li');
+                        console.log(req);
+                        transactionItem.textContent = `Transaction ID: ${req.transaction.id}, Amount: ${req.transaction.amount}, Type: ${req.transaction.transaction_type}, Date: ${req.transaction.date}`;
+                        transactionList.appendChild(transactionItem);
+                    });
+
+                    transactionHistoryElement.appendChild(transactionList);
+                } else {
+                    transactionHistoryElement.textContent = 'No transactions found.';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+        });
+    </script>
+</body>
+</html>
