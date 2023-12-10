@@ -139,22 +139,22 @@ The Virtual Bank API provides several endpoints for handling transactions.
 - **Description:** Retrieves a list of users.
 - **Method:** GET, POST
 - **Authorization:** Basic base64(username:password)
-- **Body:**
-       ```json           
-            {
-                "username": "your_username",
-                "password": "your_password",
-                "first_name": "your_first_name",
-                "last_name": "your_last_name",
-                "email": "your_email",
-                "address": "your_address",
-                "city": "your_city",
-                "state": "your_state",
-                "country": "your_country",
-                "date_of_birth": "your_date_of_birth",
-                "phone_number": "your_phone_number",
-            },
-        ```
+- **Body:**  
+    ```json
+    {
+        "username": "your_username",
+        "password": "your_password",
+        "first_name": "your_first_name",
+        "last_name": "your_last_name",
+        "email": "your_email",
+        "address": "your_address",
+        "city": "your_city",
+        "state": "your_state",
+        "country": "your_country",
+        "date_of_birth": "your_date_of_birth",
+        "phone_number": "your_phone_number"
+    }
+    ```
 
 #### User Detail (Admin Only)
 - **Endpoint:** `/api/v1/users/<int:pk>/`
@@ -168,6 +168,21 @@ The Virtual Bank API provides several endpoints for handling transactions.
 - **Method:** POST
 - **Authorization:** None (No authentication required)
 - **Body:**
+    ```json
+    {
+        "username": "your_username",
+        "password": "your_password",
+        "first_name": "your_first_name",
+        "last_name": "your_last_name",
+        "email": "your_email",
+        "address": "your_address",
+        "city": "your_city",
+        "state": "your_state",
+        "country": "your_country",
+        "date_of_birth": "your_date_of_birth",
+        "phone_number": "your_phone_number"
+    }
+    ```
 
 #### User Update
 - **Endpoint:** `/api/v1/users/update/`
@@ -195,6 +210,14 @@ The Virtual Bank API provides several endpoints for handling transactions.
 - **Method:** GET, POST
 - **Authorization:** Basic base64(username:password)
 - **Body:**
+    ```json
+    {
+        "name": "account_name",
+        "account_type": "[CURRENT, SAVINGS]",
+        "balance": "Initial Balance",
+        "currency": "[USD, EUR, GBP, NGN]"
+    }
+    ```
 
 #### Account Detail (Admin Only)
 - **Endpoint:** `/api/v1/accounts/<int:pk>/`
@@ -213,7 +236,15 @@ The Virtual Bank API provides several endpoints for handling transactions.
 - **Description:** Creates a new account.
 - **Method:** POST
 - **Authorization:** Basic base64(username:password)
-- **Body:**
+- **Body:** 
+    ```json
+    {
+        "name": "account_name",
+        "account_type": "[CURRENT, SAVINGS]",
+        "balance": "Initial Balance",
+        "currency": "[USD, EUR, GBP, NGN]"
+    }
+    ```
 
 #### Account Details 
 - **Endpoint:** `/api/v1/accounts/details/<int:number>/`
@@ -228,7 +259,6 @@ The Virtual Bank API provides several endpoints for handling transactions.
 - **Description:** Retrieves a list of debit cards.
 - **Method:** GET, POST
 - **Authorization:** Basic base64(username:password)
-- **Body:**
 
 #### Debit Card Detail (Admin Only)
 - **Endpoint:** `/api/v1/debit_cards/<int:pk>/`
@@ -278,12 +308,21 @@ The Virtual Bank API provides several endpoints for handling transactions.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
 
-#### Debit Card Receive Payment 
-- **Endpoint:** `/api/v1/debit_cards/receive_payment/`
-- **Description:** Processes payment receipts for debit cards.
+#### Debit Card Payment 
+- **Endpoint:** `/api/v1/debit_cards/payment/`
+- **Description:** Processes payment for debit cards.
 - **Method:** POST
 - **Authorization:** Basic base64(username:password)
 - **Body:**
+    ```json
+        {
+            "account_number": "your_account_number",
+            "card_number": "debit_card_number",
+            "expiry_date": "debit_card_expiry_date (e.g month/year)",
+            "cvv": "debit_card_cvv",
+            "amount": "transaction_amount"
+        }
+    ```
 
 ### Deposits
 
@@ -292,7 +331,6 @@ The Virtual Bank API provides several endpoints for handling transactions.
 - **Description:** Retrieves a list of deposits.
 - **Method:** GET, POST
 - **Authorization:** Basic base64(username:password)
-- **Body:**
 
 #### Deposit Detail (Admin Only)
 - **Endpoint:** `/api/v1/deposits/<int:pk>/`
@@ -306,6 +344,12 @@ The Virtual Bank API provides several endpoints for handling transactions.
 - **Method:** POST
 - **Authorization:** Basic base64(username:password)
 - **Body:**
+    ```json
+    {
+        "account_number": "your_account_number",
+        "amount": "transaction_amount",
+    }
+    ```
 
 #### User Deposits List 
 - **Endpoint:** `/api/v1/deposits/lists/`
@@ -340,6 +384,24 @@ The Virtual Bank API provides several endpoints for handling transactions.
 - **Method:** POST
 - **Authorization:** Basic base64(username:password)
 - **Body:**
+```json
+    {
+        "account_number": "your_account_number",
+        "description": "Delicious Italian cuisine with a cozy atmosphere.",
+        "category": "Restaurant",
+        "payment_methods_accepted": "[CREDIT_CARD, DEPOSIT, TRANSFER]",
+        "business_hours": {
+            "Monday": "9:00 AM - 10:00 PM",
+            "Tuesday": "9:00 AM - 10:00 PM",
+            "Wednesday": "9:00 AM - 10:00 PM",
+            "Thursday": "9:00 AM - 10:00 PM",
+            "Friday": "9:00 AM - 11:00 PM",
+            "Saturday": "10:00 AM - 11:00 PM",
+            "Sunday": "Closed"
+        },
+        "website_url": "https://example-restaurant.com"
+    }
+```
 
 #### Merchant Details 
 - **Endpoint:** `/api/v1/merchants/details/`
@@ -354,7 +416,6 @@ The Virtual Bank API provides several endpoints for handling transactions.
 - **Description:** Retrieves a list of notifications.
 - **Method:** GET, POST
 - **Authorization:** Basic base64(username:password)
-- **Body:**
 
 #### Notification Detail (Admin Only)
 - **Endpoint:** `/api/v1/notifications/<int:pk>/`
@@ -381,7 +442,6 @@ The Virtual Bank API provides several endpoints for handling transactions.
 - **Description:** Retrieves a list of transactions.
 - **Method:** GET, POST
 - **Authorization:** Basic base64(username:password)
-- **Body:**
 
 #### Transaction Detail (Admin Only)
 - **Endpoint:** `/api/v1/transactions/<int:pk>/`
@@ -408,7 +468,6 @@ The Virtual Bank API provides several endpoints for handling transactions.
 - **Description:** Retrieves a list of transfers.
 - **Method:** GET, POST
 - **Authorization:** Basic base64(username:password)
-- **Body:**
 
 #### Transfer Detail (Admin Only)
 - **Endpoint:** `/api/v1/transfers/<int:pk>/`
@@ -422,6 +481,13 @@ The Virtual Bank API provides several endpoints for handling transactions.
 - **Method:** POST
 - **Authorization:** Basic base64(username:password)
 - **Body:**
+```json
+    {
+        "account_number": "your account number",
+        "transaction_partner_account_number": "recipient's account number",
+        "amount": "transaction_amount"
+    }
+``` 
 
 #### User Transfer List 
 - **Endpoint:** `/api/v1/transfers/lists/`

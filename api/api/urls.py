@@ -56,7 +56,7 @@ urlpatterns = [
     path('debit_cards/details/<int:number>/', debit_cards_views.UserDebitCardDetail.as_view(), name='user_debit_cards_detail'),
     path('debit_cards_transactions/lists/', debit_cards_views.UserTransactionDebitCardList.as_view(), name='user_debit_cards_transactions_lists'),
     path('debit_cards_transactions/details/<uuid:identifier>/', debit_cards_views.UserTransactionDebitCardDetail.as_view(), name='user_debit_cards_transactions_detail'),
-    path('debit_cards/recieve_payment/', transactions_views.TransactionDebitCardCreate.as_view(), name='user_debit_cards_transactions'),
+    path('debit_cards/payment/', transactions_views.TransactionDebitCardCreate.as_view(), name='user_debit_cards_transactions'),
 
     # deposits urlpattern (admin only)
     path('deposits/', deposits_views.DepositList.as_view(), name='deposits_list'),
