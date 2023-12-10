@@ -10,7 +10,7 @@ Welcome to the Virtual Bank project! This web application and API were created t
   - [Twitter](https://twitter.com/Goldenthrust3)
 - [**Final Project Blog Article**](Pending)
 
-![Virtual Bank](./screenshot/virtualbank-homepage.gif)
+![Virtual Bank](./screenshot/github%20nitro.gif)
 
 ## Installation
 
@@ -519,10 +519,6 @@ Explore other related projects that offer real-world payment solutions:
 - [PayPal Developer](https://developer.paypal.com/): PayPal's official checkout SDK for integrating PayPal payments into your applications.
 
 These projects provide robust and secure payment solutions that go beyond dummy data, suitable for real-world applications and e-commerce platforms.
-
-
-## How the project come to live
-> This section is under construction. Stay tuned for insights into the project's inception, development challenges, and interesting anecdotes!
 
 ## Note
 **Please Note**: This README is a work in progress. It may undergo changes or become more comprehensive over time as the project evolves.
