@@ -4,7 +4,7 @@
 
 Welcome to the Virtual Bank project! This web application and API were created to provide developers with a platform for simulating banking transactions. Whether you're testing e-commerce websites or exploring payment integrations, our project allows you to experiment without using real bank APIs. Built on Django, it offers a range of functionalities tailored for transaction simulation.
 
-- [**Website**](http://www.virtualbank.tech/)
+- [**Website**](https://www.virtualbank.tech/)
 - **Author:** Adeniji Olajide 
   - [LinkedIn](https://www.linkedin.com/in/olajide-adeniji-0286a32a2/)
   - [Twitter](https://twitter.com/Goldenthrust3)
@@ -126,7 +126,7 @@ To start the development server:
 
 Once the servers are running, access the application in your browser at http://localhost:8000/.
 
-Additionally, the application is accessible on the official website - [Virtual Bank](http://www.virtualbank.tech).
+Additionally, the application is accessible on the official website - [Virtual Bank](https://www.virtualbank.tech).
 
 
 ## API Endpoints
