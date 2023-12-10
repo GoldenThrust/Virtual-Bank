@@ -18,21 +18,21 @@ app_name = 'api'
 urlpatterns = [
     # path('', views, name='home'),
 
-    # users urlpattern
+    # users urlpattern (admin only)
     path('users/', users_views.UserList.as_view(), name='users_list'),
     path('users/<int:pk>/', users_views.UserDetail.as_view(), name='users_detail'),
 
-    # user api url
-    path('users/create/', users_views.UserCreate.as_view(), name='user_create'),
+    # (public API url)
+    path('users/create/', users_views.UserCreate.as_view(), name='user_create'), # no need to provide authorization key.
     path('users/update/', users_views.UserUpdate.as_view(), name='user_update'),
     path('users/info/', users_views.UserGet.as_view(), name='user_get'),
     path('users/lists/', users_views.UserUserList.as_view(), name='user_list' ),
 
-    # accounts urlpattern
+    # accounts urlpattern  (admin only)
     path('accounts/', accounts_views.AccountList.as_view(), name='accounts_list'),
     path('accounts/<int:pk>/', accounts_views.AccountDetail.as_view(), name='accounts_detail'),
 
-    # user api url
+    # (public API url)
     path('accounts/lists/', accounts_views.UserAccountList.as_view(), name='account_list'),
     path('accounts/create/', accounts_views.AccountCreate.as_view(), name='account_create'),
     path('accounts/details/<int:number>/', accounts_views.UserAccountDetail.as_view(), name='user_account_detail'),
@@ -44,42 +44,42 @@ urlpatterns = [
     # path('credit_cards/details/<int:number>/', credit_cards_views.UserCreditCardDetail.as_view(), name='user_credit_cards_detail'),
     # path('credit_cards/create/', transactions_views.CreditCardCreate.as_view(), name='credit_cards_create'),
 
-    # debit_cards urlpattern
+    # debit_cards urlpattern  (admin only)
     path('debit_cards/', debit_cards_views.DebitCardList.as_view(), name='debit_cards'),
     path('debit_cards/<int:pk>/', debit_cards_views.DebitCardDetail.as_view(), name='debit_cards_detail'),
     path('debit_cards_transactions/', debit_cards_views.TransactionDebitCard.as_view(), name='debit_cards_transactions'),
     path('debit_cards_transactions/<int:pk>', debit_cards_views.TransactionDebitCardDetail.as_view(), 
     name='debit_cards_transactions_detail'),
 
-    # user api url
+    # (public API url)
     path('debit_cards/lists/', debit_cards_views.UserDebitCardList.as_view(), name='debit_cards_list'),
     path('debit_cards/details/<int:number>/', debit_cards_views.UserDebitCardDetail.as_view(), name='user_debit_cards_detail'),
     path('debit_cards_transactions/lists/', debit_cards_views.UserTransactionDebitCardList.as_view(), name='user_debit_cards_transactions_lists'),
     path('debit_cards_transactions/details/<uuid:identifier>/', debit_cards_views.UserTransactionDebitCardDetail.as_view(), name='user_debit_cards_transactions_detail'),
     path('debit_cards/recieve_payment/', transactions_views.TransactionDebitCardCreate.as_view(), name='user_debit_cards_transactions'),
 
-    # deposits urlpattern
+    # deposits urlpattern (admin only)
     path('deposits/', deposits_views.DepositList.as_view(), name='deposits_list'),
     path('deposits/<int:pk>/', deposits_views.DepositDetail.as_view(), name='deposits_detail'),
 
-    # user api url
+    # (public API url)
     path('deposits/create/', transactions_views.TransactionDepositCreate.as_view(), name='deposit_create'),
     path('deposits/lists/', deposits_views.UserDepositList.as_view(), name='user_deposits_list'),
     path('deposits/details/<uuid:identifier>/', deposits_views.UserDepositDetail.as_view(), name='user_deposits_detail'),
 
-    # merchants urlpattern
+    # merchants urlpattern (admin only)
     path('merchants/', merchants_views.MerchantList.as_view(), name='merchants_list'),
     path('merchants/<int:pk>/', merchants_views.MerchantDetail.as_view(), name='merchants_detail'),
 
-    # user api url
+    # (public API url)
     path('merchants/create/', merchants_views.MerchantCreate.as_view(), name='merchants_create'),
     path('merchants/details/', merchants_views.MerchantDetails.as_view(), name='merchants_details'),
 
-    # notifications urlpattern
+    # notifications urlpattern (admin only)
     path('notifications/', notifications_views.NotificationList.as_view(), name='notifications_list'),
     path('notifications/<int:pk>/', notifications_views.NotificationDetail.as_view(), name='notifications_detail'),
 
-    # user api url
+    # (public API url)
     path('notifications/lists/', notifications_views.UserNotificationList.as_view(), name='user_notifications_list'),
     path('notifications/lists/<type>/', notifications_views.UserNotificationDetailList.as_view(), name='user_notifications_details_list'),
     path('notifications/lists/<type>/<int:notification_number>/', notifications_views.UserNotificationDetailListDetail.as_view(), name='user_notifications_details_list_detail'),
@@ -89,19 +89,19 @@ urlpatterns = [
     # path('payments/', payments_views.PaymentList.as_view(), name='payments_list'),
     # path('payments/<int:pk>/', payments_views.PaymentDetail.as_view(), name='payments_detail'),
 
-    # transactions urlpattern
+    # transactions urlpattern (admin only)
     path('transactions/', transactions_views.TransactionList.as_view(), name='transactions_list'),
     path('transactions/<int:pk>/', transactions_views.TransactionDetail.as_view(), name='transactions_detail'),
 
-    # user api url
+    # (public API url)
     path('transactions/history/', transactions_views.TransactionHistory.as_view(), name='transactions_detail'),
     path('transactions/history/<uuid:identifier>/', transactions_views.UserTransactionDetail.as_view(), name='transactions_detail'),
 
-    # transfers urlpattern
+    # transfers urlpattern (admin only)
     path('transfers/', transfers_views.TransferList.as_view(), name='transfers_list'),
     path('transfers/<int:pk>/', transfers_views.TransferDetail.as_view(), name='transfers_detail'),
 
-    # user api url
+    # (public API url)
     path('transfers/create/', transactions_views.TransactionTransferCreate.as_view(), name='transfers_create'),
     path('transfers/lists/', transfers_views.UserTransferList.as_view(), name='users_transfer_list'),
     path('transfers/details/<uuid:identifier>/', transfers_views.UserTransferDetails.as_view(), name='users_transfers_detail'),
