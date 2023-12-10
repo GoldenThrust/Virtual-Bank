@@ -10,7 +10,7 @@ Welcome to the Virtual Bank project! This web application and API were created t
   - [Twitter](https://twitter.com/Goldenthrust3)
 - [**Final Project Blog Article**](Pending)
 
-![Virtual Bank](./screenshot/github%20nitro.gif)
+![Virtual Bank Homepage](screenshot/virtualbank-homepage.gif)
 
 ## Installation
 
