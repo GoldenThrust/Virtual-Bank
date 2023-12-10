@@ -87,9 +87,9 @@ These projects provide robust and secure payment solutions that go beyond dummy 
 
 ## How the project come to live
 > This section is under construction. Stay tuned for insights into the project's inception, development challenges, and interesting anecdotes!
-### Note
 
-*Please Note*: This README is a work in progress. It may undergo changes or become more comprehensive over time as the project evolves.
+## Note
+**Please Note**: This README is a work in progress. It may undergo changes or become more comprehensive over time as the project evolves.
 
 ## Licensing
 The Virtual Bank project is licensed under the MIT License, ensuring open-source availability and contributions from the community.
