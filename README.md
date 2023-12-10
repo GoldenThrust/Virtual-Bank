@@ -2,13 +2,13 @@
 
 ## Introduction
 
-Welcome to the Virtual Bank project, a web application and API designed for simulating banking transactions. This project allows developers to test e-commerce website transactions before implementing real bank APIs. The application is built using Django and provides a comprehensive set of functionalities for transaction simulation.
+Welcome to the Virtual Bank project! This web application and API were created to provide developers with a platform for simulating banking transactions. Whether you're testing e-commerce websites or exploring payment integrations, our project allows you to experiment without using real bank APIs. Built on Django, it offers a range of functionalities tailored for transaction simulation.
 
 - [**Live Demo**](http://www.virtualbank.tech/)
 - [**Final Project Blog Article**](#)
 - **Author:** Adeniji Olajide ([LinkedIn](https://www.linkedin.com/in/olajide-adeniji-0286a32a2/)) ([Twitter](https://twitter.com/Goldenthrust3))
 
-![Virtual Bank](screenshot/landing-page.png)
+![Virtual Bank](screenshot/virtualbank-homepage.gif)
 
 ## Installation
 
@@ -30,8 +30,14 @@ To set up the Virtual Bank project locally, follow these steps:
     DB_USER=your_db_username
     DB_PASSWORD=your_db_password
     ```
-    Configure your PostgreSQL database by creating a user with the provided credentials (DB_USER and DB_PASSWORD).
-    If you need help setting up PostgreSQL, you can refer to the [official documentation](https://www.postgresql.org/docs/current/tutorial-start.html).
+
+4. Configure your database:
+    - Default Configuration (PostgreSQL):
+        - Configure your PostgreSQL database by creating a user with the provided credentials (DB_USER and DB_PASSWORD).
+        If you need help setting up PostgreSQL, you can refer to the [official documentation](https://www.postgresql.org/docs/current/tutorial-start.html).
+    - Other Databases:
+        - For different databases, refer to the [Django documentation](https://docs.djangoproject.com/en/5.0/ref/databases/) on database setup.
+
 4. Run migrations
     - API
     ```bash
@@ -80,10 +86,10 @@ These projects provide robust and secure payment solutions that go beyond dummy 
 
 
 ## How the project come to live
-> comming soon
+> This section is under construction. Stay tuned for insights into the project's inception, development challenges, and interesting anecdotes!
+### Note
 
+*Please Note*: This README is a work in progress. It may undergo changes or become more comprehensive over time as the project evolves.
 
 ## Licensing
-The Virtual Bank project is licensed under the MIT License.
-
->>>>>>> 0aeb55d03a7e735e7183f7268905656072c39e34
+The Virtual Bank project is licensed under the MIT License, ensuring open-source availability and contributions from the community.
