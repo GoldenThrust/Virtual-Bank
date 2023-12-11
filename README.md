@@ -83,7 +83,7 @@ To start the development server:
 
     **Create User:**
     ```bash
-    curl -X POST http://localhost/api/v1/users/create/ -H 'Content-Type: application/json;' -d '{
+    curl -X POST http://localhost:8000/api/v1/users/create/ -H 'Content-Type: application/json;' -d '{
         "username": "max_miller",
         "password": "maxm1234",
         "first_name": "Max",
@@ -109,7 +109,7 @@ To start the development server:
 
     **Create Account:**
     ```bash
-    curl -X POST http://localhost/api/v1/accounts/create/ -H 'Content-Type: application/json; Authorization: Basic bWF4X21pbGxlcjptYXhtMTIzNA==' -d '{
+    curl -X POST http://localhost:8000/api/v1/accounts/create/ -H 'Content-Type: application/json; Authorization: Basic bWF4X21pbGxlcjptYXhtMTIzNA==' -d '{
         "name": "Biznumd",
         "account_type": "CURRENT",
         "balance": 7500,
