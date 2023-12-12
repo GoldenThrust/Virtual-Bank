@@ -8,7 +8,7 @@ Welcome to the Virtual Bank project! This web application and API were created t
 - **Author:** Adeniji Olajide 
   - [LinkedIn](https://www.linkedin.com/in/olajide-adeniji-0286a32a2/)
   - [Twitter](https://twitter.com/Goldenthrust3)
-- [** Project Blog Article**](https://medium.com/@adenijiolajid01/welcome-to-virtual-bank-your-simulated-banking-platform-0b76bd3007e6)
+- [**Project Blog Article**](https://medium.com/@adenijiolajid01/welcome-to-virtual-bank-your-simulated-banking-platform-0b76bd3007e6)
 
 ![Virtual Bank Homepage](screenshot/virtualbank-homepage.gif)
 
