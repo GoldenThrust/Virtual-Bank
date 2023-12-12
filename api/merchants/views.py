@@ -36,6 +36,7 @@ class MerchantCreate(generics.CreateAPIView):
             raise exceptions.NotFound()
 
         if account.user != user:
+            # notification
             notification_message = f'An attempt was made by {user_name} to create a merchant account using your account number ({account.number}).'
             process_notifications(account.user, 'security_notification', notification_message)
             raise exceptions.NotFound()
@@ -45,6 +46,8 @@ class MerchantCreate(generics.CreateAPIView):
             raise exceptions.PermissionDenied("Merchant Account Exists")
 
         serializer.save(account=account)
+
+        # notification
         notification_message = f'Merchant account has been successfully created. The account number ({account.number}) is now linked to a merchant account.'
         process_notifications(user, 'user_notification', notification_message)
 
@@ -67,10 +70,14 @@ class MerchantDetails(generics.RetrieveUpdateDestroyAPIView):
         if serializer.validated_data['account_number']:
             serializer.validated_data.pop('account_number')
         serializer.save(account__user=self.request.user)
+
+        # notification
         notification_message  = 'Merchant Account updated successfully'
         process_notifications(self.request.user, 'user_notification', notification_message)
 
     def perform_destroy(self, instance):
         instance.delete()
+
+        # notification
         notification_message  = 'Merchant Account deleted successfully'
         process_notifications(self.request.user, 'user_notification', notification_message)

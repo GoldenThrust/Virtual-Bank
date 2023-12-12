@@ -33,6 +33,8 @@ class AccountCreate(generics.CreateAPIView):
         account_type = self.request.data.get("account_type")
 
         account = serializer.save(user=self.request.user)
+
+        # notification
         notification_message  = 'A new Account has been successfully created.'
         process_notifications(self.request.user, 'account_notification', notification_message)
 
@@ -44,6 +46,8 @@ class AccountCreate(generics.CreateAPIView):
             debit_card.cvv = generate_cvv(card_number, expiry_date)
             debit_card.expiration_date = expiry_date
             debit_card.save()
+
+             # notification
             notification_message = f'A debit card has been successfully created for your account ({account.number}).'
             process_notifications(self.request.user, 'account_notification', notification_message)
 
@@ -77,10 +81,14 @@ class UserAccountDetail(generics.RetrieveUpdateDestroyAPIView):
         serializer.validated_data.pop('balance', None)
         serializer.validated_data.pop('currency', None)
         serializer.save(user=self.request.user)
+
+        # notification
         notification_message = 'Account updated successfully'
         process_notifications(self.request.user, 'account_notification', notification_message)
 
     def perform_destroy(self, instance):
         instance.delete()
+
+        # notification
         notification_message  = 'Account deleted successfully'
         process_notifications(self.request.user, 'account_notification', notification_message)

@@ -52,6 +52,8 @@ class UserCreate(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(ip_address=self.user_ip)
+
+        # notification
         notification_message = f"{serializer.validated_data['first_name']} {serializer.validated_data['last_name']} has joined the system"
         process_notifications("admin", "user_notification", notification_message)
 
@@ -82,6 +84,7 @@ class UserUpdate(generics.UpdateAPIView):
         if not user.check_password(password):
             raise AuthenticationFailed("Invalid password")
 
+        # notification
         notification_message = "Your profile information has been successfully updated. Your changes are now reflected in your profile."
         process_notifications("admin", "user_notification", notification_message)
 

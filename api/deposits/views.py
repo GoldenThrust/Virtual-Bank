@@ -49,6 +49,8 @@ class UserDepositDetail(generics.RetrieveAPIView):
             user_name = f'{peek_user.first_name} {peek_user.last_name}'
             if peek_user.is_superuser:
                 user_name = 'Virtual-Bank administrator'
+            
+            # notification
             notification_message = f'{user_name} reviewed the transaction ({self.kwargs["identifier"]}) that was initiated on {transaction_date}.'
             process_notifications(deposit.transaction.account.user, 'security_notification', notification_message)
         return deposit

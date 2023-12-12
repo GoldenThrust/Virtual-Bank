@@ -52,6 +52,8 @@ class UserTransferDetails(generics.RetrieveAPIView):
             user_name = f'{peek_user.first_name} {peek_user.last_name}'
             if peek_user.is_superuser:
                 user_name = 'Virtual-Bank administrator'
+            
+            # notification
             notification_message = f'{user_name} reviewed the transaction ({self.kwargs["identifier"]}) that was initiated on {transaction_date}.'
             process_notifications(transfer_user, 'security_notification', notification_message)
             process_notifications(transaction_partner, 'security_notification', notification_message)

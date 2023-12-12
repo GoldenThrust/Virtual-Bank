@@ -147,11 +147,14 @@ class TransactionTransferCreate(generics.CreateAPIView):
             process_notifications(
                 self.request.user, "transaction_notification", notification_message
             )
+
+            # notification
             notification_message = f"{user_name} has sent {transaction_amount} to your account ({transaction_partner_account.number})."
             process_notifications(
                 transaction_partner_account.user, "transaction_notification", notification_message
             )
         else:
+            # notification
             notification_message = "The transfer could not be completed due to insufficient funds."
             process_notifications(
                 self.request.user, "transaction_notification", notification_message
@@ -277,15 +280,20 @@ class TransactionDebitCardCreate(generics.CreateAPIView):
             process_notifications(
                 card.account.user, "transaction_notification", notification_message
             )
+
+            # notification
             notification_message = f"You've received {transaction_amount} from {transaction_partner_account_name} through a debit card transaction."
             process_notifications(
                 self.request.user, "transaction_notification", notification_message
             )
         else:
+            # notification
             notification_message = f"The debit card transaction from {user_name} could not be completed due to insufficient funds in their account."
             process_notifications(
                 self.request.user, "transaction_notification", notification_message
             )
+
+            # notification
             notification_message = "Your debit card transaction couldn't be completed due to insufficient funds."
             process_notifications(
                 card.account.user, "transaction_notification", notification_message
@@ -354,6 +362,7 @@ class UserTransactionDetail(generics.RetrieveAPIView):
             transaction_date = localtime(transaction.date).strftime('%m/%d/%Y at %I:%M %p')
             user_name = 'Virtual-Bank administrator' if peek_user.is_superuser else f'{peek_user.first_name} {peek_user.last_name}'
 
+            # notification
             notification_message = f'{user_name} reviewed the transaction ({self.kwargs["identifier"]}) that was initiated on {transaction_date}.'
             process_notifications(transaction.account.user, 'security_notification', notification_message)
 
