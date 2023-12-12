@@ -65,7 +65,7 @@ class TransactionDepositCreate(generics.CreateAPIView):
         # Create Deposit
         deposit = Deposit.objects.create(transaction=serializer.instance)
         
-        #notification
+        # notification
         notification_message = f"A deposit of {transaction_amount} has been credited to your account ({account_number})."
         process_notifications(
             self.request.user, "transaction_notification", notification_message
@@ -91,7 +91,7 @@ class TransactionTransferCreate(generics.CreateAPIView):
             # account.user.is_active = False
             # account.user.save()
 
-            #notification
+            # notification
             notification_message = f"{user_name} attempted a transfer using your account ({account.number}). For security purposes, the action has been flagged."
             process_notifications(account.user, "security_notification", notification_message)
             raise exceptions.PermissionDenied("Account does not belong to this user")
@@ -103,7 +103,7 @@ class TransactionTransferCreate(generics.CreateAPIView):
         )
 
         if int(account_number) == int(self.transaction_partner_account_number):
-            #notification
+            # notification
             notification_message = "The transfer could not be completed."
             process_notifications(
                 self.request.user, "transaction_notification", notification_message
@@ -118,7 +118,7 @@ class TransactionTransferCreate(generics.CreateAPIView):
         ).first()
 
         if not transaction_partner_account:
-            #notification
+            # notification
             notification_message = "The transfer could not be completed due to an invalid transaction partner account number."
             process_notifications(
                 self.request.user, "transaction_notification", notification_message
@@ -228,8 +228,8 @@ class TransactionDebitCardCreate(generics.CreateAPIView):
             raise exceptions.PermissionDenied(str(e))
         except ValueError:
             raise exceptions.PermissionDenied("Invalid expiry date")
-
-
+        
+        # validate card number using luhn algorithm
         if luhn_checksum(card_number) != 0:
             raise exceptions.PermissionDenied("Invalid card number")
 
@@ -311,6 +311,7 @@ class TransactionDebitCardCreate(generics.CreateAPIView):
         serialized_data[
             "transaction_partner_name"
         ] = f"{user.first_name} {user.last_name}"
+
         serialized_data["transaction_partner_account_number"] = int(
             self.transaction_partner_account_number
         )
