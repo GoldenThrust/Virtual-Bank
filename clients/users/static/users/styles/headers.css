@@ -1,0 +1,27 @@
+header {
+    height: 50px;
+}
+header .searchbar input {
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+header .accounts {
+    width: 30px;
+}
+
+header .add {
+    width: 15px;
+}
+
+header .search {
+    width: 25px;
+}
+
+header .icon {
+    width: 18px;
+}
+
+header .profile {
+    width: 40px;
+}
