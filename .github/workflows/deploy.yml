@@ -1,4 +1,4 @@
-name: Deploy to Ubuntu Server
+name: Deploy project
 
 on:
   workflow_run:
