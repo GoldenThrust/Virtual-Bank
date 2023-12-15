@@ -11,12 +11,13 @@ from notifications import views as notifications_views
 # from payments import views as payments_views
 from transactions import views as transactions_views
 from transfers import views as transfers_views
+from .views import ListApiUrls
 
 
 app_name = 'api'
 
 urlpatterns = [
-    # path('', views, name='home'),
+    path('', ListApiUrls.as_view(), name='list_api_urls'),
 
     # users urlpattern (admin only)
     path('users/', users_views.UserList.as_view(), name='users_list'),

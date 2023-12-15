@@ -75,7 +75,7 @@
             <a href="#"><img src="{% static 'users/images/developer.png' %}" alt="developer" class="icon" /></a>
             <a href="#"><img src="{% static 'users/images/help.png' %}" alt="help" class="icon" /></a>
             <a href="#"><img src="{% static 'users/images/notification.png' %}" alt="notification" class="icon" /></a>
-            <a href="#"><img src="{{ request.user.profile_picture.url }}" alt="profile" class="profile border border-success rounded-pill" /></a>
+            <a href="#" class="shadow-sm bg-body-tertiary border border-success rounded-pill overflow-hidden"><img src="{{ request.user.profile_picture.url }}" alt="profile" class="profile" /></a>
         </div>
       </header>
       <aside class="border-end d-flex flex-column align-items-center justify-content-between py-4 border-success position-fixed">
