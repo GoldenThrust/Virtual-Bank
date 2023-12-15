@@ -29,4 +29,4 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.IP_ADDRESS }} "cd ~/Virtual-Bank/clients && python3 manage.py collectstatic --noinput"
       - name: restart and reload
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.IP_ADDRESS }} "sudo service nginx restart && sudo pkill -PUH apivirtualbank && sudo pkill -PUH virtualbank "
+          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.IP_ADDRESS }} "sudo service nginx restart && sudo pkill -PUH gunicorn"
