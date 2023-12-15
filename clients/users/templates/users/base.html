@@ -58,10 +58,11 @@
     <link rel="stylesheet" href="{% static 'users/styles/background.css' %}" />
     <link rel="stylesheet" href="{% static 'users/styles/body.css' %}" />
     <link rel="stylesheet" href="{% static 'users/styles/footer.css' %}" />
+    <script type="module" src="{% static 'users/scripts/dashboard.js' %}"></script>
   </head>
   <body>
     {% if request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'login' %}
-      <header class="site-header px-3 d-flex flex-row justify-content-between align-items-center">
+      <header class="site-header px-3 d-flex flex-row justify-content-between align-items-center position-fixed w-100 mt-2">
         <div>
           <span><img src="{% static 'users/images/accounts.png' %}" alt="accounts" class="accounts" /></span>
           <span><img src="{% static 'users/images/add.png' %}" alt="add account" class="add" /></span>
@@ -77,8 +78,17 @@
             <a href="#"><img src="{{ request.user.profile_picture.url }}" alt="profile" class="profile border border-success rounded-pill" /></a>
         </div>
       </header>
+      <aside class="border-end d-flex flex-column align-items-center justify-content-between py-4 border-success position-fixed">
+        <a href="#"><img src="{% static 'users/images/home.png' %}" alt="home" class="icon"></a>
+        <a href="#"><img src="{% static 'users/images/deposits.png' %}" alt="deposits" class="icon"></a>
+        <a href="#"><img src="{% static 'users/images/transfers.png' %}" alt="transfer" class="icon"></a>
+        <a href="#"><img src="{% static 'users/images/debit_card.png' %}" alt="debit card" class="icon"></a>
+        <a href="#"><img src="{% static 'users/images/transactions.png' %}" alt="transaction" class="icon"></a>
+        <a href="#"><img src="{% static 'users/images/history.png' %}" alt="history" class="icon"></a>
+        <a href="#"><img src="{% static 'users/images/notifications.png' %}" alt="notification" class="icon"></a>
+      </aside>
     {% endif %}
-    <main role="main" class="container-fluid">
+    <main class="float-end">
       {% block content %}
 
       {% endblock %}

@@ -23,5 +23,15 @@ header .icon {
 }
 
 header .profile {
-    width: 40px;
+    width: 38px;
+}
+
+aside {
+    width: 60px;
+    height: 80vh;
+    margin: 80px 0;
+}
+
+aside .icon {
+    width: 22px;
 }

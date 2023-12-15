@@ -25,7 +25,7 @@ urlpatterns = [
     # (public API url)
     path('users/create/', users_views.UserCreate.as_view(), name='user_create'), # no need to provide authorization key.
     path('users/update/', users_views.UserUpdate.as_view(), name='user_update'),
-    path('users/info/', users_views.UserGet.as_view(), name='user_get'),
+    path('users/info/', users_views.UserGet.as_view(), name='user_info'),
     path('users/lists/', users_views.UserUserList.as_view(), name='user_list' ),
 
     # accounts urlpattern  (admin only)

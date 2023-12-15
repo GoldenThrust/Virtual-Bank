@@ -1,0 +1,32 @@
+name: Deploy to Ubuntu Server
+
+on:
+  push:
+    branches:
+      - main  # Change this to your main branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install SSH key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to server
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.IP_ADDRESS }} "cd ~/Virtual-Bank && git pull origin main"
+      - name: collect api static
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.IP_ADDRESS }} "cd ~/Virtual-Bank/api && python3 manage.py collectstatic"
+      - name: collect clients static
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.IP_ADDRESS }} "cd ~/Virtual-Bank/clients && python3 manage.py collectstatic"
+      - name: restart and reload
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.IP_ADDRESS }} "sudo service nginx restart && sudo pkill -PUH apivirtualbank && sudo pkill -PUH virtualbank "
