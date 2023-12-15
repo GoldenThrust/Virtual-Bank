@@ -1,12 +1,14 @@
 name: Deploy to Ubuntu Server
 
 on:
-  push:
-    branches:
-      - main  # Change this to your main branch name
+  workflow_run:
+    workflows: ["Django CI"]
+    types:
+      - completed
 
 jobs:
   deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -20,14 +22,16 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.IP_ADDRESS }} "cd ~/Virtual-Bank && git pull origin main"
-      - name: collect api static
+          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.IP_ADDRESS }} "cd ~/Virtual-Bank && git pull origin main" || exit 1
+
+      - name: Collect API static
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.IP_ADDRESS }} "cd ~/Virtual-Bank/api && python3 manage.py collectstatic --noinput"
-      - name: collect clients static
+          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.IP_ADDRESS }} "cd ~/Virtual-Bank/api && python3 manage.py collectstatic --noinput" || exit 1
+
+      - name: Collect clients static
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.IP_ADDRESS }} "cd ~/Virtual-Bank/clients && python3 manage.py collectstatic --noinput"
-      - name: restart and reload
+          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.IP_ADDRESS }} "cd ~/Virtual-Bank/clients && python3 manage.py collectstatic --noinput" || exit 1
+
+      - name: Restart and reload
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.IP_ADDRESS }} "sudo service nginx restart && pkill -HUP -f gunicorn
-          "
+          ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.IP_ADDRESS }} "sudo service nginx restart && pkill -HUP -f gunicorn" || exit 1
