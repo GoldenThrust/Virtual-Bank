@@ -1,11 +1,7 @@
 header {
     height: 50px;
 }
-header .searchbar input {
-    outline: none;
-    border: none;
-    background-color: transparent;
-}
+
 header .accounts {
     width: 30px;
 }
@@ -24,6 +20,12 @@ header .icon {
 
 header .profile {
     width: 38px;
+}
+
+header .account_name
+
+header .account_name {
+    font-size: 15px;
 }
 
 aside {

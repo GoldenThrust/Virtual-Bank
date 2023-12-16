@@ -4,16 +4,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="{% static 'home/images/virtual bank logo.svg' %}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{% static 'home/images/logo.svg' %}" type="image/x-icon" />
 
     <meta charset="UTF-8" />
     <meta http-equiv="content-language" content="en-US" />
     <meta name="author" content="Adeniji Olajide" />
     <meta name="publisher" content="Adeniji Olajide" />
     <meta name="copyright" content="Adeniji Olajide" />
-    <meta name="keywords" content="transaction, banking simulation, financial transaction, developer test, test developers, virtual transaction, bank simulator online, simulator bank, planning and presentation, planning development, planning in presentation skills, planning presentation skills, web development bootcamp,
-        computer programming,
-        programmer, plan your presentation" />
+    <meta name="keywords" content="transaction, banking simulation, financial transaction, developer test, test developers, virtual transaction, bank simulator online, simulator bank, planning and presentation, planning development, planning in presentation skills, planning presentation skills, web development bootcamp, computer programming, programmer, plan your presentation" />
     <meta name="description" content="Welcome to the Virtual Bank project! This innovative web application and API were meticulously crafted to serve as a versatile platform for developers seeking to simulate banking transactions. Whether you’re testing e-commerce websites, exploring payment integrations, or developing financial applications, Virtual Bank offers a robust environment for experimentation without the need for real bank APIs." />
     <meta name="page-type" content="banking simulation," />
     <meta name="audience" content="Everyone" />
@@ -61,41 +59,9 @@
     <script type="module" src="{% static 'users/scripts/dashboard.js' %}"></script>
   </head>
   <body>
-    {% if request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'login' %}
-      <header class="site-header px-3 d-flex flex-row justify-content-between align-items-center position-fixed w-100 mt-2">
-        <div>
-          <span><img src="{% static 'users/images/accounts.png' %}" alt="accounts" class="accounts" /></span>
-          <span><img src="{% static 'users/images/add.png' %}" alt="add account" class="add" /></span>
-        </div>
-        <div class="searchbar border border-success rounded-pill p-2 h-75 w-50 d-flex align-items-center">
-          <img src="{% static 'users/images/searchicon.png' %}" alt="search icon" class="search" />
-          <input type="text" class="rounded-end-pill w-100" />
-        </div>
-        <div class="w-15 d-flex justify-content-between align-items-center">
-            <a href="#"><img src="{% static 'users/images/developer.png' %}" alt="developer" class="icon" /></a>
-            <a href="#"><img src="{% static 'users/images/help.png' %}" alt="help" class="icon" /></a>
-            <a href="#"><img src="{% static 'users/images/notification.png' %}" alt="notification" class="icon" /></a>
-            <a href="#" class="shadow-sm bg-body-tertiary border border-success rounded-pill overflow-hidden"><img src="{{ request.user.profile_picture.url }}" alt="profile" class="profile" /></a>
-        </div>
-      </header>
-      <aside class="border-end d-flex flex-column align-items-center justify-content-between py-4 border-success position-fixed">
-        <a href="#"><img src="{% static 'users/images/home.png' %}" alt="home" class="icon"></a>
-        <a href="#"><img src="{% static 'users/images/deposits.png' %}" alt="deposits" class="icon"></a>
-        <a href="#"><img src="{% static 'users/images/transfers.png' %}" alt="transfer" class="icon"></a>
-        <a href="#"><img src="{% static 'users/images/debit_card.png' %}" alt="debit card" class="icon"></a>
-        <a href="#"><img src="{% static 'users/images/transactions.png' %}" alt="transaction" class="icon"></a>
-        <a href="#"><img src="{% static 'users/images/history.png' %}" alt="history" class="icon"></a>
-        <a href="#"><img src="{% static 'users/images/notifications.png' %}" alt="notification" class="icon"></a>
-      </aside>
-    {% endif %}
-    <main class="float-end">
       {% block content %}
 
       {% endblock %}
-    </main>
-    {% if request.resolver_match.url_name != 'register' and request.resolver_match.url_name != 'login' %}
-      <footer></footer>
-    {% endif %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
   </body>
 </html>

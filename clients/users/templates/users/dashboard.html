@@ -1,5 +1,20 @@
-{% extends "users/base.html" %}
+{% extends 'users/base.html' %}
 {% load static %}
 {% block content %}
-   <p class="fs-5 fw-semibold w-50 m">Welcome! Now that you're part of our community, let's ensure you have a smooth experience while testing transactions and exploring our features.</p>
-{% endblock content %}
+  {% include 'users/includes/header.html' %}
+  <main class="float-end">
+    <p class="fs-5 fw-semibold w-50 m">Welcome! Now that you're part of our community, let's ensure you have a smooth experience while testing transactions and exploring our features.</p>
+
+    <div>
+      {% if request.user.is_authenticated %}
+        <span class="text-success">Welcome, {{ request.user.first_name }}</span>
+        {% for account in request.user.accounts_set.all %}
+          <span>{{ account }}</span>
+        {% endfor %}
+      {% else %}
+        <span class="text-success">Welcome, Guest</span>
+      {% endif %}
+    </div>
+  </main>
+  {% include 'users/includes/footer.html' %}
+{% endblock %}

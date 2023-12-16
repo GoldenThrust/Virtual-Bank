@@ -1,3 +1,12 @@
 .w-15 {
     width: 15%;
 }
+
+.border-none {
+    border: none;
+    outline: none;
+}
+
+.hover-pointer:hover {
+    cursor: pointer;
+}
