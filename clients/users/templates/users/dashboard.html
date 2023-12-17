@@ -8,7 +8,7 @@
     <div>
       {% if request.user.is_authenticated %}
         <span class="text-success">Welcome, {{ request.user.first_name }}</span>
-        {% for account in request.user.accounts_set.all %}
+        {% for account in request.user.account_set.all %}
           <span>{{ account }}</span>
         {% endfor %}
       {% else %}

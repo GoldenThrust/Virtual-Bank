@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -32,8 +32,8 @@ ALLOWED_HOSTS = ['*']
 
 
 # Define the path where media files will be stored
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
+MEDIA_ROOT = os.path.join(ROOT_DIR, 'clients', 'media')
+print(MEDIA_ROOT)
 # Define the URL prefix to access media files
 MEDIA_URL = '/media/'
 
