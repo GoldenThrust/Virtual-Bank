@@ -5,11 +5,10 @@
   <main class="float-end">
     <div>
       {% if request.user.is_authenticated %}
-        <span class="text-success">Welcome, {{ request.user.first_name }}</span>
-      {% else %}
-        <span class="text-success">Welcome, Guest</span>
+        <span class="text-success">Welcome, {{ request.user.first_name }} {{ request.user.last_name }}</span>
       {% endif %}
     </div>
   </main>
 {% include 'users/includes/footer.html' %}
+<script type="module" src="{% static 'users/scripts/dashboard.js' %}"></script>
 {% endblock %}

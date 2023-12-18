@@ -6,12 +6,22 @@ from .forms import UserRegisterForm
 from accounts.forms import AccountCreationForm
 from accounts.utils import update_account
 from .utils import get_client_ip
+from django.contrib.auth import views as auth_views
+
+class LoginView(auth_views.LoginView):
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('users:dashboard')
+        return super().dispatch(request, *args, **kwargs)
 
 class RegisterView(FormView):
     form_class = UserRegisterForm
     template_name = "users/register.html"
 
     def get(self, request):
+        if self.request.user.is_authenticated:
+            return redirect('users:dashboard')
+
         form = self.form_class()
         return render(request, self.template_name, {"form": form})
 
