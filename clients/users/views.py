@@ -34,10 +34,10 @@ class DashBoard(View):
     template_name = "users/dashboard.html"
 
     def get(self, request):
-        # if not request.session.get("account"):
-        account = request.user.account_set.first()
-        if account:
-            update_account(account, request.session)
+        if not request.session.get("account"):
+            account = request.user.account_set.first()
+            if account:
+                update_account(account, request.session)
 
 
         update_account(request.session.get("account"), request.session)
