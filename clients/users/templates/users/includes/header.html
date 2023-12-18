@@ -1,11 +1,58 @@
 {% load static %}
+{% load accounts_filter %}
+{% load crispy_forms_tags %}
+<aside class="account-form d-none">
+  <form method="POST" class="border border-primary px-5 py-2 shadow p-3 mb-5 bg-body-tertiary rounded">
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Create Account</legend>
+      <div id="div_id_account_type" class="mb-3">
+        <label for="id_account_type" class="form-label requiredField">Account type<span class="asteriskField">*</span></label> <select name="account_type" class="select form-select" id="id_account_type">
+          <option value="SAVINGS" selected>Savings</option> <option value="CURRENT">Current</option>
+        </select>
+      </div> <div id="div_id_currency" class="mb-3">
+        <label for="id_currency" class="form-label requiredField">Currency<span class="asteriskField">*</span></label> <select name="currency" class="select form-select" id="id_currency">
+          <option value="USD">USD</option> <option value="EUR">EUR</option> <option value="GBP">GBP</option> <option value="NGN" selected>NGN</option>
+        </select>
+      </div>
 
+      <div class="form-group mb-3">
+        <button class="btn btn-outline-info w-100" type="submit">Create</button>
+      </div>
+    </fieldset>
+  </form>
+</aside>
+<aside class="main-nav border-end d-flex flex-column align-items-center justify-content-between py-4 border-success position-fixed">
+  <a href="#"><img src="{% static 'users/images/home.png' %}" alt="home" class="icon" /></a>
+  <a href="#"><img src="{% static 'users/images/deposits.png' %}" alt="deposits" class="icon" /></a>
+  <a href="#"><img src="{% static 'users/images/transfers.png' %}" alt="transfer" class="icon" /></a>
+  <a href="#"><img src="{% static 'users/images/debit_card.png' %}" alt="debit card" class="icon" /></a>
+  <a href="#"><img src="{% static 'users/images/transactions.png' %}" alt="transaction" class="icon" /></a>
+  <a href="#"><img src="{% static 'users/images/history.png' %}" alt="history" class="icon" /></a>
+  <a href="#"><img src="{% static 'users/images/notifications.png' %}" alt="notification" class="icon" /></a>
+</aside>
 <header class="site-header px-3 d-flex flex-row justify-content-between align-items-center position-fixed w-100 mt-2">
   <div class="d-flex align-items-center">
-    <span><img src="{% static 'users/images/accounts.png' %}" alt="accounts" class="accounts" /></span>
     <span>
-      <input type="text" class="bg-transparent border-none account_name fw-lighter" value="{{ request.session.account.name }}" placeholder="+" id="{% if request.session.account.name %}rename-accounts{% else %}add-account{% endif %}">
+      <img src="{% static 'users/images/accounts.png' %}" alt="accounts" class="accounts hover-pointer" />
+      <div class="accounts-list position-absolute bg-body-tertiary border rounded-1 shadow-sm">
+        <div class="d-flex flex-column">
+          {% for account in request.user.account_set.all %}
+            {% if account.name != request.session.account.name %}
+              <div class="d-flex justify-content-between align-items-center hover-pointer account-details w-100 p-2 rounded-1">
+                <a href="{% url 'accounts:switch_account' account.pk %}" class="account-name fw-semibold text-decoration-none text-black">{{ account.name }}</a> - <span class="account-balance">{{ account.currency|currency_to_unicode|safe }}{{ account.balance }}</span>
+              </div>
+              <hr class="mx-0 my-0" />
+            {% endif %}
+          {% endfor %}
+          <div class="d-flex justify-content-between align-items-center hover-pointer account-details w-100 p-2 rounded-1">
+            <span><input type="text" class="bg-transparent border-none account_name fw-lighter rename-account" placeholder="+" /></span>
+          </div>
+        </div>
+      </div>
     </span>
+    <span><input type="text" class="bg-transparent border-none account_name fw-lighter {% if request.session.account.name %} rename-account {% else %} add-account {% endif %}" value="{{ request.session.account.name }}" placeholder="+" /></span>
+
   </div>
   <div class="searchbar border border-success rounded-pill p-2 h-75 w-50 d-flex align-items-center">
     <img src="{% static 'users/images/searchicon.png' %}" alt="search icon" class="search" />
@@ -18,12 +65,3 @@
     <a href="#" class="shadow-sm bg-body-tertiary border border-success rounded-pill overflow-hidden"><img src="{{ request.user.profile_picture.url }}" alt="profile" class="profile" /></a>
   </div>
 </header>
-<aside class="border-end d-flex flex-column align-items-center justify-content-between py-4 border-success position-fixed">
-  <a href="#"><img src="{% static 'users/images/home.png' %}" alt="home" class="icon" /></a>
-  <a href="#"><img src="{% static 'users/images/deposits.png' %}" alt="deposits" class="icon" /></a>
-  <a href="#"><img src="{% static 'users/images/transfers.png' %}" alt="transfer" class="icon" /></a>
-  <a href="#"><img src="{% static 'users/images/debit_card.png' %}" alt="debit card" class="icon" /></a>
-  <a href="#"><img src="{% static 'users/images/transactions.png' %}" alt="transaction" class="icon" /></a>
-  <a href="#"><img src="{% static 'users/images/history.png' %}" alt="history" class="icon" /></a>
-  <a href="#"><img src="{% static 'users/images/notifications.png' %}" alt="notification" class="icon" /></a>
-</aside>

@@ -28,12 +28,33 @@ header .account_name {
     font-size: 15px;
 }
 
-aside {
+header .accounts:hover + .accounts-list, .accounts-list:hover {
+    display: block;
+}
+
+header .accounts-list {
+    width: 200px;
+    margin: auto;
+    display: none;
+}
+
+header .account-details:hover {
+    background-color: rgb(236, 236, 236);
+}
+
+aside.main-nav {
     width: 60px;
     height: 80vh;
     margin: 80px 0;
 }
 
-aside .icon {
+aside.main-nav .icon {
     width: 22px;
+}
+
+aside.account-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

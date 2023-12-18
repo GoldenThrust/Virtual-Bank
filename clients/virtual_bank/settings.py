@@ -26,7 +26,7 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'users.apps.UsersConfig',
     'accounts.apps.AccountsConfig',
+    'accounts.templatetags.accounts_filter',
     'credit_cards.apps.CreditCardsConfig',
     'debit_cards.apps.DebitCardsConfig',
     'deposits.apps.DepositsConfig',

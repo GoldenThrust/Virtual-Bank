@@ -3,8 +3,10 @@ from django.contrib import messages
 from django.views import View
 from django.views.generic.edit import FormView
 from .forms import UserRegisterForm
-from django.core.serializers import serialize
-import json
+from accounts.forms import AccountCreationForm
+from accounts.utils import update_account
+from .utils import get_client_ip
+
 class RegisterView(FormView):
     form_class = UserRegisterForm
     template_name = "users/register.html"
@@ -16,7 +18,9 @@ class RegisterView(FormView):
     def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save(commit=False)
+            user.ip_address = get_client_ip(request)
+            user.save()
             messages.success(
                 request, f"Your account has been created! You are now able to log in"
             )
@@ -26,14 +30,15 @@ class RegisterView(FormView):
 
 
 class DashBoard(View):
+    form_class = AccountCreationForm
     template_name = "users/dashboard.html"
 
     def get(self, request):
-        # if not request.session.get("account"):
-        account = request.user.account_set.first()
-        if account:
-            serialized_account = serialize('json', [account])
-            deserialized_account = json.loads(serialized_account)
-            request.session["account"] = deserialized_account[0]['fields']
+        if not request.session.get("account"):
+            account = request.user.account_set.first()
+            if account:
+                update_account(account, request.session)
+
+        update_account(request.session.get("account"), request.session)
 
         return render(request, self.template_name, {'title': 'Dashboard'})

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from PIL import Image
 class User(AbstractUser):
     email = models.EmailField(unique=True)
     date_of_birth = models.DateTimeField(null=True)
@@ -16,3 +16,10 @@ class User(AbstractUser):
         if not self.username:
             self.username = f"users_{User.objects.count() + 1}"
         super().save(*args, **kwargs)
+        
+        # img = Image.open(self.profile_picture.path)
+
+        # if img.height > 300 or img.width > 300:
+        #     output_size = (300, 300)
+        #     img.thumbnail(output_size)
+        #     img.save(self.profile_picture.path)

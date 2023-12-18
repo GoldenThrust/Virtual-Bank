@@ -9,6 +9,10 @@ class UserRegisterForm(UserCreationForm):
     last_name = forms.CharField(required=True)
     phone_number = forms.IntegerField(required=True)
     date_of_birth = forms.DateInput()
+    address = forms.CharField(required=False)
+    city = forms.CharField(required=False)
+    state = forms.CharField(required=False)
+    country = forms.CharField(required=False)
 
     class Meta:
         model = User
