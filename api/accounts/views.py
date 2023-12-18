@@ -30,7 +30,12 @@ class AccountCreate(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
+        account_name = self.request.data.get("account_type")
         account_type = self.request.data.get("account_type")
+
+        existing_account = Account.objects.filter(user=self.request.user, name=account_name).exists()
+        if existing_account:
+            raise exceptions.PermissionDenied('Account with this name already exists for the user')
 
         account = serializer.save(user=self.request.user)
 
@@ -80,6 +85,11 @@ class UserAccountDetail(generics.RetrieveUpdateDestroyAPIView):
         serializer.validated_data.pop('account_type', None)
         serializer.validated_data.pop('balance', None)
         serializer.validated_data.pop('currency', None)
+        account_name = serializer.validated_data.get('name')
+        existing_account = Account.objects.filter(user=self.request.user, name=account_name).exists()
+        if existing_account:
+            raise exceptions.PermissionDenied('Account with this name already exists for the user')
+
         serializer.save(user=self.request.user)
 
         # notification
