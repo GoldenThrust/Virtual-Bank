@@ -1,14 +1,13 @@
 import os
 import json
 import requests
-from django.test import TestCase
+from django.test import TestCase, Client
 from debit_cards.models import DebitCard
+from django.urls import reverse
 
 
 class AccountTest(TestCase):
     def setUp(self):
-        self.url = "http://localhost:8000/api/v1/"
-        self.main_url = "http://localhost:8000/api/v1/accounts/"
         self.headers = [
             {"Authorization": "Basic dXNlcl8xMjM6cGFzczEyMzQ="},
             {"Authorization": "Basic amFuZV9kb2U6amFuZWRvZTE="},
@@ -29,20 +28,24 @@ class AccountTest(TestCase):
 
     def test_create_accounts(self):
         i = 0
+        url = reverse('api:account_create')
         for data in self.json_data:
-            url = f"{self.main_url}create/"
-            response = requests.post(url, data=data, headers=self.headers[i])
+            c = Client(headers=self.headers[i])
+            response = c.post(url, data)
             data = response.json()
             i += 1
             for key in data:
                 self.assertIsNotNone(data[key])
 
     def test_list_accounts(self):
-        url = f"{self.main_url}lists/"
+        i = 0
+        url = reverse('api:account_list')
         for header in self.headers:
-            response = requests.get(url, headers=header)
+            c = Client(headers=self.headers[i])
+            response = c.get(url)
             self.assertEqual(response.status_code, 200)
             accounts = response.json()
+            i += 1
             for account in accounts:
                 if account["account_type"] == "CURRENT":
                     try:
