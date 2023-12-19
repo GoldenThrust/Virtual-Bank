@@ -1,10 +1,10 @@
-function postData(url, form, reload = false) {
+export function postData(url, form, reload = false) {
     const csrftoken = getCookie('csrftoken');
 
     fetch(url, {
         method: 'POST',
         headers: {
-            'X-CSRFToken': csrftoken 
+            'X-CSRFToken': csrftoken
         },
         body: form
     })
@@ -12,9 +12,9 @@ function postData(url, form, reload = false) {
         .then(data => {
             console.log(data)
             if (data.status === 'success') {
-                window.location.reload();
+                if (reload) window.location.reload();
             }
-    })
+        })
 }
 
 function getCookie(name) {
@@ -31,4 +31,9 @@ function getCookie(name) {
     }
     console.log(document.cookie);
     return cookieValue;
+}
+
+
+export function con() {
+    console.log("hello");
 }

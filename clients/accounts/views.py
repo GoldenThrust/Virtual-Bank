@@ -71,4 +71,4 @@ def rename_account(request):
                 return JsonResponse({'status': 'failed', 'message': 'Error renaming account'})
             
         return JsonResponse({'status': 'failed', 'message': 'Error processing data'})
-        
+    raise Http404()

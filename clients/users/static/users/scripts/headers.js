@@ -1,4 +1,4 @@
-import postData from './main.js'
+import { postData, con } from './main.js'
 
 const accountID = document.getElementById('account-id')
 const addAccount = document.querySelectorAll('.add-account');
@@ -14,7 +14,7 @@ if (addAccount.length) {
             CreateAccountBtn.onclick = () => {
                 const form = new FormData();
 
-                form.append('name', account_name);
+                form.append('name', element.value);
                 form.append('account_type', accountType.value);
                 form.append('currency', currency.value);
 
@@ -27,10 +27,11 @@ if (addAccount.length) {
     renameAccount.forEach(element => {
         element.addEventListener('change', () => {
             const form = new FormData();
-
             form.append('id', accountID.innerText)
-            form.append('name', addAccount[1].value)
+            form.append('name', element.value)
             postData('/accounts/rename-account/', form)
         });
     })
 }
+
+con()
