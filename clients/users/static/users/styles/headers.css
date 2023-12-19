@@ -66,3 +66,11 @@ aside.account-form form {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.notification-count {
+    top: 12px;
+    right: -6px;
+    height: 16px;
+    font-size: 10px;
+    aspect-ratio: 1;
+}

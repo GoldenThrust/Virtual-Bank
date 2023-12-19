@@ -5,6 +5,11 @@ from django.http import JsonResponse, Http404
 from .utils import update_account
 from django.contrib.auth.decorators import login_required
 from .utils import generate_account_number
+from notifications.models import Notification
+from notifications.utils import process_notifications
+from debit_cards.models import DebitCard
+from debit_cards.utils import generate_valid_credit_card_number, generate_cvv
+import datetime
 
 @login_required
 def switch_account(request, pk):
@@ -38,10 +43,26 @@ def create_account(request):
                 )
 
                 update_account(account, request.session)
+
+                notification_message  = 'A new Account has been successfully created.'
+                process_notifications(request.user, 'account_notification', notification_message)
+
+                if account_type == "CURRENT":
+                    debit_card = DebitCard(account=account)
+                    card_number = generate_valid_credit_card_number()
+                    expiry_date = datetime.datetime.now() + datetime.timedelta(days=365 * 3)
+                    debit_card.card_number = card_number
+                    debit_card.cvv = generate_cvv(card_number, expiry_date)
+                    debit_card.expiration_date = expiry_date
+                    debit_card.save()
+
+                    # notification
+                    notification_message = f'A debit card has been successfully created for your account ({account.number}).'
+                    process_notifications(request.user, 'account_notification', notification_message)
                 return JsonResponse({'status': 'success'})
             except Exception as e:
                 return JsonResponse({'status': 'failed', 'message': 'Error creating account'})
-        
+
         return JsonResponse({'status': 'failed', 'message': 'Error processing data'})
     raise Http404()
 
@@ -66,6 +87,9 @@ def rename_account(request):
                 account.save()
 
                 update_account(account, request.session)
+
+                notification_message = f'Your account ({ account.number }) has been rename to { name }.'
+                process_notifications(request.user, 'account_notification', notification_message)
                 return JsonResponse({'status': 'success'})
             except Exception as e:
                 return JsonResponse({'status': 'failed', 'message': 'Error renaming account'})

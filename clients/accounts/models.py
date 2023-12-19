@@ -23,4 +23,4 @@ class Account(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.get_account_type_display()} - {self.number} - User: {self.user.first_name} {self.user.last_name}"
+        return f"Details: {self.name} - {self.get_account_type_display()} - {self.number} - User: {self.user.first_name} {self.user.last_name}"
