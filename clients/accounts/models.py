@@ -9,7 +9,7 @@ class Account(models.Model):
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50, unique=False)
+    name = models.CharField(max_length=50)
     account_type = models.CharField(
         max_length=20, choices=ACCOUNT_TYPES, default="SAVINGS"
     )
