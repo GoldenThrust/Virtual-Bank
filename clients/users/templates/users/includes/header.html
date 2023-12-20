@@ -1,6 +1,8 @@
 {% load static %}
-{% load accounts_filter %}
+{% load accounts_tags %}
+{% load notifications_tags %}
 {% load crispy_forms_tags %}
+{% unread_notifications_count as unread_count %}
 <aside class="account-form d-none">
   <form method="POST" class="border border-primary px-5 py-2 shadow p-3 mb-5 bg-body-tertiary rounded">
     {% csrf_token %}
@@ -61,17 +63,21 @@
   </div>
   <div class="searchbar border border-success rounded-pill p-2 h-75 w-50 d-flex align-items-center">
     <img src="{% static 'users/images/searchicon.png' %}" alt="search icon" class="search" />
-    <input type="text" class="rounded-end-pill w-100 border-none bg-transparent" />
+    <input type="text" class="rounded-end-pill w-100 border-none bg-transparent" /> <!-- search bar -->
   </div>
   <div class="w-15 d-flex justify-content-between align-items-center">
     <a href="#"><img src="{% static 'users/images/developer.png' %}" alt="developer" class="icon" title="API" /></a>
     <a href="#"><img src="{% static 'users/images/help.png' %}" alt="help" class="icon" title="help" /></a>
     <div href="#">
       <img src="{% static 'users/images/notification.png' %}" alt="notification" class="icon" title="notification" />
-      <span class="position-relative">
-        <div class="position-absolute notification-count rounded-circle bg-danger text-white d-flex justify-content-center align-items-center"></div> <!-- unread notification count -->
-      </span>
+      {% if unread_count > 0 %}
+          <span class="position-relative">
+              <div class="position-absolute notification-count rounded-circle bg-danger text-white d-flex justify-content-center align-items-center">
+                  {{ unread_count }}
+              </div> <!-- unread notification count -->
+          </span>
+      {% endif %}
     </div>
-    <a href="#" class="shadow-sm bg-body-tertiary border border-success rounded-pill overflow-hidden"><img src="{{ request.user.profile_picture.url }}" alt="profile" class="profile" title="profile" /></a>
+    <a href="#" class="shadow-sm bg-body-tertiary border border-success rounded-pill overflow-hidden  profile"><img src="{{ request.user.profile_picture.url }}" alt="profile" class="profile-image" title="profile" /></a> <!-- profile -->
   </div>
 </header>

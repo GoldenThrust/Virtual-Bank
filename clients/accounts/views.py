@@ -88,7 +88,8 @@ def rename_account(request):
 
                 update_account(account, request.session)
 
-                notification_message = f'Your account ({ account.number }) has been rename to { name }.'
+                notification_message = f"Your account ({account.number}) has been successfully renamed to {name}."
+
                 process_notifications(request.user, 'account_notification', notification_message)
                 return JsonResponse({'status': 'success'})
             except Exception as e:

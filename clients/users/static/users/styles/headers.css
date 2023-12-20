@@ -20,9 +20,14 @@ header .icon {
 
 header .profile {
     width: 38px;
+    aspect-ratio: 1;
 }
 
-header .account_name
+header .profile-image {
+    width: 38px;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
 
 header .account_name {
     font-size: 15px;
