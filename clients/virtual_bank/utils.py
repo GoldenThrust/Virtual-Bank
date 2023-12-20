@@ -2,8 +2,7 @@ from django.utils import timezone
 
 def calculate_time_difference_from_now(past_time):
     # Convert the past_time string to a timezone-aware datetime object
-    past_datetime = timezone.datetime.strptime(past_time, '%Y-%m-%d %H:%M:%S')
-    past_datetime = timezone.make_aware(past_datetime)
+    past_datetime = timezone.make_aware(past_time)
     
     # Get the current time in the timezone
     current_datetime = timezone.now()

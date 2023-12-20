@@ -72,10 +72,36 @@ aside.account-form form {
     transform: translate(-50%, -50%);
 }
 
-.notification-count {
+header .notification-count {
     top: 12px;
     right: -6px;
     height: 16px;
     font-size: 10px;
     aspect-ratio: 1;
+}
+
+header .unread-notifications {
+    opacity: 0;
+    top: 15px;
+    right: 375px;
+    font-size: 15px;
+    transition: all 0.5s ease-in-out;
+    visibility: hidden;
+}
+
+header .unread-notifications>span {
+    width: 400px;
+    aspect-ratio: 5/2;
+    overflow-y: scroll;
+}
+
+header .unread-notification:hover {
+    cursor: pointer;
+    display: block;
+    border-bottom: 0.5px solid grey;
+}
+
+header .notification-icon:hover~.unread-notifications, .unread-notifications:hover {
+    opacity: 1;
+    visibility: visible;
 }

@@ -7,6 +7,7 @@ from accounts.forms import AccountCreationForm
 from accounts.utils import update_account
 from .utils import get_client_ip
 from django.contrib.auth import views as auth_views
+from notifications.utils import process_notifications
 
 class LoginView(auth_views.LoginView):
     def dispatch(self, request, *args, **kwargs):
@@ -34,6 +35,9 @@ class RegisterView(FormView):
             messages.success(
                 request, f"Your account has been created! You are now able to log in"
             )
+
+            notification_message = f"{user.first_name} {user.last_name} has joined the system"
+            process_notifications("admin", "user_notification", notification_message)
             return redirect("users:login")
         return render(request, self.template_name, {"form": form})
 

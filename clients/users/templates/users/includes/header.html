@@ -87,22 +87,28 @@
   <div class="w-15 d-flex justify-content-between align-items-center">
     <a href="#"><img src="{% static 'users/images/developer.png' %}" alt="developer" class="icon" title="API" /></a>
     <a href="#"><img src="{% static 'users/images/help.png' %}" alt="help" class="icon" title="help" /></a>
-    <div href="#">
-      <img src="{% static 'users/images/notification.png' %}" alt="notification" class="icon" title="notification" />
+    <div>
+      <img src="{% static 'users/images/notification.png' %}" alt="notification" class="notification-icon icon" title="notification" />
       {% if unread_count > 0 %}
-      <span class="position-relative">
+      <span class="position-relative notification-icon">
         <div
           class="position-absolute notification-count rounded-circle bg-danger text-white d-flex justify-content-center align-items-center">
           {{ unread_count }}
         </div> <!-- unread notification count -->
       </span>
-      <span class="position-relative">
-        {% for note in unread_note %}
-        <div
-          class="unread-notification bg-dark text-white d-flex justify-content-center align-items-center">
-            {{ note.content }}
-          </div> <!-- unread notification count -->
-          {% endfor %}
+      <span class="position-relative unread-notifications">
+        <span class="position-absolute bg-white shadow-lg p-3">
+          {% for note in unread_note %}
+          <div
+            class="unread-notification mb-2 pb-2">
+            <div class="fw-lighter">{{ note.content }}</div>
+            <div>
+              <span>{{ note.get_notification_type_display }}</span> - 
+              <span>{{ note.created_date | timesince }} ago</span>
+            </div>
+         </div> <!-- unread notification count -->
+            {% endfor %}
+        </span>
       </span>
       {% endif %}
     </div>

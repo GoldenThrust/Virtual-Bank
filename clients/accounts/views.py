@@ -44,7 +44,7 @@ def create_account(request):
 
                 update_account(account, request.session)
 
-                notification_message  = 'A new Account has been successfully created.'
+                notification_message  = f'A new Account ({account.number}) has been successfully created.'
                 process_notifications(request.user, 'account_notification', notification_message)
 
                 if account_type == "CURRENT":

@@ -20,6 +20,7 @@ class Notification(models.Model):
     content = models.TextField()
     status = models.CharField(max_length=10, default='UNREAD', choices=STATUS_CHOICES)
     created_date = models.DateTimeField(auto_now_add=True)
+    
 
     def __str__(self):
         return f"Notification ID: {self.pk} - Type: {self.get_notification_type_display()} - User: {self.user.username}"
