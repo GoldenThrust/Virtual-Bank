@@ -3,37 +3,48 @@
 {% load notifications_tags %}
 {% load crispy_forms_tags %}
 {% unread_notifications_count as unread_count %}
+{% unread_notification as unread_note %}
 <aside class="account-form d-none">
   <form method="POST" class="border border-primary px-5 py-2 shadow p-3 mb-5 bg-body-tertiary rounded">
     {% csrf_token %}
     <fieldset class="form-group">
       <legend class="border-bottom mb-4">Create Account</legend>
       <div id="div_account_type" class="mb-3">
-        <label for="account_type" class="form-label">Account type</label> <select name="account_type" class="select form-select" id="account_type">
-          <option value="SAVINGS" selected>Savings</option> <option value="CURRENT">Current</option>
+        <label for="account_type" class="form-label">Account type</label> <select name="account_type"
+          class="select form-select" id="account_type">
+          <option value="SAVINGS" selected>Savings</option>
+          <option value="CURRENT">Current</option>
         </select>
       </div>
       <div id="div_currency" class="mb-3">
-        <label for="currency" class="form-label">Currency</label> <select name="currency" class="select form-select" id="currency">
-          <option value="USD">USD</option> <option value="EUR">EUR</option> <option value="GBP">GBP</option> <option value="NGN" selected>NGN</option>
+        <label for="currency" class="form-label">Currency</label> <select name="currency" class="select form-select"
+          id="currency">
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
+          <option value="NGN" selected>NGN</option>
         </select>
       </div>
 
       <div class="form-group mb-3">
-        <button class="btn btn-outline-info w-100" id='create-account-btn' type="button">Create</button>
+        <button class="btn btn-outline-info w-100" id="create-account-btn" type="button">Create</button>
       </div>
     </fieldset>
   </form>
 </aside>
 
-<aside class="main-nav border-end d-flex flex-column align-items-center justify-content-between py-4 border-success position-fixed">
+<aside
+  class="main-nav border-end d-flex flex-column align-items-center justify-content-between py-4 border-success position-fixed">
   <a href="#"><img src="{% static 'users/images/home.png' %}" alt="home" class="icon" title="home" /></a>
   <a href="#"><img src="{% static 'users/images/deposits.png' %}" alt="deposits" class="icon" title="deposits" /></a>
   <a href="#"><img src="{% static 'users/images/transfers.png' %}" alt="transfers" class="icon" title="transfers" /></a>
-  <a href="#"><img src="{% static 'users/images/debit_card.png' %}" alt="debit card" class="icon" title="debit_card" /></a>
-  <a href="#"><img src="{% static 'users/images/transactions.png' %}" alt="transactions" class="icon" title="transactions" /></a>
+  <a href="#"><img src="{% static 'users/images/debit_card.png' %}" alt="debit card" class="icon"
+      title="debit_card" /></a>
+  <a href="#"><img src="{% static 'users/images/transactions.png' %}" alt="transactions" class="icon"
+      title="transactions" /></a>
   <a href="#"><img src="{% static 'users/images/history.png' %}" alt="history" class="icon" title="history" /></a>
-  <a href="#"><img src="{% static 'users/images/notifications.png' %}" alt="notifications" class="icon" title="notifications" /></a>
+  <a href="#"><img src="{% static 'users/images/notifications.png' %}" alt="notifications" class="icon"
+      title="notifications" /></a>
 </aside>
 <header class="site-header px-3 d-flex flex-row justify-content-between align-items-center position-fixed w-100 mt-2">
   <div class="d-flex align-items-center">
@@ -42,22 +53,30 @@
       <div class="accounts-list position-absolute bg-body-tertiary border rounded-1 shadow-sm">
         <div class="d-flex flex-column">
           {% for account in request.user.account_set.all %}
-            {% if account.name != request.session.account.name %}
-              <div class="d-flex justify-content-between align-items-center hover-pointer account-details w-100 p-2 rounded-1">
-                <a href="{% url 'accounts:switch_account' account.pk %}" class="account-name fw-semibold text-decoration-none text-black">{{ account.name }}</a> - <span class="account-balance">{{ account.currency|currency_to_unicode|safe }}{{ account.balance }}</span> <!-- account lists -->
-              </div>
-              <hr class="mx-0 my-0" />
-            {% endif %}
+          {% if account.name != request.session.account.name %}
+          <div
+            class="d-flex justify-content-between align-items-center hover-pointer account-details w-100 p-2 rounded-1">
+            <a href="{% url 'accounts:switch_account' account.pk %}"
+              class="account-name fw-semibold text-decoration-none text-black">{{ account.name }}</a> - <span
+              class="account-balance">{{ account.currency|currency_to_unicode|safe }}{{ account.balance }}</span>
+            <!-- account lists -->
+          </div>
+          <hr class="mx-0 my-0" />
+          {% endif %}
           {% endfor %}
-          <div class="d-flex justify-content-between align-items-center hover-pointer account-details w-100 p-2 rounded-1">
-            <span><input type="text" class="bg-transparent border-none account_name fw-lighter add-account" placeholder="+" /></span> <!--add account number-->
+          <div
+            class="d-flex justify-content-between align-items-center hover-pointer account-details w-100 p-2 rounded-1">
+            <span><input type="text" class="bg-transparent border-none account_name fw-lighter add-account"
+                placeholder="+" /></span> <!--add account number-->
           </div>
         </div>
       </div>
     </span>
     <span>
       <div id="account-id" class="d-none">{{ request.session.account.pk }}</div> <!-- account id -->
-      <input type="text" class="bg-transparent border-none account_name fw-lighter {% if request.session.account.name %} rename-account {% else %} add-account {% endif %}" value="{{ request.session.account.name }}" placeholder="+" />
+      <input type="text"
+        class="bg-transparent border-none account_name fw-lighter {% if request.session.account.name %} rename-account {% else %} add-account {% endif %}"
+        value="{{ request.session.account.name }}" placeholder="+" />
     </span>
 
   </div>
@@ -71,18 +90,24 @@
     <div href="#">
       <img src="{% static 'users/images/notification.png' %}" alt="notification" class="icon" title="notification" />
       {% if unread_count > 0 %}
-          <span class="position-relative">
-              <div class="position-absolute notification-count rounded-circle bg-danger text-white d-flex justify-content-center align-items-center">
-                  {{ unread_count }}
-              </div> <!-- unread notification count -->
-          </span>
-          <span class="position-relative">
-              <div class="position-absolute unread-notification bg-dark text-white d-flex justify-content-center align-items-center">
-                  {% unread_notification %} hello
-              </div> <!-- unread notification count -->
-          </span>
+      <span class="position-relative">
+        <div
+          class="position-absolute notification-count rounded-circle bg-danger text-white d-flex justify-content-center align-items-center">
+          {{ unread_count }}
+        </div> <!-- unread notification count -->
+      </span>
+      <span class="position-relative">
+        {% for note in unread_note %}
+        <div
+          class="unread-notification bg-dark text-white d-flex justify-content-center align-items-center">
+            {{ note.content }}
+          </div> <!-- unread notification count -->
+          {% endfor %}
+      </span>
       {% endif %}
     </div>
-    <a href="#" class="shadow-sm bg-body-tertiary border border-success rounded-pill overflow-hidden  profile"><img src="{{ request.user.profile_picture.url }}" alt="profile" class="profile-image" title="profile" /></a> <!-- profile -->
+    <a href="#" class="shadow-sm bg-body-tertiary border border-success rounded-pill overflow-hidden  profile"><img
+        src="{{ request.user.profile_picture.url }}" alt="profile" class="profile-image" title="profile" /></a>
+    <!-- profile -->
   </div>
 </header>
