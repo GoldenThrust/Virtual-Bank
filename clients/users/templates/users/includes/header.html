@@ -76,6 +76,11 @@
                   {{ unread_count }}
               </div> <!-- unread notification count -->
           </span>
+          <span class="position-relative">
+              <div class="position-absolute unread-notification bg-dark text-white d-flex justify-content-center align-items-center">
+                  {% unread_notification %} hello
+              </div> <!-- unread notification count -->
+          </span>
       {% endif %}
     </div>
     <a href="#" class="shadow-sm bg-body-tertiary border border-success rounded-pill overflow-hidden  profile"><img src="{{ request.user.profile_picture.url }}" alt="profile" class="profile-image" title="profile" /></a> <!-- profile -->
