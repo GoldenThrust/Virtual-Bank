@@ -8,6 +8,8 @@ const accountType = document.querySelector('#account_type');
 const currency = document.querySelector('#currency');
 const CreateAccountBtn = document.querySelector('#create-account-btn');
 const unreadNotification = document.querySelectorAll('.unread-notification')
+const unreadNotifications = document.querySelector('.unread-notifications')
+const notificationCount = document.querySelector('.notification-count');
 
 if (addAccount.length) {
     addAccount.forEach(element => {
@@ -33,14 +35,22 @@ if (addAccount.length) {
             postData('/accounts/rename-account/', form)
         });
     })
+}
 
+
+if (notificationCount) {
     unreadNotification.forEach(element => {
         element.addEventListener("click", ()=>{
             const id = element.querySelector('.unread_notification_id').innerText.trim();
             const form = new FormData();
             form.append('id', id)
-            postData('/accounts/rename-account/', form)
-            console.log(id)
+            postData('/notifications/read-notification/', form)
+            element.style.display = 'none';
+            notificationCount.innerText = Number(notificationCount.innerText) - 1;
+            if (!Number(notificationCount.innerText)) {
+                unreadNotifications.classList.add('d-none')
+                notificationCount.classList.add('d-none');
+            }
         })
     })
 }

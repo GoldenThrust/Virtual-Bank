@@ -1,6 +1,6 @@
 export function postData(url, form, reload = false) {
     const csrftoken = getCookie('csrftoken');
-    const status = null;
+    let status = null;
 
     fetch(url, {
         method: 'POST',
