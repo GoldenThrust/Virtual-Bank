@@ -82,8 +82,8 @@ header .notification-count {
 
 header .unread-notifications {
     opacity: 0;
-    top: 15px;
-    right: 375px;
+    top: 26px;
+    right: 390px;
     font-size: 15px;
     transition: all 0.5s ease-in-out;
     visibility: hidden;

@@ -101,6 +101,9 @@
           {% for note in unread_note %}
           <div
             class="unread-notification mb-2 pb-2">
+            <div class="unread_notification_id d-none">
+              {{ note.pk }}
+            </div>
             <div class="fw-lighter">{{ note.content }}</div>
             <div>
               <span>{{ note.get_notification_type_display }}</span> - 

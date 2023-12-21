@@ -1,5 +1,6 @@
 export function postData(url, form, reload = false) {
     const csrftoken = getCookie('csrftoken');
+    const status = null;
 
     fetch(url, {
         method: 'POST',
@@ -10,11 +11,13 @@ export function postData(url, form, reload = false) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
             if (data.status === 'success') {
                 if (reload) window.location.reload();
             }
+            status = data;
         })
+
+    return status;
 }
 
 function getCookie(name) {
@@ -29,11 +32,6 @@ function getCookie(name) {
             }
         }
     }
-    console.log(document.cookie);
+
     return cookieValue;
-}
-
-
-export function con() {
-    console.log("hello");
 }

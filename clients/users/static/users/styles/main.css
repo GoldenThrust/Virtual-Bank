@@ -10,3 +10,16 @@
 .hover-pointer:hover {
     cursor: pointer;
 }
+
+::-webkit-scrollbar {
+    width: 1px;
+}
+
+::-webkit-scrollbar-track {
+    background: #98e098;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #110f0f;
+    border-radius: 5px;
+}

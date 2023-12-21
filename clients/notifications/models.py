@@ -5,8 +5,8 @@ from users.models import User
 class Notification(models.Model):
     NOTIFICATION_TYPES = [
         ("USER_NOTIFICATION", "User Notification"),
-        ("TRANSACTION_NOTIFICATION", "Transaction Alert"),
-        ("ACCOUNT_NOTIFICATION", "Account Alert"),
+        ("TRANSACTION_NOTIFICATION", "Transaction Notification"),
+        ("ACCOUNT_NOTIFICATION", "Account Notification"),
         ("SECURITY_NOTIFICATION", "Security Notification"),
     ]
 
