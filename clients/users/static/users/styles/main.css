@@ -1,3 +1,9 @@
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
 .w-15 {
     width: 15%;
 }

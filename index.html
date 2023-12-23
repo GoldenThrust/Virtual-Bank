@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Banking App Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        background-color: #007bff;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .container {
+        width: 80%;
+        margin: 20px auto;
+    }
+
+    .account-details,
+    .transactions {
+        margin-bottom: 30px;
+        border: 1px solid #ccc;
+        padding: 15px;
+    }
+
+    .account-details h2,
+    .transactions h2 {
+        margin-top: 0;
+    }
+
+    #transaction-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    #transaction-list li {
+        margin-bottom: 10px;
+    }
+</style>
+
+<body>
+    <header>
+        <h1>Welcome to Your Banking Dashboard</h1>
+    </header>
+
+    <div class="container">
+        <section class="account-details">
+            <h2>Account Information</h2>
+            <p>Account Number: <span id="account-number">1234567890</span></p>
+            <p>Balance: $<span id="balance">1000</span></p>
+        </section>
+
+        <section class="transactions">
+            <h2>Recent Transactions</h2>
+            <ul id="transaction-list">
+                <!-- Transaction items will be populated here -->
+            </ul>
+        </section>
+    </div>
+    <!-- Add this within the body tag -->
+    <section class="chart">
+        <h2>Account Balance Over Time</h2>
+        <canvas id="balance-chart" width="400" height="200"></canvas>
+    </section>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Simulated data for account details and transactions
+        const accountNumber = "1234567890";
+        let balance = 1000;
+        const transactions = [
+            { id: 1, description: "Supermarket", amount: -50 },
+            { id: 2, description: "Salary Deposit", amount: 1500 },
+            { id: 3, description: "Restaurant", amount: -80 },
+        ];
+
+        // Display account details
+        document.getElementById("account-number").innerText = accountNumber;
+        document.getElementById("balance").innerText = balance;
+
+        // Display recent transactions
+        const transactionList = document.getElementById("transaction-list");
+        transactions.forEach((transaction) => {
+            const listItem = document.createElement("li");
+            listItem.innerHTML = `${transaction.description}: $${transaction.amount}`;
+            transactionList.appendChild(listItem);
+        });
+
+        // Create a line chart
+        const ctx = document.getElementById("balance-chart").getContext("2d");
+        const balanceChart = new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: ["1", "2", "3", "4", "5", "6"],
+                datasets: [
+                    {
+                        label: "Account Balance",
+                        data: [1000, 950, 900, 930, 1000, 950],
+                        backgroundColor: "rgba(0, 123, 255, 0.2)",
+                        borderColor: "rgba(0, 123, 255, 1)",
+                        borderWidth: 1,
+                    },
+                ],
+            },
+            options: {
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: false,
+                            },
+                        },
+                    ],
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

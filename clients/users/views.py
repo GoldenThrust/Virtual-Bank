@@ -8,6 +8,7 @@ from accounts.utils import update_account
 from .utils import get_client_ip
 from django.contrib.auth import views as auth_views
 from notifications.utils import process_notifications
+from transactions.models import Transaction
 
 class LoginView(auth_views.LoginView):
     def dispatch(self, request, *args, **kwargs):
@@ -56,4 +57,17 @@ class DashBoard(View):
 
         update_account(request.session.get("account"), request.session)
 
-        return render(request, self.template_name, {'title': 'Dashboard'})
+
+        if (request.session.get("account")):
+            recent_transactions = Transaction.objects.filter(account=request.session.get("account")['pk']).order_by('-date')[:5]
+        else:
+            recent_transactions = None
+
+
+        context = {
+            "title": "Dashboard",
+            "transactions": recent_transactions
+        }
+
+
+        return render(request, self.template_name, context)

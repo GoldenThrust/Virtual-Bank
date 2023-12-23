@@ -2,3 +2,8 @@ main {
     width: 92%;
     margin-top: 80px;
 }
+
+#welcome-create-account-btn {
+    width: 12%;
+    aspect-ratio: 7/2;
+}

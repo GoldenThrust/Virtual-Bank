@@ -1,14 +1,30 @@
 {% extends 'users/base.html' %}
 {% load static %}
 {% block content %}
-{% include 'users/includes/header.html' %}
+  {% include 'users/includes/header.html' %}
   <main class="float-end">
     <div>
-      {% if request.user.is_authenticated %}
-        <span class="text-success">Welcome, {{ request.user.first_name }} {{ request.user.last_name }}</span>
+      {% if request.user.account_set.all %}
+        <h1>Welcome, {{ request.user.get_full_name }}</h1>
+        <p>Account Number: {{ user.account_number }}</p>
+        <p>Balance: ${{ user.balance }}</p>
+
+        <h2>Recent Transactions:</h2>
+        <ul>
+          {% for transaction in recent_transactions %}
+            <li>{{ transaction.partner }} - {{ transaction.transaction_type }} - ${{ transaction.amount }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="text-success">
+          Welcome!, <span class="fs-3 fw-bold">{{ request.user.get_full_name }}</span>
+        </p>
+        <p class="text-center fs-3 my-5">Now that you're part of our community, let's ensure you have a smooth experience while testing transactions and exploring our features.</p>
+        <p class="text-center fs-2 fw-semibold m-5">Click the button below to Create an Account.</p>
+        <div id="welcome-create-account-btn" class="m-auto center border rounded-pill bg-success text-white text-center">Create Account</div>
       {% endif %}
     </div>
   </main>
-{% include 'users/includes/footer.html' %}
-<script type="module" src="{% static 'users/scripts/dashboard.js' %}"></script>
+  {% include 'users/includes/footer.html' %}
+  <script type="module" src="{% static 'users/scripts/dashboard.js' %}"></script>
 {% endblock %}

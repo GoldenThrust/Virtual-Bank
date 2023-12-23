@@ -1,15 +1,6 @@
-const signin = document.querySelectorAll('.signin');
-const signup = document.querySelectorAll('.signup');
-const host = 'http://' + window.location.hostname + ':8000';
+const addAccount = document.querySelectorAll('.add-account');
+const WelcomeCreateAccountBtn = document.querySelector('#welcome-create-account-btn');
 
-signin.forEach((button) => {
-    button.onclick = () => {
-        window.location = host + '/users/login/';
-    }
-})
-
-signup.forEach((button) => {
-    button.onclick = () => {
-        window.location = host + '/users/register/';
-    }
+WelcomeCreateAccountBtn.addEventListener('click', () => {
+    addAccount[1].focus()
 })
