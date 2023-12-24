@@ -66,7 +66,7 @@ class DashBoard(View):
 
         context = {
             "title": "Dashboard",
-            "transactions": recent_transactions
+            "recent_transactions": recent_transactions
         }
 
 

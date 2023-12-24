@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from PIL import Image
+from uuid import uuid4
+import os
+
 class User(AbstractUser):
     email = models.EmailField(unique=True)
     date_of_birth = models.DateTimeField(null=True)
@@ -17,9 +20,15 @@ class User(AbstractUser):
             self.username = f"users_{User.objects.count() + 1}"
         super().save(*args, **kwargs)
         
-        # img = Image.open(self.profile_picture.path)
+        if self.profile_picture:
+                filename = str(uuid4())
+                filepath = os.path.join('profile_pics', filename)
+                
+                img = Image.open(self.profile_picture)
+                
+                max_size = (300, 300)
+                img.thumbnail(max_size, Image.ANTIALIAS)
+                img.save(filepath)
 
-        # if img.height > 300 or img.width > 300:
-        #     output_size = (300, 300)
-        #     img.thumbnail(output_size)
-        #     img.save(self.profile_picture.path)
+                self.profile_picture.name = filepath
+                super().save(*args, **kwargs)
