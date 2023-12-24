@@ -24,7 +24,7 @@ class User(AbstractUser):
                 filename = str(uuid4())
                 filepath = os.path.join('profile_pics', filename)
                 
-                img = Image.open(self.profile_picture)
+                img = Image.open(self.profile_picture.path)
                 
                 max_size = (300, 300)
                 img.thumbnail(max_size)
