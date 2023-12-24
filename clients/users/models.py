@@ -27,7 +27,7 @@ class User(AbstractUser):
                 img = Image.open(self.profile_picture)
                 
                 max_size = (300, 300)
-                img.thumbnail(max_size, Image.ANTIALIAS)
+                img.thumbnail(max_size)
                 img.save(filepath)
 
                 self.profile_picture.name = filepath
