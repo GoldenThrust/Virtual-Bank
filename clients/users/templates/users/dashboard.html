@@ -6,38 +6,19 @@
   <main class="float-end">
     <div>
       {% if request.user.account_set.all %}
-        <div>
-          <span>
+        <div class="dashboard">
+          <div>
+            <div class="account-cards"></div>
+            <div class="quick-transaction"></div>
+            <div class="transaction-chart"></div>
+          </div>
+          <div>
             <div>
-              <p class="text-success">
-                Welcome!, <span class="fs-3 fw-bold">{{ request.user.get_full_name }}</span>
-              </p>
-              <p class="fw-semibold fs-1">{{ request.session.account.currency|currency_to_unicode|safe }}{{ request.session.account.balance }}</p>
-              <p class="fw-semibold">
-                Account Number: <span class="fs-4">{{ request.session.account.number }}</span>
-              </p>
-              <div class="d-flex justify-space-between">
-                <span id="quick-transfer" class="border border-success rounded-2">Quick Transfer</span>
-                <span id="quick-deposit">Quick Deposit</span>
-              </div>
+              <div class="transaction-partners"></div>
+              <div class="financial-overviews"></div>
             </div>
-            <div>
-              <h2>Recent Transactions:</h2>
-              <ul>
-                {% for transaction in recent_transactions %}
-                  <li>{{ transaction.partner }} - {{ transaction.transaction_type }} - ${{ transaction.amount }}</li>
-                {% endfor %}
-              </ul>
-            </div>
-          </span>
-          <span>
-            <div></div>
-            <div></div>
-          </span>
-        </div>
-        <div>
-          <div></div>
-          <div></div>
+            <div class="recent-transactions"></div>
+          </div>
         </div>
       {% else %}
         <p class="text-success">

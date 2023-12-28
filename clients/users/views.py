@@ -9,6 +9,8 @@ from .utils import get_client_ip
 from django.contrib.auth import views as auth_views
 from notifications.utils import process_notifications
 from transactions.models import Transaction
+from django.db.models import Q
+
 
 class LoginView(auth_views.LoginView):
     def dispatch(self, request, *args, **kwargs):
@@ -57,9 +59,11 @@ class DashBoard(View):
 
         update_account(request.session.get("account"), request.session)
 
-
         if (request.session.get("account")):
-            recent_transactions = Transaction.objects.filter(account=request.session.get("account")['pk']).order_by('-date')[:5]
+            recent_transactions = Transaction.objects.filter(
+                Q(account=request.session.get('account')['pk']) |
+                Q(debit_card__transaction_partner_account=request.session.get('account')['pk']) |
+                Q(transfer__transaction_partner_account=request.session.get('account')['pk'])).order_by('-date')[:5]
         else:
             recent_transactions = None
 

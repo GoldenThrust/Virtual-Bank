@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Banking App - Recent Transactions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      background-color: #f2f2f2;
+      padding: 20px;
+      text-align: center;
+    }
+    .transaction-list {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+    .transaction-list th, .transaction-list td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    .transaction-list th {
+      background-color: #f9f9f9;
+    }
+    .transaction-list tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Banking App - Recent Transactions</h1>
+</div>
+
+<table class="transaction-list">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Transaction Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- This section will be populated dynamically with transaction data from the backend -->
+    <!-- Example static data -->
+    <tr>
+      <td>2023-12-25</td>
+      <td>Shopping at ABC Store</td>
+      <td>$50.00</td>
+      <td>Debit</td>
+    </tr>
+    <tr>
+      <td>2023-12-24</td>
+      <td>Online Subscription</td>
+      <td>$20.00</td>
+      <td>Debit</td>
+    </tr>
+    <!-- More transaction rows will be added dynamically -->
+  </tbody>
+</table>
+
+</body>
+</html>

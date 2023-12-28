@@ -51,11 +51,25 @@ aside.main-nav {
     width: 60px;
     height: 80vh;
     margin: 80px 0;
+    box-shadow: 5px 0 8px #00000046;
+    border-radius: 10px;
+    transition: all 0.5s ease-in-out;
 }
 
 aside.main-nav .icon {
     width: 22px;
+    transition: all 0.3s ease-in-out;
 }
+
+aside.main-nav .icon:hover {
+    filter: drop-shadow(-5px 0 1.2px rgba(0, 0, 0, 0.415));
+    transform: scale(1.5) translate(10px, 5px);
+}
+
+aside.main-nav:hover {
+    box-shadow: none;
+}
+
 
 aside.account-form {
     position: absolute;

@@ -20,15 +20,9 @@ class User(AbstractUser):
             self.username = f"users_{User.objects.count() + 1}"
         super().save(*args, **kwargs)
         
-        if self.profile_picture:
-                filename = str(uuid4())
-                filepath = os.path.join('profile_pics', filename)
-                
-                img = Image.open(self.profile_picture.path)
-                
-                max_size = (300, 300)
-                img.thumbnail(max_size)
-                img.save(filepath)
+        img = Image.open(self.profile_picture.path)
 
-                self.profile_picture.name = filepath
-                super().save(*args, **kwargs)
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.profile_picture.path)
