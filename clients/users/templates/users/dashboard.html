@@ -8,8 +8,11 @@
       {% if request.user.account_set.all %}
         <div class="dashboard">
           <div>
+            <div class="quick-transaction">
+              <span class="transfer rounded-1 p-2 fw-semibold">Quick Transfer</span>
+              <span class="deposit rounded-1 p-2 fw-semibold">Quick deposit</span>
+            </div>
             <div class="account-cards"></div>
-            <div class="quick-transaction"></div>
             <div class="transaction-chart"></div>
           </div>
           <div>

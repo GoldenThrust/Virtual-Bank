@@ -7,3 +7,29 @@ main {
     width: 12%;
     aspect-ratio: 7/2;
 }
+
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 2px;
+}
+
+.quick-transaction {
+    width: 100%;
+}
+
+.quick-transaction span {
+    aspect-ratio: 7/2;
+    border: 2px solid #5E3FBE;
+}
+
+.quick-transaction .transfer {
+    background-color: #5E3FBE;
+    color: #F4F4FE;
+    margin-right: 80px;
+}
+
+.quick-transaction .deposit {
+    background-color: #F4F4FE;
+}
