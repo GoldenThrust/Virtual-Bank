@@ -19,9 +19,16 @@ main {
     width: 100%;
 }
 
-.quick-transaction span {
+.quick-transaction button {
     aspect-ratio: 7/2;
     border: 2px solid #5E3FBE;
+    transition: all 0.1s ease-in-out;
+}
+
+.quick-transaction button:focus {
+    outline: none;
+    filter: blur(0.4px);
+    box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.501);
 }
 
 .quick-transaction .transfer {
