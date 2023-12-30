@@ -38,5 +38,16 @@ main {
 }
 
 .quick-transaction .deposit {
-    background-color: #F4F4FE;
+    background-color: #F4F0FD;
+}
+
+.account-cards {
+    width: 370px;
+    aspect-ratio: 7/4;
+    background: url("../images/cardarrow.png") 85% 80% no-repeat;
+}
+
+.account-cards .account-balance {
+    font-family: "DM Serif";
+    color: #5E3FBE;
 }

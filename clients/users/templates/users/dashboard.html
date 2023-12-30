@@ -9,11 +9,21 @@
         <div class="dashboard">
           <div>
             <div class="quick-transaction">
-              <button class="transfer rounded-1 p-2 fw-semibold">Quick Transfer</button>
-              <button class="deposit rounded-1 p-2 fw-semibold">Quick deposit</button>
+              <button class="transfer rounded-1 p-2 fw-semibold shadow-sm">Quick Transfer</button>
+              <button class="deposit rounded-1 p-2 fw-semibold shadow-sm">Quick deposit</button>
             </div>
-            <div class="account-cards"></div>
-            <div class="transaction-chart"></div>
+            <div class="account-cards border border-black w-73 bg-white rounded-4 shadow mt-5 d-flex flex-column justify-content-evenly">
+              <div class="mx-5 d-flex justify-content-between">
+                <span class="text-secondary fs-6 fw-light">Available balance</span>
+                <span class="fs-6">{{ request.session.account.account_type }}</span>
+              </div>
+              <div class="mx-5 fs-2 account-balance">{{ request.session.account.currency|currency_to_unicode|safe }}{{ request.session.account.balance }}</div>
+              <div class="mx-5 account-number">{{ request.session.account.number }}</div>
+            </div>
+            <div class="transaction-chart">
+              <canvas id="transactionLineChart" width="800" height="400"></canvas>
+              <canvas id="transactionTypePieChart" width="400" height="400"></canvas>
+            </div>
           </div>
           <div>
             <div>
@@ -34,5 +44,9 @@
     </div>
   </main>
   {% include 'users/includes/footer.html' %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    
+  </script>
   <script type="module" src="{% static 'users/scripts/dashboard.js' %}"></script>
 {% endblock %}
