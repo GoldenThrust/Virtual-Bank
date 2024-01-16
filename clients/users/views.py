@@ -9,15 +9,16 @@ from .utils import get_client_ip
 from django.contrib.auth import views as auth_views
 from notifications.utils import process_notifications
 from transactions.models import Transaction
-from django.db.models import Q
+from django.db.models import Q, Sum, Count
 import json
 
 
 class LoginView(auth_views.LoginView):
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.is_authenticated:
-            return redirect('users:dashboard')
+            return redirect("users:dashboard")
         return super().dispatch(request, *args, **kwargs)
+
 
 class RegisterView(FormView):
     form_class = UserRegisterForm
@@ -25,7 +26,7 @@ class RegisterView(FormView):
 
     def get(self, request):
         if self.request.user.is_authenticated:
-            return redirect('users:dashboard')
+            return redirect("users:dashboard")
 
         form = self.form_class()
         return render(request, self.template_name, {"form": form})
@@ -40,11 +41,12 @@ class RegisterView(FormView):
                 request, f"Your account has been created! You are now able to log in"
             )
 
-            notification_message = f"{user.first_name} {user.last_name} has joined the system"
+            notification_message = (
+                f"{user.first_name} {user.last_name} has joined the system"
+            )
             process_notifications("admin", "user_notification", notification_message)
             return redirect("users:login")
         return render(request, self.template_name, {"form": form})
-
 
 
 class DashBoard(View):
@@ -57,40 +59,65 @@ class DashBoard(View):
             if account:
                 update_account(account, request.session)
 
-
         update_account(request.session.get("account"), request.session)
 
-        if (request.session.get("account")):
+        # processing recent transactions
+        if request.session.get("account"):
             recent_transactions = Transaction.objects.filter(
-                Q(account=request.session.get('account')['pk']) |
-                Q(debit_card__transaction_partner_account=request.session.get('account')['pk']) |
-                Q(transfer__transaction_partner_account=request.session.get('account')['pk'])).order_by('-date')[:5]
+                Q(account=request.session.get("account")["pk"])
+                | Q(
+                    debit_card__transaction_partner_account=request.session.get(
+                        "account"
+                    )["pk"]
+                )
+                | Q(
+                    transfer__transaction_partner_account=request.session.get(
+                        "account"
+                    )["pk"]
+                )
+            ).order_by("-date")[:5]
         else:
             recent_transactions = None
 
-        deposit_transactions = Transaction.objects.filter(transaction_type='DEPOSIT', account=request.session.get('account')['pk'])
-        transfer_transactions = Transaction.objects.filter(transaction_type='TRANSFER', account=request.session.get('account')['pk'])
-        debit_card_transactions = Transaction.objects.filter(transaction_type='DEBIT_CARD', account=request.session.get('account')['pk'])
+        # financial data
+        financial = {
+            "incoming": Transaction.objects.filter(
+                account=request.session.get("account")["pk"]
+            ).aggregate(Sum("amount"))["amount__sum"]
+            or 0,
+            "incoming_2": Transaction.objects.filter(
+                account=request.session.get("account")["pk"]
+            )
+            .exclude(transaction_type="DEPOSIT")
+            .aggregate(Sum("amount"))["amount__sum"]
+            or 0,
+            "outgoing": Transaction.objects.filter(
+                Q(
+                    debit_card__transaction_partner_account=request.session.get(
+                        "account"
+                    )["pk"]
+                )
+                | Q(
+                    transfer__transaction_partner_account=request.session.get(
+                        "account"
+                    )["pk"]
+                )
+            ).aggregate(Sum("amount"))["amount__sum"]
+            or 0,
+        }
 
-       # Processing data for the chart
-        deposit_data = [{'date': transaction.date.strftime('%Y-%m-%d'), 'amount': float(transaction.amount)} for transaction in deposit_transactions]
-        transfer_data = [{'date': transaction.date.strftime('%Y-%m-%d'), 'amount': float(transaction.amount)} for transaction in transfer_transactions]
-        debit_card_data = [{'date': transaction.date.strftime('%Y-%m-%d'), 'amount': float(transaction.amount)} for transaction in debit_card_transactions]
+        # transaction partner
+        top_partners = Transaction.get_top_10_partners(request.session.get("account")['pk'])
+        print(top_partners)
 
-        # Convert data to JSON format
-        deposit_json = json.dumps(deposit_data)
-        transfer_json = json.dumps(transfer_data)
-        debit_card_json = json.dumps(debit_card_data)
-
-
+        # for partner_account in top_partners:
+        #     print(partner_account)
 
         context = {
             "title": "Dashboard",
             "recent_transactions": recent_transactions,
-            'deposit_data': deposit_json,
-            'transfer_data': transfer_json,
-            'debit_card_data': debit_card_json,
+            "financial": financial,
+            "top_partners": top_partners,
         }
-
 
         return render(request, self.template_name, context)

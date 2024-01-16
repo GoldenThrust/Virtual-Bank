@@ -2,7 +2,7 @@ name: Deploy project
 
 on:
   workflow_run:
-    workflows: [Django CI]
+    workflows: []
     types:
       - completed
 

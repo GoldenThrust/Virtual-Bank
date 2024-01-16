@@ -26,9 +26,20 @@
             </div>
           </div>
           <div>
-            <div>
-              <div class="transaction-partners"></div>
-              <div class="financial-overviews"></div>
+            <div class="financial-overviews">
+              <div id="income"></div>
+              <div id="spending"></div>
+            </div>
+            <div class="transaction-partners">
+              <div>
+                <span><img src="/media/profile.png" alt="" /></span>
+                <span>
+                  <div>Adeniji Olajide</div>
+                  <div>
+                    Account Number: <span>{{ request.session.account.number }}</span>
+                  </div>
+                </span>
+              </div>
             </div>
             <div class="recent-transactions"></div>
           </div>
@@ -44,9 +55,9 @@
     </div>
   </main>
   {% include 'users/includes/footer.html' %}
-  <script>
+  {% comment %} <script>
     document.addEventListener('DOMContentLoaded', function () {
     
-  </script>
+  </script> {% endcomment %}
   <script type="module" src="{% static 'users/scripts/dashboard.js' %}"></script>
 {% endblock %}

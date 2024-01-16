@@ -11,8 +11,10 @@ main {
 
 .dashboard {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 50% 50%;
     margin-top: 2px;
+    column-rule: #5E3FBE;
+    column-width: 3px;
 }
 
 .quick-transaction {
