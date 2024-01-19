@@ -9,6 +9,7 @@ from .utils import get_client_ip
 from django.contrib.auth import views as auth_views
 from notifications.utils import process_notifications
 from transactions.models import Transaction
+from transfers.models import Transfer
 from django.db.models import Q, Sum, Count
 import json
 
@@ -107,11 +108,7 @@ class DashBoard(View):
         }
 
         # transaction partner
-        top_partners = Transaction.get_top_10_partners(request.session.get("account")['pk'])
-        print(top_partners)
-
-        # for partner_account in top_partners:
-        #     print(partner_account)
+        top_partners = Transfer.objects.filter(transaction__account=request.session.get("account")["pk"]).order_by("transaction_partner_account", "-transaction__amount").distinct("transaction_partner_account")[:10]
 
         context = {
             "title": "Dashboard",

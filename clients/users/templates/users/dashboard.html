@@ -18,7 +18,7 @@
                 <span class="fs-6">{{ request.session.account.account_type }}</span>
               </div>
               <div class="mx-5 fs-2 account-balance">{{ request.session.account.currency|currency_to_unicode|safe }}{{ request.session.account.balance }}</div>
-              <div class="mx-5 account-number">{{ request.session.account.number }}</div>
+              <div class="mx-5 account-number">{{ request.session.account.currency|currency_to_unicode|safe }}{{ request.session.account.number }}</div>
             </div>
             <div class="transaction-chart">
               <canvas id="transactionLineChart" width="800" height="400"></canvas>
@@ -27,8 +27,11 @@
           </div>
           <div>
             <div class="financial-overviews">
-              <div id="income"></div>
-              <div id="spending"></div>
+              <div id="income">
+                {% comment %} <div  class="d-none">{{ request.session.account.currency|currency_to_unicode|safe }}{{ financial.incoming }}</div> {% endcomment %}
+                <div>{{ request.session.account.currency|currency_to_unicode|safe }}{{ financial.incoming_2 }}</div>
+              </div>
+              <div id="spending">{{ request.session.account.currency|currency_to_unicode|safe }}{{ financial.outgoing }}</div>
             </div>
             <div class="transaction-partners">
               <div>

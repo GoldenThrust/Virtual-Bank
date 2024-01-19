@@ -7,7 +7,7 @@ from .models import Transaction
 import json
 
 
-def transactions_chart(request):
+def transactions_chart_data(request):
         deposit_transactions = Transaction.objects.filter(transaction_type='DEPOSIT', account=request.session.get('account')['pk'])
         transfer_transactions = Transaction.objects.filter(transaction_type='TRANSFER', account=request.session.get('account')['pk'])
         debit_card_transactions = Transaction.objects.filter(transaction_type='DEBIT_CARD', account=request.session.get('account')['pk'])
@@ -21,7 +21,6 @@ def transactions_chart(request):
         deposit_json = json.dumps(deposit_data)
         transfer_json = json.dumps(transfer_data)
         debit_card_json = json.dumps(debit_card_data)
-
 
 
         data = {

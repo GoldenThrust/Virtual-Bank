@@ -17,18 +17,18 @@ class Transaction(models.Model):
     identifier = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     date = models.DateTimeField(auto_now_add=True)
 
-    @classmethod
-    def get_top_10_partners(cls, account_id):
-        top_partners = cls.objects.filter(account=account_id).filter(
-            models.Q(debit_card__isnull=False) | models.Q(transfer__isnull=False)
-        )
+    # @classmethod
+    # def get_top_10_partners(cls, account_id):
+    #     top_partners = cls.objects.filter(account=account_id).filter(
+    #         models.Q(debit_card__isnull=False) | models.Q(transfer__isnull=False)
+    #     )
 
-        partner_account_numbers = top_partners.values_list(
-            'debit_card__transaction_partner_account',
-            'transfer__transaction_partner_account',
-        ).distinct().order_by('-amount')[:10]
+    #     partner_account_numbers = top_partners.values_list(
+    #         *('debit_card__transaction_partner_account',
+    #         'transfer__transaction_partner_account')
+    #     ).distinct().order_by('-amount')[:10]
 
-        return partner_account_numbers
+    #     return partner_account_numbers
 
     def __str__(self):
         return f"Transaction ID: {self.pk} - Type: {self.get_transaction_type_display()} - Amount: {self.amount}"
