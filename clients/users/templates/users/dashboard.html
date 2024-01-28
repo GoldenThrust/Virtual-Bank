@@ -2,65 +2,68 @@
 {% load static %}
 {% load accounts_tags %}
 {% block content %}
-  {% include 'users/includes/header.html' %}
-  <main class="float-end">
-    <div>
-      {% if request.user.account_set.all %}
-        <div class="dashboard">
-          <div>
-            <div class="quick-transaction">
-              <button class="transfer rounded-1 p-2 fw-semibold shadow-sm">Quick Transfer</button>
-              <button class="deposit rounded-1 p-2 fw-semibold shadow-sm">Quick deposit</button>
-            </div>
-            <div class="account-cards border border-black w-73 bg-white rounded-4 shadow mt-5 d-flex flex-column justify-content-evenly">
-              <div class="mx-5 d-flex justify-content-between">
-                <span class="text-secondary fs-6 fw-light">Available balance</span>
-                <span class="fs-6">{{ request.session.account.account_type }}</span>
-              </div>
-              <div class="mx-5 fs-2 account-balance">{{ request.session.account.currency|currency_to_unicode|safe }}{{ request.session.account.balance }}</div>
-              <div class="mx-5 account-number">{{ request.session.account.currency|currency_to_unicode|safe }}{{ request.session.account.number }}</div>
-            </div>
-            <div class="transaction-chart">
-              <canvas id="transactionLineChart" width="800" height="400"></canvas>
-              <canvas id="transactionTypePieChart" width="400" height="400"></canvas>
-            </div>
+{% include 'users/includes/header.html' %}
+<main class="float-end">
+  <div>
+    {% if request.user.account_set.all %}
+    <div class="dashboard">
+      <div>
+        <div class="quick-transaction">
+          <button class="transfer rounded-1 p-2 fw-semibold shadow-sm">Quick Transfer</button>
+          <button class="deposit rounded-1 p-2 fw-semibold shadow-sm">Quick deposit</button>
+        </div>
+        <div
+          class="account-cards border border-black w-73 bg-white rounded-4 shadow mt-5 d-flex flex-column justify-content-evenly">
+          <div class="mx-5 d-flex justify-content-between">
+            <span class="text-secondary fs-6 fw-light">Available balance</span>
+            <span class="fs-6">{{ request.session.account.account_type }}</span>
           </div>
+          <div class="mx-5 fs-2 account-balance">{{ request.session.account.currency|currency_to_unicode|safe }}{{ request.session.account.balance }}</div>
+          <div class="mx-5 account-number">{{ request.session.account.number }}</div>
+        </div>
+        <div class="transaction-chart">
+          <canvas id="transactionLineChart" width="800" height="400"></canvas>
+          <canvas id="transactionTypePieChart" width="400" height="400"></canvas>
+        </div>
+      </div>
+      <div>
+        <div class="financial-overviews d-flex gap-5">
+          <span id="income" class="rounded-2 shadow bg-white d-flex flex-column justify-content-evenly ps-3">
+            <div class="fw-semibold">Income</div>
+            <div class="no_deposit fw-bold fs-5">{{ request.session.account.currency|currency_to_unicode|safe }}{{ financial.incoming }}</div>
+            <div class="deposit fw-bold fs-5">{{ request.session.account.currency|currency_to_unicode|safe }}{{ financial.incoming_2 }}</div>
+          </span>
+          <span id="spending" class=" rounded-2 shadow bg-white d-flex flex-column justify-content-evenly ps-3">
+              <div class="fw-semibold">Spending</div>
+              <div class="fw-bold fs-5">{{ request.session.account.currency|currency_to_unicode|safe }}{{ financial.outgoing }}</div>
+          </span>
+        </div>
+        <div class="transaction-partners">
           <div>
-            <div class="financial-overviews">
-              <div id="income">
-                {% comment %} <div  class="d-none">{{ request.session.account.currency|currency_to_unicode|safe }}{{ financial.incoming }}</div> {% endcomment %}
-                <div>{{ request.session.account.currency|currency_to_unicode|safe }}{{ financial.incoming_2 }}</div>
-              </div>
-              <div id="spending">{{ request.session.account.currency|currency_to_unicode|safe }}{{ financial.outgoing }}</div>
-            </div>
-            <div class="transaction-partners">
+            <span><img src="/media/profile.png" alt="" /></span>
+            <span>
+              <div>Adeniji Olajide</div>
               <div>
-                <span><img src="/media/profile.png" alt="" /></span>
-                <span>
-                  <div>Adeniji Olajide</div>
-                  <div>
-                    Account Number: <span>{{ request.session.account.number }}</span>
-                  </div>
-                </span>
+                Account Number: <span>{{ request.session.account.number }}</span>
               </div>
-            </div>
-            <div class="recent-transactions"></div>
+            </span>
           </div>
         </div>
-      {% else %}
-        <p class="text-success">
-          Welcome!, <span class="fs-3 fw-bold">{{ request.user.get_full_name }}</span>
-        </p>
-        <p class="text-center fs-3 my-5">Now that you're part of our community, let's ensure you have a smooth experience while testing transactions and exploring our features.</p>
-        <p class="text-center fs-2 fw-semibold m-5">Click the button below to Create an Account.</p>
-        <div id="welcome-create-account-btn" class="m-auto center border rounded-pill bg-success text-white text-center">Create Account</div>
-      {% endif %}
+        <div class="recent-transactions"></div>
+      </div>
     </div>
-  </main>
-  {% include 'users/includes/footer.html' %}
-  {% comment %} <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    
-  </script> {% endcomment %}
-  <script type="module" src="{% static 'users/scripts/dashboard.js' %}"></script>
+    {% else %}
+    <p class="text-success">
+      Welcome!, <span class="fs-3 fw-bold">{{ request.user.get_full_name }}</span>
+    </p>
+    <p class="text-center fs-3 my-5">Now that you're part of our community, let's ensure you have a smooth experience
+      while testing transactions and exploring our features.</p>
+    <p class="text-center fs-2 fw-semibold m-5">Click the button below to Create an Account.</p>
+    <div id="welcome-create-account-btn" class="m-auto center border rounded-pill bg-success text-white text-center">
+      Create Account</div>
+    {% endif %}
+  </div>
+</main>
+{% include 'users/includes/footer.html' %}
+<script type="module" src="{% static 'users/scripts/dashboard.js' %}"></script>
 {% endblock %}

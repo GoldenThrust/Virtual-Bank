@@ -53,3 +53,28 @@ main {
     font-family: "DM Serif";
     color: #5E3FBE;
 }
+
+.financial-overviews span {
+    width: 180px;
+    aspect-ratio: 5/2;
+}
+
+.financial-overviews #spending {
+    background: url("../images/spending.png") 85% 80% no-repeat;
+}
+
+.financial-overviews #income {
+    background: url("../images/income.png") 85% 80% no-repeat;
+}
+
+.financial-overviews .no_deposit {
+    display: none;
+}
+
+.financial-overviews span:hover>.deposit {
+    display: none;
+}
+
+.financial-overviews span:hover>.no_deposit {
+    display: block;
+}
