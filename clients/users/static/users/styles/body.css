@@ -11,10 +11,8 @@ main {
 
 .dashboard {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     margin-top: 2px;
-    column-rule: #5E3FBE;
-    column-width: 3px;
 }
 
 .quick-transaction {
@@ -55,8 +53,10 @@ main {
 }
 
 .financial-overviews span {
-    width: 180px;
+    width: 150px;
     aspect-ratio: 5/2;
+    font-size: 13px;
+    font-weight: 500;
 }
 
 .financial-overviews #spending {
@@ -77,4 +77,19 @@ main {
 
 .financial-overviews span:hover>.no_deposit {
     display: block;
+}
+
+.transaction-partners {
+    font-size: 13px;
+}
+
+.transaction-partners img {
+    width: 50px;
+}
+
+.transaction-partners .partners {
+    column-gap: 150px;
+    row-gap: 20px;
+    flex-wrap: wrap;
+    cursor: pointer;
 }

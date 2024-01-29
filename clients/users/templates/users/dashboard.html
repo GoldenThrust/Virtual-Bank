@@ -29,27 +29,58 @@
       <div>
         <div class="financial-overviews d-flex gap-5">
           <span id="income" class="rounded-2 shadow bg-white d-flex flex-column justify-content-evenly ps-3">
-            <div class="fw-semibold">Income</div>
-            <div class="no_deposit fw-bold fs-5">{{ request.session.account.currency|currency_to_unicode|safe }}{{ financial.incoming }}</div>
-            <div class="deposit fw-bold fs-5">{{ request.session.account.currency|currency_to_unicode|safe }}{{ financial.incoming_2 }}</div>
+            <div>Income</div>
+            <div class="no_deposit fw-semibold fs-6">{{ request.session.account.currency|currency_to_unicode|safe }}{{ financial.incoming }}</div>
+            <div class="deposit fw-semibold fs-6">{{ request.session.account.currency|currency_to_unicode|safe }}{{ financial.incoming_2 }}</div>
           </span>
           <span id="spending" class=" rounded-2 shadow bg-white d-flex flex-column justify-content-evenly ps-3">
-              <div class="fw-semibold">Spending</div>
-              <div class="fw-bold fs-5">{{ request.session.account.currency|currency_to_unicode|safe }}{{ financial.outgoing }}</div>
+              <div>Expenses</div>
+              <div class="fw-semibold fs-6">{{ request.session.account.currency|currency_to_unicode|safe }}{{ financial.outgoing }}</div>
           </span>
         </div>
-        <div class="transaction-partners">
-          <div>
-            <span><img src="/media/profile.png" alt="" /></span>
-            <span>
-              <div>Adeniji Olajide</div>
-              <div>
-                Account Number: <span>{{ request.session.account.number }}</span>
-              </div>
-            </span>
+        <div class="transaction-partners mt-4">
+          <h2>Send money to</h2>
+          <div class="partners d-flex my-3">
+            {% for partner in top_partners %}
+              <span class="center justify-content-start" >
+                <img src="{{ partner.transaction_partner_account.user.profile_picture.url  }}" alt="{{ partner.transaction_partner_account.user.get_full_name }} profile image" class="rounded-pill overflow-hidden profile-glow me-2">
+                <span>
+                  <div class="fw-bold fs-6">{{ partner.transaction_partner_account.user.get_full_name }}</div>
+                  <div><span class="fw-semibold">Acct No.: </span>{{ partner.transaction_partner_account.number }}</div>
+                </span>
+              </span>
+            {% endfor %}
           </div>
         </div>
-        <div class="recent-transactions"></div>
+        <div class="recent-transactions">
+          <h2>Recent Transactions</h2>
+          <div class="transactions">
+            <div>
+              <img src="/static/users/images/deposits.png" alt="">
+              <span>
+                <span>JJon Klenn</span>
+                <span>15min ago</span>
+              </span>
+              <span>
+                <div>$900</div>
+                <div>
+                  <span>ID: </span> 58h3488ht83h8t834hg48g5ybbgr
+                </div>
+              </span>
+            </div>
+            {% comment %} {% for transaction in recent_transactions %}
+              {% if transaction.transaction_type == 'TRANSFER' %}
+                  {{ transaction.transaction_type }} 
+                  {{ transaction.transfer.transaction_partner_account }} <br>
+              {% elif transaction.transaction_type == 'DEBIT_CARD' %}
+                {{ transaction.transaction_type }} 
+                {{ transaction.debit_card.transaction_partner_account }} <br>
+              {% else %}
+                {{ transaction.transaction_type }} <br>
+              {% endif %}
+            {% endfor %} {% endcomment %}
+          </div>
+        </div>
       </div>
     </div>
     {% else %}

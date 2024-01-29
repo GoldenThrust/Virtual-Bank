@@ -80,7 +80,7 @@
     </span>
 
   </div>
-  <div class="searchbar border border-success rounded-pill p-2 h-75 w-50 d-flex align-items-center">
+  <div class="searchbar rounded-pill p-2 h-75 w-50 d-flex align-items-center">
     <img src="{% static 'users/images/searchicon.png' %}" alt="search icon" class="search" />
     <input type="text" class="rounded-end-pill w-100 border-none bg-transparent" /> <!-- search bar -->
   </div>
@@ -115,7 +115,7 @@
       </span>
       {% endif %}
     </div>
-    <a href="#" class="shadow-sm bg-body-tertiary border border-success rounded-pill overflow-hidden  profile"><img
+    <a href="#" class="bg-body-tertiary rounded-pill overflow-hidden profile profile-glow"><img
         src="{{ request.user.profile_picture.url }}" alt="profile" class="profile-image" title="profile" /></a>
     <!-- profile -->
   </div>

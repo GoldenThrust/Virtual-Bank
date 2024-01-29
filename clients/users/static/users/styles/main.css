@@ -29,3 +29,13 @@
     background: #110f0f;
     border-radius: 5px;
 }
+
+.profile-glow {
+    border: 1px solid #5E3FBE;
+    box-shadow: 0 0 5px #5E3FBE;
+}
+
+.profile-glow:hover {
+    border: 1px solid #b70202;
+    box-shadow: 0 0 5px #b70202;
+}

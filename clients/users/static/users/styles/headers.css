@@ -86,6 +86,10 @@ aside.account-form form {
     transform: translate(-50%, -50%);
 }
 
+header .searchbar {
+    border: 1px solid #5E3FBE;
+}
+
 header .notification-count {
     top: 12px;
     right: -6px;

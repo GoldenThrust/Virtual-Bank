@@ -258,7 +258,7 @@ class TransactionDebitCardCreate(generics.CreateAPIView):
         self.transaction_partner_account_number = card.account.number
 
         if card.account.balance >= transaction_amount:
-            transaction_partner_account_name = f'{card.account.user.first_name} {card.acount.user.last_name}'
+            transaction_partner_account_name = f'{card.account.user.first_name} {card.account.user.last_name}'
             serializer.save(transaction_type="DEBIT_CARD", account=account)
 
             # Update Account Balances
