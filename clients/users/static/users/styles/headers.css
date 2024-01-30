@@ -1,5 +1,9 @@
 header {
-    height: 50px;
+    height: 60px;
+    background-color: #F4F4FE;
+    border-bottom: 2px solid #5E3FBE;
+    border-radius: 0 8px 8px;
+    box-shadow: 0 5px 10px #0000003c;
 }
 
 header .accounts {
@@ -63,7 +67,7 @@ aside.main-nav .icon {
 
 aside.main-nav .icon:hover {
     filter: drop-shadow(-5px 0 1.2px rgba(0, 0, 0, 0.415));
-    transform: scale(1.5) translate(10px, 5px);
+    transform: scale(1.1) translate(3px, 2px);
 }
 
 aside.main-nav:hover {
@@ -87,6 +91,7 @@ aside.account-form form {
 }
 
 header .searchbar {
+    height: 65%;
     border: 1px solid #5E3FBE;
 }
 

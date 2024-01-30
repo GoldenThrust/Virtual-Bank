@@ -12,7 +12,7 @@ from transactions.models import Transaction
 from transfers.models import Transfer
 from django.db.models import Q, Sum, Count
 import json
-
+import django.template.backends.django
 
 class LoginView(auth_views.LoginView):
     def dispatch(self, request, *args, **kwargs):
@@ -76,36 +76,10 @@ class DashBoard(View):
                         "account"
                     )["pk"]
                 )
-            ).order_by("-date")
+            ).order_by("-date")[:10]
         else:
             recent_transactions = None
 
-        # # financial data
-        # financial = {
-        #     "incoming": Transaction.objects.filter(
-        #         account=request.session.get("account")["pk"]
-        #     ).aggregate(Sum("amount"))["amount__sum"]
-        #     or 0,
-        #     "incoming_2": Transaction.objects.filter(
-        #         account=request.session.get("account")["pk"]
-        #     )
-        #     .exclude(transaction_type="DEPOSIT")
-        #     .aggregate(Sum("amount"))["amount__sum"]
-        #     or 0,
-        #     "outgoing": Transaction.objects.filter(
-        #         Q(
-        #             debit_card__transaction_partner_account=request.session.get(
-        #                 "account"
-        #             )["pk"]
-        #         )
-        #         | Q(
-        #             transfer__transaction_partner_account=request.session.get(
-        #                 "account"
-        #             )["pk"]
-        #         )
-        #     ).aggregate(Sum("amount"))["amount__sum"]
-        #     or 0,
-        # }
 
         # financial data
         financial = {
