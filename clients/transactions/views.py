@@ -18,9 +18,9 @@ def transactions_chart_data(request):
         debit_card_data = [{'date': transaction.date.strftime('%Y-%m-%d'), 'amount': float(transaction.amount)} for transaction in debit_card_transactions]
 
         # Convert data to JSON format
-        deposit_json = json.dumps(deposit_data)
-        transfer_json = json.dumps(transfer_data)
-        debit_card_json = json.dumps(debit_card_data)
+        deposit_json = deposit_data
+        transfer_json = transfer_data
+        debit_card_json = debit_card_data
 
 
         data = {

@@ -120,13 +120,6 @@ main {
     transform: scale(1.1);
 }
 
-.transaction-chart {
-
-}
-#transactionLineChart {
-    width: 100%;
-    height: 100%;
-}
-#transactionTypePieChart {
-    height: 50%;
+#transactionChart {
+    width: 90%;
 }

@@ -8,11 +8,13 @@
       {% if request.user.account_set.all %}
         <div class="dashboard">
           <div>
+            <!-- Quick Transactions -->
             <div class="quick-transaction">
               <button class="transfer rounded-1 p-2 fw-semibold shadow-sm">Quick Transfer</button>
               <button class="deposit rounded-1 p-2 fw-semibold shadow-sm">Quick deposit</button>
             </div>
             
+            <!-- account status card -->
             <div class="account-cards border border-black w-73 bg-white rounded-4 shadow mt-5 d-flex flex-column justify-content-evenly">
               <div class="mx-5 d-flex justify-content-between">
                 <span class="text-secondary fs-6 fw-light">Available balance</span>
@@ -23,8 +25,7 @@
             </div>
 
             <div class="transaction-chart d-flex flex-column w-100 mt-5">
-              <canvas id="transactionLineChart" class="border border-black"></canvas>
-              <canvas id="transactionTypePieChart" class="border border-black"></canvas>
+              <div id="transactionChart"></div> <!-- Transaction chart -->
             </div>
           </div>
           <div>
