@@ -7,7 +7,7 @@ class Transaction(models.Model):
         ('DEPOSIT', 'Deposit'),
         ('TRANSFER', 'Transfer'),
         ('DEBIT_CARD', 'Debit Card'),
-        ('PAYMENT', 'Payment'),
+        # ('PAYMENT', 'Payment'),
     ]
 
     account = models.ForeignKey(Account, on_delete=models.CASCADE, default=11)

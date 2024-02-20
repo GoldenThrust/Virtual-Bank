@@ -11,7 +11,7 @@ main {
 
 .dashboard {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     margin-top: 2px;
 }
 
@@ -122,4 +122,5 @@ main {
 
 #transactionChart {
     width: 90%;
+    height: fit-content;
 }

@@ -8,7 +8,7 @@ if (WelcomeCreateAccountBtn) {
 }
 
 let data = {};
-const ctxLine = document.getElementById('transactionLineChart');
+const lineChart = document.getElementById('transactionChart');
 fetch('../transactions/transactions_chart').then((response) => {
     if (response.ok) {
         return response.json()
@@ -16,7 +16,7 @@ fetch('../transactions/transactions_chart').then((response) => {
 }).then((response) => {
     drawChart(response)
 })
-// .catch(error => console.error('Error:', error));
+.catch(error => console.error('Error:', error));
 
 function drawChart(data) {
     let depositDates = data.deposit_data.map(entry => entry.date);
@@ -61,10 +61,39 @@ function drawChart(data) {
         series: datasets,
         xaxis: {
             categories: longestArrayofDate()
+        },
+        stroke: {
+            curve: 'smooth',
+        },
+        colors:['#F44336', '#E91E63', '#c1311e'],
+        fill: {
+            type: 'gradient',
+            gradient: {
+              shade: 'dark',
+              type: "horizontal",
+              shadeIntensity: 0.5,
+              gradientToColors: undefined,
+              inverseColors: true,
+              opacityFrom: 1,
+              opacityTo: 1,
+              stops: [0, 50, 100],
+              colorStops: []
+            }
+          },
+          chart: {
+            dropShadow: {
+                enabled: true,
+                enabledOnSeries: false,
+                top: 1,
+                left: 1,
+                blur: 3,
+                color: '#000',
+                opacity: 0.35
+            }
         }
+        
     };
 
-    let myChart = new ApexCharts(document.getElementById('transactionChart'), options);
-
-    myChart.render();
+    let chart = new ApexCharts(lineChart, options);
+    chart.render();
 }

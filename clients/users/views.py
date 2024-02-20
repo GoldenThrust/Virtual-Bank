@@ -10,9 +10,7 @@ from django.contrib.auth import views as auth_views
 from notifications.utils import process_notifications
 from transactions.models import Transaction
 from transfers.models import Transfer
-from django.db.models import Q, Sum, Count
-import json
-import django.template.backends.django
+from django.db.models import Q, Sum
 
 class LoginView(auth_views.LoginView):
     def dispatch(self, request, *args, **kwargs):
