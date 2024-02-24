@@ -63,7 +63,7 @@ function drawChart(data) {
             categories: longestArrayofDate()
         },
         stroke: {
-            curve: 'smooth',
+            // curve: 'smooth',
         },
         colors:['#F44336', '#E91E63', '#c1311e'],
         fill: {
@@ -97,3 +97,8 @@ function drawChart(data) {
     let chart = new ApexCharts(lineChart, options);
     chart.render();
 }
+
+
+
+const quickTransfer = document.querySelector('.quick-transfer');
+const quickDeposit = document.querySelector('.quick-deposit');

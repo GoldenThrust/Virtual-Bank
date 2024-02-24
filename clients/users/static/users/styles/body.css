@@ -31,13 +31,13 @@ main {
     box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.501);
 }
 
-.quick-transaction .transfer {
+.quick-transfer {
     background-color: #5E3FBE;
     color: #F4F4FE;
     margin-right: 80px;
 }
 
-.quick-transaction .deposit {
+.quick-deposit {
     background-color: #F4F0FD;
 }
 

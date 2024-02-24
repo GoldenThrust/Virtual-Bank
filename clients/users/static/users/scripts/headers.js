@@ -7,9 +7,14 @@ const accountForm = document.querySelector('.account-form');
 const accountType = document.querySelector('#account_type');
 const currency = document.querySelector('#currency');
 const CreateAccountBtn = document.querySelector('#create-account-btn');
+const CancelAccountBtn = document.querySelector('#cancel-account-btn');
 const unreadNotification = document.querySelectorAll('.unread-notification')
 const unreadNotifications = document.querySelector('.unread-notifications')
 const notificationCount = document.querySelector('.notification-count');
+
+CancelAccountBtn.addEventListener('click', () => {
+    accountForm.classList.add('d-none');
+});
 
 if (addAccount.length) {
     addAccount.forEach(element => {

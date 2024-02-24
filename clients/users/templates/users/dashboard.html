@@ -4,30 +4,40 @@
 {% block content %}
   {% include 'users/includes/header.html' %}
   <main class="float-end">
-
     <aside class="account-form d-none">
       <form method="POST" class="border border-primary px-5 py-2 shadow p-3 mb-5 bg-body-tertiary rounded">
-        {% csrf_token %}
+        {% comment %} {% csrf_token %} {% endcomment %}
         <fieldset class="form-group">
-          <legend class="border-bottom mb-4">Send Account</legend>
+          <legend class="border-bottom mb-4">Make Transfer</legend>
           <div id="div_account_type" class="mb-3">
-            <label for="account_type" class="form-label">Account type</label> <select name="account_type" class="select form-select" id="account_type">
-              <option value="SAVINGS" selected>Savings</option>
-              <option value="CURRENT">Current</option>
-            </select>
+            <label for="quick-account_number" class="form-label">Account Number</label>
+            <input type="number" name="quick-account_number" id="quick-account_number" />
           </div>
           <div id="div_currency" class="mb-3">
-            <label for="currency" class="form-label">Currency</label> <select name="currency" class="select form-select" id="currency">
-              <option value="USD">USD</option>
-              <option value="EUR">EUR</option>
-              <option value="GBP">GBP</option>
-              <option value="NGN" selected>NGN</option>
-            </select>
+            <label for="quick-amount" class="form-label">Amount</label>
+            <input type="number" name="quick-amount" id="amount" />
           </div>
 
           <div class="form-group mb-3">
-            <button class="btn btn-outline-info w-100" id="create-account-btn" type="button">Transfer</button>
-            <button class="btn btn-outline-info w-100" id="create-account-btn" type="button">Deposit</button>
+            <button class="btn btn-outline-info w-100" id="cancel-account-btn" type="button">Cancel</button>
+            <button class="btn btn-outline-info w-100" id="create-account-btn" type="button">Send</button>
+          </div>
+        </fieldset>
+      </form>
+    </aside>
+    <aside class="account-form d-none">
+      <form method="POST" class="border border-primary px-5 py-2 shadow p-3 mb-5 bg-body-tertiary rounded">
+        {% comment %} {% csrf_token %} {% endcomment %}
+        <fieldset class="form-group">
+          <legend class="border-bottom mb-4">Make Deposit</legend>
+          <div id="div_currency" class="mb-3">
+            <label for="quick-deposit-amount" class="form-label">Amount</label>
+            <input type="number" name="quick-deposit-amount" id="amount" />
+          </div>
+
+          <div class="form-group mb-3">
+            <button class="btn btn-outline-info w-100" id="cancel-account-btn" type="button">Cancel</button>
+            <button class="btn btn-outline-info w-100" id="create-account-btn" type="button">Send</button>
           </div>
         </fieldset>
       </form>
@@ -39,8 +49,8 @@
           <div>
             <!-- Quick Transactions -->
             <div class="quick-transaction">
-              <button class="transfer rounded-1 p-2 fw-semibold shadow-sm">Quick Transfer</button>
-              <button class="deposit rounded-1 p-2 fw-semibold shadow-sm">Quick deposit</button>
+              <button class="quick-transfer rounded-1 p-2 fw-semibold shadow-sm">Quick Transfer</button>
+              <button class="quick-deposit rounded-1 p-2 fw-semibold shadow-sm">Quick deposit</button>
             </div>
 
             <!-- account status card -->
@@ -70,6 +80,7 @@
               </span>
             </div>
 
+            {% comment %} Warning: Don't do this {% if (top_partners.all|length) > 0 %} avoid adding bracket {% endcomment %}
             {% if top_partners.all|length > 0 %}
               <div class="transaction-partners mt-4">
                 <h2>Send money to</h2>
@@ -88,7 +99,8 @@
                 </div>
               </div>
             {% endif %}
-
+            
+            {% comment %} Warning: Don't do this {% if (recent_transactions.all|length) > 0 %}  avoid adding bracket {% endcomment %}
             {% if recent_transactions.all|length > 0 %}
               <div class="recent-transactions mt-3">
                 <h2>Recent Transactions</h2>

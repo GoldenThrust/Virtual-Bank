@@ -74,22 +74,6 @@ aside.main-nav:hover {
     box-shadow: none;
 }
 
-
-aside.account-form {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.1);
-    z-index: 1;
-}
-
-aside.account-form form {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 header .searchbar {
     height: 65%;
     border: 1px solid #5E3FBE;
