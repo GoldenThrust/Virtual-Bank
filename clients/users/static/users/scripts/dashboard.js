@@ -138,9 +138,8 @@ quickTransferBtn.addEventListener("click", (e) => {
 
 quickDepositBtn.addEventListener("click", (e) => {
     const amount = e.target.parentNode.parentElement.children[1].children[1].value
-    if (amount && acctNo) {
+    if (amount) {
         const form = new FormData();
-
         form.append("account_type", amount);
         postData("/transactions/deposit/", form, true);
     }
