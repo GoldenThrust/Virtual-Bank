@@ -83,7 +83,7 @@ To start the development server:
 
     **Create User:**
     ```bash
-    curl -X POST http://localhost:8000/api/v1/users/create/ -H 'Content-Type: application/json;' -d '{
+    curl -X POST http://localhost:8000/api/users/create/ -H 'Content-Type: application/json;' -d '{
         "username": "max_miller",
         "password": "maxm1234",
         "first_name": "Max",
@@ -109,7 +109,7 @@ To start the development server:
 
     **Create Account:**
     ```bash
-    curl -X POST http://localhost:8000/api/v1/accounts/create/ -H 'Content-Type: application/json; Authorization: Basic bWF4X21pbGxlcjptYXhtMTIzNA==' -d '{
+    curl -X POST http://localhost:8000/api/accounts/create/ -H 'Content-Type: application/json; Authorization: Basic bWF4X21pbGxlcjptYXhtMTIzNA==' -d '{
         "name": "Biznumd",
         "account_type": "CURRENT",
         "balance": 7500,
@@ -135,7 +135,7 @@ The Virtual Bank API provides several endpoints for handling transactions.
 ### Users
 
 #### User List (Admin Only)
-- **Endpoint:** `/api/v1/users/`
+- **Endpoint:** `/api/users/`
 - **Description:** Retrieves a list of users.
 - **Method:** GET, POST
 - **Authorization:** Basic base64(username:password)
@@ -157,13 +157,13 @@ The Virtual Bank API provides several endpoints for handling transactions.
     ```
 
 #### User Detail (Admin Only)
-- **Endpoint:** `/api/v1/users/<int:pk>/`
+- **Endpoint:** `/api/users/<int:pk>/`
 - **Description:** Retrieves details of a specific user.
 - **Method:** GET, PUT, DELETE
 - **Authorization:** Basic base64(username:password)
 
 #### User Creation 
-- **Endpoint:** `/api/v1/users/create/`
+- **Endpoint:** `/api/users/create/`
 - **Description:** Creates a new user.
 - **Method:** POST
 - **Authorization:** None (No authentication required)
@@ -185,19 +185,19 @@ The Virtual Bank API provides several endpoints for handling transactions.
     ```
 
 #### User Update
-- **Endpoint:** `/api/v1/users/update/`
+- **Endpoint:** `/api/users/update/`
 - **Description:** Updates user information.
 - **Method:** PUT
 - **Authorization:** Basic base64(username:password)
 
 #### User Info
-- **Endpoint:** `/api/v1/users/info/`
+- **Endpoint:** `/api/users/info/`
 - **Description:** Retrieves user information.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
 
 #### User List 
-- **Endpoint:** `/api/v1/users/lists/`
+- **Endpoint:** `/api/users/lists/`
 - **Description:** Retrieves a list of users.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
@@ -205,7 +205,7 @@ The Virtual Bank API provides several endpoints for handling transactions.
 ### Accounts
 
 #### Accounts List (Admin Only)
-- **Endpoint:** `/api/v1/accounts/`
+- **Endpoint:** `/api/accounts/`
 - **Description:** Retrieves a list of accounts.
 - **Method:** GET, POST
 - **Authorization:** Basic base64(username:password)
@@ -220,19 +220,19 @@ The Virtual Bank API provides several endpoints for handling transactions.
     ```
 
 #### Account Detail (Admin Only)
-- **Endpoint:** `/api/v1/accounts/<int:pk>/`
+- **Endpoint:** `/api/accounts/<int:pk>/`
 - **Description:** Retrieves details of a specific account.
 - **Method:** GET, PUT, DELETE
 - **Authorization:** Basic base64(username:password)
 
 #### Accounts List 
-- **Endpoint:** `/api/v1/accounts/lists/`
+- **Endpoint:** `/api/accounts/lists/`
 - **Description:** Retrieves accounts associated with current users.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
 
 #### Account Creation 
-- **Endpoint:** `/api/v1/accounts/create/`
+- **Endpoint:** `/api/accounts/create/`
 - **Description:** Creates a new account.
 - **Method:** POST
 - **Authorization:** Basic base64(username:password)
@@ -247,7 +247,7 @@ The Virtual Bank API provides several endpoints for handling transactions.
     ```
 
 #### Account Details 
-- **Endpoint:** `/api/v1/accounts/details/<int:number>/`
+- **Endpoint:** `/api/accounts/details/<int:number>/`
 - **Description:** Retrieves details of a specific account.
 - **Method:** GET, PUT, DELETE
 - **Authorization:** Basic base64(username:password)
@@ -255,61 +255,61 @@ The Virtual Bank API provides several endpoints for handling transactions.
 ### Debit Cards
 
 #### Debit Cards List (Admin Only)
-- **Endpoint:** `/api/v1/debit_cards/`
+- **Endpoint:** `/api/debit_cards/`
 - **Description:** Retrieves a list of debit cards.
 - **Method:** GET, POST
 - **Authorization:** Basic base64(username:password)
 
 #### Debit Card Detail (Admin Only)
-- **Endpoint:** `/api/v1/debit_cards/<int:pk>/`
+- **Endpoint:** `/api/debit_cards/<int:pk>/`
 - **Description:** Retrieves details of a specific debit card.
 - **Method:** GET, PUT, DELETE
 - **Authorization:** Basic base64(username:password)
 
 #### Debit Cards List 
-- **Endpoint:** `/api/v1/debit_cards/lists/`
+- **Endpoint:** `/api/debit_cards/lists/`
 - **Description:** Retrieves debit cards associated with current users.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
 
 #### Debit Card Transactions (Admin Only)
-- **Endpoint:** `/api/v1/debit_cards_transactions/`
+- **Endpoint:** `/api/debit_cards_transactions/`
 - **Description:** Retrieves transactions related to debit cards.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
 
 #### Debit Card Transactions Detail (Admin Only)
-- **Endpoint:** `/api/v1/debit_cards_transactions/<int:pk>`
+- **Endpoint:** `/api/debit_cards_transactions/<int:pk>`
 - **Description:** Retrieves details of a specific debit card transaction.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
 
 #### Debit Cards List 
-- **Endpoint:** `/api/v1/debit_cards/lists/`
+- **Endpoint:** `/api/debit_cards/lists/`
 - **Description:** Retrieves debit cards associated with current users.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
 
 #### Debit Card Details 
-- **Endpoint:** `/api/v1/debit_cards/details/<int:number>/`
+- **Endpoint:** `/api/debit_cards/details/<int:number>/`
 - **Description:** Retrieves details of a specific debit card.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
 
 #### Debit Card Transactions List 
-- **Endpoint:** `/api/v1/debit_cards_transactions/lists/`
+- **Endpoint:** `/api/debit_cards_transactions/lists/`
 - **Description:** Retrieves transactions related to debit cards.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
 
 #### Debit Card Transaction Details 
-- **Endpoint:** `/api/v1/debit_cards_transactions/details/<uuid:identifier>/`
+- **Endpoint:** `/api/debit_cards_transactions/details/<uuid:identifier>/`
 - **Description:** Retrieves details of a specific debit card transaction.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
 
 #### Debit Card Payment 
-- **Endpoint:** `/api/v1/debit_cards/payment/`
+- **Endpoint:** `/api/debit_cards/payment/`
 - **Description:** Processes payment for debit cards.
 - **Method:** POST
 - **Authorization:** Basic base64(username:password)
@@ -327,19 +327,19 @@ The Virtual Bank API provides several endpoints for handling transactions.
 ### Deposits
 
 #### Deposits List (Admin Only)
-- **Endpoint:** `/api/v1/deposits/`
+- **Endpoint:** `/api/deposits/`
 - **Description:** Retrieves a list of deposits.
 - **Method:** GET, POST
 - **Authorization:** Basic base64(username:password)
 
 #### Deposit Detail (Admin Only)
-- **Endpoint:** `/api/v1/deposits/<int:pk>/`
+- **Endpoint:** `/api/deposits/<int:pk>/`
 - **Description:** Retrieves details of a specific deposit.
 - **Method:** GET, PUT, DELETE
 - **Authorization:** Basic base64(username:password)
 
 #### Deposit Creation 
-- **Endpoint:** `/api/v1/deposits/create/`
+- **Endpoint:** `/api/deposits/create/`
 - **Description:** Creates a new deposit.
 - **Method:** POST
 - **Authorization:** Basic base64(username:password)
@@ -352,13 +352,13 @@ The Virtual Bank API provides several endpoints for handling transactions.
     ```
 
 #### User Deposits List 
-- **Endpoint:** `/api/v1/deposits/lists/`
+- **Endpoint:** `/api/deposits/lists/`
 - **Description:** Retrieves deposits associated with current users.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
 
 #### User Deposit Details 
-- **Endpoint:** `/api/v1/deposits/details/<uuid:identifier>/`
+- **Endpoint:** `/api/deposits/details/<uuid:identifier>/`
 - **Description:** Retrieves details of a specific user deposit.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
@@ -366,20 +366,20 @@ The Virtual Bank API provides several endpoints for handling transactions.
 ### Merchants
 
 #### Merchants List (Admin Only)
-- **Endpoint:** `/api/v1/merchants/`
+- **Endpoint:** `/api/merchants/`
 - **Description:** Retrieves a list of merchants.
 - **Method:** GET, POST
 - **Authorization:** Basic base64(username:password)
 - **Body:**
 
 #### Merchant Detail (Admin Only)
-- **Endpoint:** `/api/v1/merchants/<int:pk>/`
+- **Endpoint:** `/api/merchants/<int:pk>/`
 - **Description:** Retrieves details of a specific merchant.
 - **Method:** GET, PUT, DELETE
 - **Authorization:** Basic base64(username:password)
 
 #### Merchant Creation 
-- **Endpoint:** `/api/v1/merchants/create/`
+- **Endpoint:** `/api/merchants/create/`
 - **Description:** Creates a new merchant.
 - **Method:** POST
 - **Authorization:** Basic base64(username:password)
@@ -404,7 +404,7 @@ The Virtual Bank API provides several endpoints for handling transactions.
 ```
 
 #### Merchant Details 
-- **Endpoint:** `/api/v1/merchants/details/`
+- **Endpoint:** `/api/merchants/details/`
 - **Description:** Retrieves details of a merchant.
 - **Method:** GET, PUT, DELETE
 - **Authorization:** Basic base64(username:password)
@@ -412,25 +412,25 @@ The Virtual Bank API provides several endpoints for handling transactions.
 ### Notifications
 
 #### Notifications List (Admin Only)
-- **Endpoint:** `/api/v1/notifications/`
+- **Endpoint:** `/api/notifications/`
 - **Description:** Retrieves a list of notifications.
 - **Method:** GET, POST
 - **Authorization:** Basic base64(username:password)
 
 #### Notification Detail (Admin Only)
-- **Endpoint:** `/api/v1/notifications/<int:pk>/`
+- **Endpoint:** `/api/notifications/<int:pk>/`
 - **Description:** Retrieves details of a specific notification.
 - **Method:** GET, PUT, DELETE
 - **Authorization:** Basic base64(username:password)
 
 #### User Notifications List 
-- **Endpoint:** `/api/v1/notifications/lists/`
+- **Endpoint:** `/api/notifications/lists/`
 - **Description:** Retrieves notifications associated with current users.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
 
 #### User Notification Detail 
-- **Endpoint:** `/api/v1/notifications/details/<int:notification_number>/`
+- **Endpoint:** `/api/notifications/details/<int:notification_number>/`
 - **Description:** Retrieves details of a specific user notification.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
@@ -438,25 +438,25 @@ The Virtual Bank API provides several endpoints for handling transactions.
 ### Transactions
 
 #### Transactions List (Admin Only)
-- **Endpoint:** `/api/v1/transactions/`
+- **Endpoint:** `/api/transactions/`
 - **Description:** Retrieves a list of transactions.
 - **Method:** GET, POST
 - **Authorization:** Basic base64(username:password)
 
 #### Transaction Detail (Admin Only)
-- **Endpoint:** `/api/v1/transactions/<int:pk>/`
+- **Endpoint:** `/api/transactions/<int:pk>/`
 - **Description:** Retrieves details of a specific transaction.
 - **Method:** GET, PUT, DELETE
 - **Authorization:** Basic base64(username:password)
 
 #### Transaction History 
-- **Endpoint:** `/api/v1/transactions/history/`
+- **Endpoint:** `/api/transactions/history/`
 - **Description:** Retrieves transaction history.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
 
 #### User Transaction Detail 
-- **Endpoint:** `/api/v1/transactions/history/<uuid:identifier>/`
+- **Endpoint:** `/api/transactions/history/<uuid:identifier>/`
 - **Description:** Retrieves details of a specific user transaction.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
@@ -464,19 +464,19 @@ The Virtual Bank API provides several endpoints for handling transactions.
 ### Transfers
 
 #### Transfers List (Admin Only)
-- **Endpoint:** `/api/v1/transfers/`
+- **Endpoint:** `/api/transfers/`
 - **Description:** Retrieves a list of transfers.
 - **Method:** GET, POST
 - **Authorization:** Basic base64(username:password)
 
 #### Transfer Detail (Admin Only)
-- **Endpoint:** `/api/v1/transfers/<int:pk>/`
+- **Endpoint:** `/api/transfers/<int:pk>/`
 - **Description:** Retrieves details of a specific transfer.
 - **Method:** GET, PUT, DELETE
 - **Authorization:** Basic base64(username:password)
 
 #### Transfer Creation 
-- **Endpoint:** `/api/v1/transfers/create/`
+- **Endpoint:** `/api/transfers/create/`
 - **Description:** Creates a new transfer.
 - **Method:** POST
 - **Authorization:** Basic base64(username:password)
@@ -490,13 +490,13 @@ The Virtual Bank API provides several endpoints for handling transactions.
 ``` 
 
 #### User Transfer List 
-- **Endpoint:** `/api/v1/transfers/lists/`
+- **Endpoint:** `/api/transfers/lists/`
 - **Description:** Retrieves transfers associated with current users.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
 
 #### User Transfer Details 
-- **Endpoint:** `/api/v1/transfers/details/<uuid:identifier>/`
+- **Endpoint:** `/api/transfers/details/<uuid:identifier>/`
 - **Description:** Retrieves details of a specific user transfer.
 - **Method:** GET
 - **Authorization:** Basic base64(username:password)
