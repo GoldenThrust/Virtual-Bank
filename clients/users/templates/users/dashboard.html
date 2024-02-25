@@ -4,40 +4,50 @@
 {% block content %}
   {% include 'users/includes/header.html' %}
   <main class="float-end">
-    <aside class="account-form d-none">
+
+    <aside class="account-form quick-transfer-form d-none">
       <form method="POST" class="border border-primary px-5 py-2 shadow p-3 mb-5 bg-body-tertiary rounded">
         {% comment %} {% csrf_token %} {% endcomment %}
         <fieldset class="form-group">
           <legend class="border-bottom mb-4">Make Transfer</legend>
-          <div id="div_account_type" class="mb-3">
-            <label for="quick-account_number" class="form-label">Account Number</label>
-            <input type="number" name="quick-account_number" id="quick-account_number" />
+          <div class="mb-3">
+            <label for="quick-account_number" class="form-label">Account type</label>  
+            {% if top_partners.all|length > 0 %}
+            <select name="quick-account_number" class="select form-select" id="quick-account_number">
+              {% for partner in top_partners %}
+                <option value="{{ partner.transaction_partner_account.number }}">{{ partner.transaction_partner_account.user.username|title }} - {{ partner.transaction_partner_account.number }}</option>
+              {% endfor %}
+            </select>
+            {% else %}
+              <input type="number" name="quick-account_number" class="numberinput form-control" id="quick-account_number" />
+            {% endif %}
           </div>
-          <div id="div_currency" class="mb-3">
+          <div class="mb-3">
             <label for="quick-amount" class="form-label">Amount</label>
-            <input type="number" name="quick-amount" id="amount" />
+            <input type="number" name="quick-amount" class="numberinput form-control" id="quick-amount" />
           </div>
 
-          <div class="form-group mb-3">
-            <button class="btn btn-outline-info w-100" id="cancel-account-btn" type="button">Cancel</button>
-            <button class="btn btn-outline-info w-100" id="create-account-btn" type="button">Send</button>
+          <div class="form-group mb-3 d-flex flex-row gap-1">
+            <button class="btn btn-outline-danger w-100 cancel-overlay-btn" type="button">Cancel</button>
+            <button class="btn btn-outline-info w-100" id="quick-transfer-btn" type="button">Send</button>
           </div>
         </fieldset>
       </form>
     </aside>
-    <aside class="account-form d-none">
+  
+    <aside class="account-form quick-deposit-form d-none">
       <form method="POST" class="border border-primary px-5 py-2 shadow p-3 mb-5 bg-body-tertiary rounded">
         {% comment %} {% csrf_token %} {% endcomment %}
         <fieldset class="form-group">
           <legend class="border-bottom mb-4">Make Deposit</legend>
-          <div id="div_currency" class="mb-3">
+          <div class="mb-3">
             <label for="quick-deposit-amount" class="form-label">Amount</label>
-            <input type="number" name="quick-deposit-amount" id="amount" />
+            <input type="number" name="quick-deposit-amount" class="numberinput form-control" />
           </div>
 
-          <div class="form-group mb-3">
-            <button class="btn btn-outline-info w-100" id="cancel-account-btn" type="button">Cancel</button>
-            <button class="btn btn-outline-info w-100" id="create-account-btn" type="button">Send</button>
+          <div class="form-group mb-3 d-flex flex-row gap-1">
+            <button class="btn btn-outline-danger w-100 cancel-overlay-btn" type="button">Cancel</button>
+            <button class="btn btn-outline-info w-100" id="quick-deposit-btn" type="button">Deposit</button>
           </div>
         </fieldset>
       </form>

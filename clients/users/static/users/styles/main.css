@@ -1,59 +1,69 @@
 .center {
-    display: flex;
-    justify-content: center;
-    align-items: center
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .w-15 {
-    width: 15%;
+  width: 15%;
 }
 
 .border-none {
-    border: none;
-    outline: none;
+  border: none;
+  outline: none;
 }
 
 .hover-pointer:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 ::-webkit-scrollbar {
-    width: 1px;
+  width: 1px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #98e098;
+  background: #98e098;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #110f0f;
-    border-radius: 5px;
+  background: #110f0f;
+  border-radius: 5px;
+}
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .profile-glow {
-    border: 1px solid #5E3FBE;
-    box-shadow: 0 0 5px #5E3FBE;
+  border: 1px solid #5e3fbe;
+  box-shadow: 0 0 5px #5e3fbe;
 }
 
 .profile-glow:hover {
-    border: 1px solid #b70202;
-    box-shadow: 0 0 5px #b70202;
+  border: 1px solid #b70202;
+  box-shadow: 0 0 5px #b70202;
 }
 
 aside.account-form {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.1);
-    z-index: 20;
-    overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 20;
+  overflow: hidden;
 }
 
 aside.account-form form {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

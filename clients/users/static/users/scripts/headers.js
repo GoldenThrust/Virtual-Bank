@@ -1,61 +1,66 @@
-import { postData } from './main.js'
+import { postData } from "./main.js";
 
-const accountID = document.getElementById('account-id')
-const addAccount = document.querySelectorAll('.add-account');
-const renameAccount = document.querySelectorAll('.rename-account');
-const accountForm = document.querySelector('.account-form');
-const accountType = document.querySelector('#account_type');
-const currency = document.querySelector('#currency');
-const CreateAccountBtn = document.querySelector('#create-account-btn');
-const CancelAccountBtn = document.querySelector('#cancel-account-btn');
-const unreadNotification = document.querySelectorAll('.unread-notification')
-const unreadNotifications = document.querySelector('.unread-notifications')
-const notificationCount = document.querySelector('.notification-count');
+const accountID = document.getElementById("account-id");
+const addAccount = document.querySelectorAll(".add-account");
+const renameAccount = document.querySelectorAll(".rename-account");
+const accountForm = document.querySelector(".account-form");
+const accountType = document.querySelector("#account_type");
+const currency = document.querySelector("#currency");
+const CreateAccountBtn = document.querySelector("#create-account-btn");
+const unreadNotification = document.querySelectorAll(".unread-notification");
+const unreadNotifications = document.querySelector(".unread-notifications");
+const notificationCount = document.querySelector(".notification-count");
+const CancelOverlayBtn = document.querySelectorAll(".cancel-overlay-btn");
 
-CancelAccountBtn.addEventListener('click', () => {
-    accountForm.classList.add('d-none');
+CancelOverlayBtn.forEach((elements) => {
+  elements.addEventListener("click", () => {
+    elements.parentNode.parentNode.parentNode.parentElement.classList.add(
+      "d-none"
+    );
+  });
 });
 
 if (addAccount.length) {
-    addAccount.forEach(element => {
-        element.addEventListener('change', () => {
-            CreateAccountBtn.onclick = () => {
-                const form = new FormData();
+  addAccount.forEach((element) => {
+    element.addEventListener("change", () => {
+      CreateAccountBtn.onclick = () => {
+        const form = new FormData();
 
-                form.append('name', element.value);
-                form.append('account_type', accountType.value);
-                form.append('currency', currency.value);
+        form.append("name", element.value);
+        form.append("account_type", accountType.value);
+        form.append("currency", currency.value);
 
-                postData('/accounts/create-account/', form, true);
-            }
-            accountForm.classList.remove('d-none');
-        });
+        postData("/accounts/create-account/", form, true);
+      };
+      accountForm.classList.remove("d-none");
     });
+  });
 
-    renameAccount.forEach(element => {
-        element.addEventListener('change', () => {
-            const form = new FormData();
-            form.append('id', accountID.innerText)
-            form.append('name', element.value)
-            postData('/accounts/rename-account/', form)
-        });
-    })
+  renameAccount.forEach((element) => {
+    element.addEventListener("change", () => {
+      const form = new FormData();
+      form.append("id", accountID.innerText);
+      form.append("name", element.value);
+      postData("/accounts/rename-account/", form);
+    });
+  });
 }
 
-
 if (notificationCount) {
-    unreadNotification.forEach(element => {
-        element.addEventListener("click", ()=>{
-            const id = element.querySelector('.unread_notification_id').innerText.trim();
-            const form = new FormData();
-            form.append('id', id)
-            postData('/notifications/read-notification/', form)
-            element.style.display = 'none';
-            notificationCount.innerText = Number(notificationCount.innerText) - 1;
-            if (!Number(notificationCount.innerText)) {
-                unreadNotifications.classList.add('d-none')
-                notificationCount.classList.add('d-none');
-            }
-        })
-    })
+  unreadNotification.forEach((element) => {
+    element.addEventListener("click", () => {
+      const id = element
+        .querySelector(".unread_notification_id")
+        .innerText.trim();
+      const form = new FormData();
+      form.append("id", id);
+      postData("/notifications/read-notification/", form);
+      element.style.display = "none";
+      notificationCount.innerText = Number(notificationCount.innerText) - 1;
+      if (!Number(notificationCount.innerText)) {
+        unreadNotifications.classList.add("d-none");
+        notificationCount.classList.add("d-none");
+      }
+    });
+  });
 }
