@@ -2,7 +2,6 @@ from rest_framework import serializers
 from .models import User
 from django.contrib.auth.admin import UserAdmin
 
-
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
@@ -15,7 +14,6 @@ class UserSerializer(serializers.ModelSerializer):
             "last_name",
             "password",
             "email",
-            "address",
             "address",
             "city",
             "state",

@@ -17,7 +17,7 @@ from .views import ListApiUrls
 app_name = 'api'
 
 urlpatterns = [
-    path('', ListApiUrls.as_view(), name='list_api_urls'),
+    path('', ListApiUrls.as_view(), name='api_urls'),
 
     # users urlpattern (admin only)
     path('users/', users_views.UserList.as_view(), name='users_list'),
@@ -28,6 +28,9 @@ urlpatterns = [
     path('users/update/', users_views.UserUpdate.as_view(), name='user_update'),
     path('users/info/', users_views.UserGet.as_view(), name='user_info'),
     path('users/lists/', users_views.UserUserList.as_view(), name='user_list'),
+    path('users/login/', users_views.Login.as_view(), name='user_login'),
+    path('users/logout/', users_views.Logout.as_view(), name='user_logout'),
+    path('users/verify/', users_views.VerifyUser.as_view(), name='user_verify'),
 
     # accounts urlpattern  (admin only)
     path('accounts/', accounts_views.AccountList.as_view(), name='accounts_list'),
