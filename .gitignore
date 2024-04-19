@@ -164,3 +164,4 @@ venv/
 
 media/
 staticfiles/
+*_initial.py
