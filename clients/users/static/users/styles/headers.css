@@ -112,3 +112,8 @@ header .notification-icon:hover~.unread-notifications, .unread-notifications:hov
     opacity: 1;
     visibility: visible;
 }
+
+
+header .focus-glow:focus {
+    border-bottom: 2px solid #5E3FBE;
+}

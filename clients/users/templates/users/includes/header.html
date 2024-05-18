@@ -57,7 +57,7 @@
             {% endif %}
           {% endfor %}
           <div class="d-flex justify-content-between align-items-center hover-pointer account-details w-100 p-2 rounded-1">
-            <span><input type="text" class="bg-transparent border-none account_name fw-lighter add-account" placeholder="+" /></span> <!-- add account number -->
+            <span><input type="text" class="bg-transparent border-none account_name fw-lighter add-account  focus-glow" placeholder="+" /></span> <!-- add account number -->
           </div>
         </div>
       </div>
@@ -65,9 +65,9 @@
     <span>
       <div id="account-id" class="d-none">{{ request.session.account.pk }}</div> <!-- account id -->
       {% if request.session.account.name %}
-        <input type="text" class="bg-transparent border-none account_name fw-lighter rename-account" value="{{ request.session.account.name }}" placeholder="+" />
+        <input type="text" class="bg-transparent border-none account_name fw-lighter rename-account focus-glow" value="{{ request.session.account.name }}" placeholder="+" />
       {% else %}
-        <input type="text" class="bg-transparent border-none account_name fw-lighter add-account" value="{{ request.session.account.name }}" placeholder="+" />
+        <input type="text" class="bg-transparent border-none account_name fw-lighter add-account focus-glow" value="{{ request.session.account.name }}" placeholder="+" />
       {% endif %}
     </span>
   </div>

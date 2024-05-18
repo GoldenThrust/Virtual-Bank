@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from notifications.utils import process_notifications
 from .utils import get_client_ip
-import jwt, datetime
+import datetime
 import os
 # from dotenv import load_dotenv
 # load_dotenv()
@@ -42,26 +42,6 @@ class UserUserList(generics.ListAPIView):
         return User.objects.filter(id=user.id)
 
 
-class UserCreate(generics.CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [permissions.AllowAny]
-    user_ip = None
-
-    def create(self, request, *args, **kwargs):
-        self.user_ip = get_client_ip(request)
-        response = super().create(request, *args, **kwargs)
-
-        return response
-
-    def perform_create(self, serializer):
-        serializer.save(ip_address=self.user_ip)
-
-        # notification
-        notification_message = f"{serializer.validated_data['first_name']} {serializer.validated_data['last_name']} has joined the system"
-        process_notifications("admin", "user_notification", notification_message)
-
-
 class UserGet(generics.RetrieveAPIView):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -90,11 +70,33 @@ class UserUpdate(generics.UpdateAPIView):
 
         # notification
         notification_message = "Your profile information has been successfully updated. Your changes are now reflected in your profile."
-        process_notifications("admin", "user_notification", notification_message)
+        process_notifications(
+            "admin", "user_notification", notification_message)
 
         return super().update(request, *args, **kwargs)
-    
-    
+
+
+class UserCreate(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.AllowAny]
+    user_ip = None
+
+    def create(self, request, *args, **kwargs):
+        self.user_ip = get_client_ip(request)
+        response = super().create(request, *args, **kwargs)
+
+        return response
+
+    def perform_create(self, serializer):
+        serializer.save(ip_address=self.user_ip)
+
+        # notification
+        notification_message = f"{serializer.validated_data['first_name']} {serializer.validated_data['last_name']} has joined the system"
+        process_notifications(
+            "admin", "user_notification", notification_message)
+
+
 class Login(APIView):
     # queryset = User.objects.all()
     permission_classes = [permissions.AllowAny]
@@ -102,7 +104,7 @@ class Login(APIView):
     def post(self, request):
         username = request.data.get("username")
         password = request.data.get("password")
-        
+
         user = User.objects.filter(username=username).first()
         if not user.check_password(password):
             raise AuthenticationFailed("Incorrect password")
@@ -115,16 +117,6 @@ class Login(APIView):
                     "iat": datetime.datetime.utcnow()
                 }
 
-                token = jwt.encode(payload, os.getenv('JWT_KEY'), algorithm='HS256')
-                
-                response = Response(
-                    {
-                        "jwt": token
-                    }
-                )
-                
-                response.set_cookie(key='jwt', value=token, httponly=True)
-                
                 return response
             else:
                 raise AuthenticationFailed("Account disactivated")
@@ -132,33 +124,23 @@ class Login(APIView):
             raise AuthenticationFailed("User not found!")
 
 
-class VerifyUser(APIView):
-    permission_classes = [permissions.AllowAny]
-
-    def get(self, request):
-        token = request.COOKIES.get('jwt')
-        
-        if not token:
-            raise AuthenticationFailed("Unauthenticated!")
-        
-        try:
-            payload = jwt.decode(token, os.getenv('JWT_KEY'), algorithms=['HS256'])
-        except jwt.ExpiredSignatureError:
-            raise AuthenticationFailed("expired cookie")
-        
-        user  = User.objects.filter(id=payload['id']).first()
-        serializer = UserSerializer(user)
-        return Response(serializer.data)
-    
 class Logout(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
-    def get(self, request):
-        response = Response(
-            {
-                "details": "success"
-            }
-        )
-        response.delete_cookie('jwt')
-        
-        return response
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh_token"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+
+            return Response(
+        {
+                    "details": "success"
+                }
+            )
+        except Exception as e:
+            return Response(
+                {
+                    "details": "success"
+                }
+            )

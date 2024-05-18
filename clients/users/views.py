@@ -75,54 +75,56 @@ class DashBoard(View):
                     )["pk"]
                 )
             ).order_by("-date")[:10]
+            
+
+            financial = {
+                "incoming": Transaction.objects.filter(
+                    Q(debit_card__transaction__account=request.session.get("account")["pk"])
+                    | Q(
+                        transfer__transaction_partner_account=request.session.get(
+                            "account"
+                        )["pk"]
+                    )
+                    | Q(transaction_type="DEPOSIT", account=request.session.get("account")["pk"])
+                ).aggregate(Sum("amount"))["amount__sum"]
+                or 0,
+                "incoming_2": Transaction.objects.filter(
+                    Q(debit_card__transaction__account=request.session.get("account")["pk"])
+                    | Q(
+                        transfer__transaction_partner_account=request.session.get(
+                            "account"
+                        )["pk"]
+                    )
+                ).aggregate(Sum("amount"))["amount__sum"]
+                or 0,
+                "outgoing": Transaction.objects.filter(
+                    Q(
+                        debit_card__transaction_partner_account=request.session.get(
+                            "account"
+                        )["pk"]
+                    )
+                    | Q(
+                        transfer__transaction__account=request.session.get(
+                            "account"
+                        )["pk"]
+                    )
+                ).aggregate(Sum("amount"))["amount__sum"]
+                or 0,
+            }
+
+            # transaction partner
+            top_partners = (
+                Transfer.objects.filter(
+                    transaction__account=request.session.get("account")["pk"]
+                )
+                .order_by("transaction_partner_account", "-transaction__amount")
+                .distinct("transaction_partner_account")[:10]
+            )
+
         else:
             recent_transactions = None
-
-
-        # financial data
-        financial = {
-            "incoming": Transaction.objects.filter(
-                Q(debit_card__transaction__account=request.session.get("account")["pk"])
-                | Q(
-                    transfer__transaction_partner_account=request.session.get(
-                        "account"
-                    )["pk"]
-                )
-                | Q(transaction_type="DEPOSIT", account=request.session.get("account")["pk"])
-            ).aggregate(Sum("amount"))["amount__sum"]
-            or 0,
-            "incoming_2": Transaction.objects.filter(
-                Q(debit_card__transaction__account=request.session.get("account")["pk"])
-                | Q(
-                    transfer__transaction_partner_account=request.session.get(
-                        "account"
-                    )["pk"]
-                )
-            ).aggregate(Sum("amount"))["amount__sum"]
-            or 0,
-            "outgoing": Transaction.objects.filter(
-                Q(
-                    debit_card__transaction_partner_account=request.session.get(
-                        "account"
-                    )["pk"]
-                )
-                | Q(
-                    transfer__transaction__account=request.session.get(
-                        "account"
-                    )["pk"]
-                )
-            ).aggregate(Sum("amount"))["amount__sum"]
-            or 0,
-        }
-
-        # transaction partner
-        top_partners = (
-            Transfer.objects.filter(
-                transaction__account=request.session.get("account")["pk"]
-            )
-            .order_by("transaction_partner_account", "-transaction__amount")
-            .distinct("transaction_partner_account")[:10]
-        )
+            financial = None
+            top_partners = None
 
         context = {
             "title": "Dashboard",

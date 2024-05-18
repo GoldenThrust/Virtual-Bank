@@ -162,6 +162,7 @@ cython_debug/
 # Virtual Environment
 venv/
 
-media/
 staticfiles/
+
 *_initial.py
+profile_pics/
