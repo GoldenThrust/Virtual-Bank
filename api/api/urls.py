@@ -14,8 +14,6 @@ from transfers import views as transfers_views
 from .views import ListApiUrls
 
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
     TokenVerifyView
 )
 
@@ -24,6 +22,7 @@ app_name = 'api'
 
 urlpatterns = [
     path('', ListApiUrls.as_view(), name='api_urls'),
+     path('test/token/', TokenVerifyView.as_view(), name='test'),
 
 
     # users urlpattern (admin only)
@@ -34,11 +33,10 @@ urlpatterns = [
     # no need to provide authorization key.
     path('users/create/', users_views.UserCreate.as_view(), name='user_create'),
     path('users/update/', users_views.UserUpdate.as_view(), name='user_update'),
-    path('users/info/', users_views.UserGet.as_view(), name='user_info'),
+    path('users/verify/', users_views.UserGet.as_view(), name='user_verify'),
     path('users/lists/', users_views.UserUserList.as_view(), name='user_list'),
-    path('users/login/', TokenObtainPairView.as_view(), name='user_login'),
-    path('users/verify/', TokenVerifyView.as_view(), name='user_verify'),
-    path('users/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('users/login/', users_views.Login.as_view(), name='user_login'),
+    path('users/refresh/', users_views.RefreshTokenView.as_view(), name='token_refresh'),
     path('users/logout/', users_views.Logout.as_view(), name='user_logout'),
 
     # accounts urlpattern  (admin only)

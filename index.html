@@ -1,351 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Banking App Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank App - Deposit Page</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<style>
-    /* User Info Section */
-    .user-info {
-        display: flex;
-        align-items: center;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    /* User Avatar */
-    .user-avatar {
-        width: 60px;
-        height: 60px;
-        background-color: #3498db;
-        color: #fff;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-        margin-right: 20px;
-    }
-
-    /* User Details */
-    .user-details h2 {
-        margin: 0;
-        color: #333;
-    }
-
-    .account-details {
-        margin: 5px 0;
-        color: #555;
-        font-size: 14px;
-    }
-
-    /* Transaction Partner Section */
-    .transaction-partner {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .transaction-partner h2 {
-        margin-top: 0;
-        color: #333;
-    }
-
-    .partner-list {
-        margin-top: 15px;
-    }
-
-    .partner-item {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 8px;
-    }
-
-    .partner-name {
-        color: #555;
-        font-weight: bold;
-    }
-
-    .partner-count {
-        color: #777;
-        font-size: 14px;
-    }
-
-    /* Recent Transactions Section */
-    .recent-transactions {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .recent-transactions h2 {
-        margin-top: 0;
-        color: #333;
-    }
-
-    .transaction-item {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 5px;
-    }
-
-    .transaction-type {
-        color: #555;
-        font-weight: bold;
-    }
-
-    .transaction-amount {
-        color: #333;
-    }
-
-    .transaction-date {
-        color: #777;
-        font-size: 14px;
-    }
-
-    /* Quick Actions Section */
-    .quick-actions {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-    }
-
-    .quick-action {
-        padding: 15px 30px;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .quick-action:nth-child(1) {
-        background-color: #3498db;
-        color: #fff;
-    }
-
-    .quick-action:nth-child(2) {
-        background-color: #27ae60;
-        color: #fff;
-    }
-
-    .quick-action:hover {
-        filter: brightness(90%);
-    }
-
-    /* Spending Graph Section */
-    .spending-graph {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .spending-graph h2 {
-        margin-top: 0;
-        color: #333;
-    }
-
-    /* Balance Info Section */
-    .balance-info {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .balance-info h2 {
-        margin-top: 0;
-        color: #333;
-    }
-
-    .balance-amount {
-        font-size: 24px;
-        color: #27ae60;
-        margin: 10px 0;
-    }
-</style>
-
 <body>
-    <div class="user-info">
-        <div class="user-avatar">
-            <!-- User Avatar or Initials -->
-        </div>
-        <div class="user-details">
-            <h2>User Full Name</h2>
-            <p class="account-details">Balance: $XXXX</p>
-            <p class="account-details">Account Number: XXXXXXXXXX</p>
-        </div>
-    </div>
-
-    <div class="transaction-partner">
-        <h2>Most Used Transaction Partner</h2>
-        <div class="partner-list">
-            <div class="partner-item">
-                <span class="partner-name">Partner Name 1</span>
-                <span class="partner-count">25 transactions</span>
+    <div class="container">
+        <header>
+            <h1>Bank App</h1>
+            <div class="user-info">
+                <span>Welcome, John Doe</span>
             </div>
-            <div class="partner-item">
-                <span class="partner-name">Partner Name 2</span>
-                <span class="partner-count">20 transactions</span>
+        </header>
+        <main>
+            <h2>Deposit Funds</h2>
+            <form id="deposit-form">
+                <div class="form-group">
+                    <label for="account">Select Account</label>
+                    <select id="account" name="account">
+                        <option value="checking">Checking Account</option>
+                        <option value="savings">Savings Account</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Deposit Amount</label>
+                    <input type="number" id="amount" name="amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="currency">Currency</label>
+                    <select id="currency" name="currency">
+                        <option value="usd">USD</option>
+                        <option value="eur">EUR</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="method">Deposit Method</label>
+                    <select id="method" name="method">
+                        <option value="bank-transfer">Bank Transfer</option>
+                        <option value="credit-card">Credit/Debit Card</option>
+                        <option value="mobile-wallet">Mobile Wallet</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="receipt">Upload Receipt (if applicable)</label>
+                    <input type="file" id="receipt" name="receipt">
+                </div>
+                <div class="form-group">
+                    <label for="recurring">Recurring Deposit</label>
+                    <input type="checkbox" id="recurring" name="recurring">
+                </div>
+                <div class="form-group" id="date-picker-group" style="display: none;">
+                    <label for="date">Select Date</label>
+                    <input type="date" id="date" name="date">
+                </div>
+                <button type="submit">Confirm Deposit</button>
+            </form>
+            <div id="confirmation" style="display: none;">
+                <h3>Deposit Summary</h3>
+                <p id="summary"></p>
+                <button onclick="resetForm()">Make Another Deposit</button>
             </div>
-            <!-- Add more partner items as needed -->
-        </div>
+        </main>
     </div>
-
-    <div class="recent-transactions">
-        <h2>Recent Transactions</h2>
-        <div class="transaction-item">
-            <span class="transaction-type">Deposit</span>
-            <span class="transaction-amount">+$500</span>
-            <span class="transaction-date">Dec 20, 2023</span>
-        </div>
-        <div class="transaction-item">
-            <span class="transaction-type">Payment</span>
-            <span class="transaction-amount">-$120</span>
-            <span class="transaction-date">Dec 18, 2023</span>
-        </div>
-        <!-- Add more transaction items as needed -->
-    </div>
-
-    <div class="quick-actions">
-        <button class="quick-action">Quick Transfer</button>
-        <button class="quick-action">Quick Deposit</button>
-    </div>
-
-    <div class="spending-graph">
-        <h2>Spending Graph</h2>
-        <canvas id="spendingChart"></canvas>
-    </div>
-
-    <div class="balance-info">
-        <h2>Your Balance</h2>
-        <p class="balance-amount">$XXXX</p>
-    </div>
-
-    <div class="transaction-type-chart">
-        <h2>Most Used Transaction Type</h2>
-        <canvas id="transactionTypeChart"></canvas>
-    </div>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script>
-        // Sample spending data (replace this with your actual data)
-        const spendingData = {
-            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-            datasets: [
-                {
-                    label: "Spending",
-                    data: [500, 800, 650, 900, 700, 1000],
-                    fill: false,
-                    borderColor: "#3498db",
-                    backgroundColor: "#3498db",
-                    tension: 0.4
-                }
-            ]
-        };
-
-        // Get the canvas element
-        const spendingCanvas = document.getElementById("spendingChart").getContext("2d");
-
-        // Create the spending chart using Chart.js
-        const mySpendingChart = new Chart(spendingCanvas, {
-            type: "line",
-            data: spendingData,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: "top"
-                    },
-                    title: {
-                        display: false
-                    }
-                },
-                scales: {
-                    x: {
-                        display: true,
-                        title: {
-                            display: true,
-                            text: "Month",
-                            color: "#333",
-                            font: {
-                                size: 14,
-                                weight: "bold"
-                            }
-                        },
-                        ticks: {
-                            color: "#555"
-                        }
-                    },
-                    y: {
-                        display: true,
-                        title: {
-                            display: true,
-                            text: "Amount",
-                            color: "#333",
-                            font: {
-                                size: 14,
-                                weight: "bold"
-                            }
-                        },
-                        ticks: {
-                            color: "#555"
-                        }
-                    }
-                }
-            }
-        });
-
-        // Sample data for transaction types (replace with your actual data)
-        const transactionTypeData = {
-            labels: ['Online Shopping', 'Bill Payment', 'Transfer', 'Others'],
-            datasets: [{
-                data: [40, 25, 20, 15],
-                backgroundColor: ['#3498db', '#27ae60', '#f39c12', '#e74c3c'],
-                borderWidth: 0
-            }]
-        };
-
-        // Get the canvas element
-        const transactionTypeCanvas = document.getElementById('transactionTypeChart').getContext('2d');
-
-        // Create the transaction type chart using Chart.js
-        const myTransactionTypeChart = new Chart(transactionTypeCanvas, {
-            type: 'pie',
-            data: transactionTypeData,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            boxWidth: 15,
-                            font: {
-                                size: 14,
-                                weight: 'bold'
-                            }
-                        }
-                    },
-                    title: {
-                        display: false
-                    }
-                }
-            }
-        });
-    </script>
+    <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com/design/8ZHpjIaL8a6k6Y0qZfOmf0/Personal-portfolio?node-id=120-2%26t%3DH5mYftmN2rzHU2qv-1" allowfullscreen></iframe>
+    <script src="script.js"></script>
 </body>
-
 </html>

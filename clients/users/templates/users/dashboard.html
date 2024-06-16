@@ -11,7 +11,7 @@
         <fieldset class="form-group">
           <legend class="border-bottom mb-4">Make Transfer</legend>
           <div class="mb-3">
-            <label for="quick-account_number" class="form-label">Account type</label>  
+            <label for="quick-account_number" class="form-label">Account Number</label>  
             {% if top_partners.all|length > 0 %}
             <select name="quick-account_number" class="select form-select" id="quick-account_number">
               {% for partner in top_partners %}
@@ -42,7 +42,7 @@
           <legend class="border-bottom mb-4">Make Deposit</legend>
           <div class="mb-3">
             <label for="quick-deposit-amount" class="form-label">Amount</label>
-            <input type="number" name="quick-deposit-amount" class="numberinput form-control" />
+            <input type="number" name="quick-deposit-amount"  id="quick-deposit-amount" class="numberinput form-control" />
           </div>
 
           <div class="form-group mb-3 d-flex flex-row gap-1">

@@ -46,7 +46,7 @@ body {
 
 .fun_about {
     margin-top: 20px;
-    row-gap: 50px;
+    gap: 50px;
 }
 
 .fun_about div {
