@@ -525,3 +525,6 @@ These projects provide robust and secure payment solutions that go beyond dummy 
 
 ## Licensing
 The Virtual Bank project is licensed under the MIT License, ensuring open-source availability and contributions from the community.
+
+## Contact
+For any inquiries or support, please contact Adeniji Olajide at [adenijiolajid01@gmail.com](mailto:adenijiolajid01@gmail.com).
