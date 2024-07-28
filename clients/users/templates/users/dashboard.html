@@ -7,25 +7,27 @@
 
     <aside class="account-form quick-transfer-form d-none">
       <form method="POST" class="border border-primary px-5 py-2 shadow p-3 mb-5 bg-body-tertiary rounded">
-        {% comment %} {% csrf_token %} {% endcomment %}
+        {% csrf_token %}
         <fieldset class="form-group">
           <legend class="border-bottom mb-4">Make Transfer</legend>
           <div class="mb-3">
             <label for="quick-account_number" class="form-label">Account Number</label>  
             {% if top_partners.all|length > 0 %}
-            <select name="quick-account_number" class="select form-select" id="quick-account_number">
+            <datalist name="transaction_partner_account_number" id="quick-account_number-list">
               {% for partner in top_partners %}
-                <option value="{{ partner.transaction_partner_account.number }}">{{ partner.transaction_partner_account.user.username|title }} - {{ partner.transaction_partner_account.number }}</option>
+                <option value="{{ partner.transaction_partner_account.number }}">{{ partner.transaction_partner_account.user.get_full_name|title }}</option>
               {% endfor %}
-            </select>
+            </datalist>
             {% else %}
-              <input type="number" name="quick-account_number" class="numberinput form-control" id="quick-account_number" />
             {% endif %}
+            <input type="number" list="quick-account_number-list" name="transaction_partner_account_number" class="numberinput form-control" id="quick-account_number" />
           </div>
           <div class="mb-3">
             <label for="quick-amount" class="form-label">Amount</label>
-            <input type="number" name="quick-amount" class="numberinput form-control" id="quick-amount" />
+            <input type="number" name="amount" class="numberinput form-control" id="quick-amount" />
           </div>
+
+          <input type="hidden" name="account_number" value="{{ request.session.account.number }}">
 
           <div class="form-group mb-3 d-flex flex-row gap-1">
             <button class="btn btn-outline-danger w-100 cancel-overlay-btn" type="button">Cancel</button>
@@ -36,13 +38,14 @@
     </aside>
   
     <aside class="account-form quick-deposit-form d-none">
-      <form method="POST" class="border border-primary px-5 py-2 shadow p-3 mb-5 bg-body-tertiary rounded">
-        {% comment %} {% csrf_token %} {% endcomment %}
+      <form class="border border-primary px-5 py-2 shadow p-3 mb-5 bg-body-tertiary rounded">
+        {% csrf_token %}
         <fieldset class="form-group">
           <legend class="border-bottom mb-4">Make Deposit</legend>
           <div class="mb-3">
             <label for="quick-deposit-amount" class="form-label">Amount</label>
-            <input type="number" name="quick-deposit-amount"  id="quick-deposit-amount" class="numberinput form-control" />
+            <input type="number" name="amount"  id="quick-deposit-amount" class="numberinput form-control" />
+            <input type="hidden" name="account_number" value="{{ request.session.account.number }}">
           </div>
 
           <div class="form-group mb-3 d-flex flex-row gap-1">

@@ -12,11 +12,11 @@ def transactions_chart_data(request):
                                                             | Q(transfer__transaction_partner_account=request.session.get("account")["pk"]), transaction_type='TRANSFER',  )
         debit_card_transactions = Transaction.objects.filter(Q(account=request.session.get('account')['pk'])
                                                             | Q(debit_card__transaction_partner_account=request.session.get("account")["pk"]), transaction_type='DEBIT_CARD')
-
-       # Processing data for the chart
-        deposit_data = [{'date': transaction.date.strftime('%Y-%m-%d'), 'amount': float(transaction.amount)} for transaction in deposit_transactions]
-        transfer_data = [{'date': transaction.date.strftime('%Y-%m-%d'), 'amount': float(transaction.amount)} for transaction in transfer_transactions]
-        debit_card_data = [{'date': transaction.date.strftime('%Y-%m-%d'), 'amount': float(transaction.amount)} for transaction in debit_card_transactions]
+        
+        deposit_data = [{'date': transaction.date.strftime('%Y-%m-%dT%H:%M:%S'), 'amount': float(transaction.amount)} for transaction in deposit_transactions]
+        transfer_data = [{'date': transaction.date.strftime('%Y-%m-%dT%H:%M:%S'), 'amount': float(transaction.amount), 'user': transaction.account.user.get_full_name() if request.session.get('account')['user'] != transaction.account.user.pk else "me" } for transaction in transfer_transactions]
+        debit_card_data = [{'date': transaction.date.strftime('%Y-%m-%dT%H:%M:%S'), 'amount': float(transaction.amount), 'user': transaction.account.user.get_full_name() if request.session.get('account')['user'] != transaction.account.user.pk else "me"} for transaction in debit_card_transactions]
+        
 
         # Convert data to JSON format
         deposit_json = deposit_data
@@ -29,5 +29,6 @@ def transactions_chart_data(request):
             'transfer_data': transfer_json,
             'debit_card_data': debit_card_json,
         }
+        
 
         return JsonResponse(data)

@@ -15,12 +15,18 @@ cd Virtual-Bank
 # install Python virtual environment
 sudo apt install python3.10-venv
 
+
+sudo apt-get install build-essential
+sudo apt-get install python3-dev
+
 # Create a Python virtual environment and activate it
 python3 -m venv venv
 source venv/bin/activate
 
 # install pip
 sudo apt install python3-pip
+
+sudo apt-get update
 
 # Upgrade pip and install requirements within the virtual environment
 python3 -m pip install --upgrade pip

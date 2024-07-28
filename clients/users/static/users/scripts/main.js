@@ -1,23 +1,30 @@
-export function postData(url, form, reload = false) {
+export async function postData(url, form, reload = false, external = false) {
+    let response = null;
     const csrftoken = getCookie('csrftoken');
-    let status = null;
 
-    fetch(url, {
+    const options = {
         method: 'POST',
-        headers: {
-            'X-CSRFToken': csrftoken
-        },
-        body: form
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                if (reload) window.location.reload();
-            }
-            status = data;
-        })
+        body: form,
+        credentials: 'include'
+    }
 
-    return status;
+    if (external) {
+        url = `http://localhost:8000${url}`;
+    } else {
+        options.headers = {
+            'X-CSRFToken': csrftoken
+        };
+    }
+
+    try {
+        response = await fetch(url, options);
+        const data = await response.json();
+        if (reload) window.location.reload();
+        return data;
+    } catch (err) {
+        console.error('Error:', err);
+        return err;
+    }
 }
 
 function getCookie(name) {

@@ -11,12 +11,40 @@ from notifications.utils import process_notifications
 from transactions.models import Transaction
 from transfers.models import Transfer
 from django.db.models import Q, Sum
+import requests
+from django.contrib.auth import logout
+
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+from django.contrib.auth import views as auth_views
+import requests
+
 
 class LoginView(auth_views.LoginView):
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.is_authenticated:
-            return redirect("users:dashboard")
+            if 'login_data' in request.session:
+                login_data = request.session.pop('login_data')
+                response = requests.post('http://localhost:8000/users/login/', data=login_data)
+                
+                if response.status_code == 200:
+                    cookies = response.cookies
+
+                    redirect_response = redirect("users:dashboard")
+                    
+                    for key, value in cookies.items():
+                        redirect_response.set_cookie(key, value, httponly=True)
+                        
+                    return redirect_response
+                else:
+                    logout(request)
+                    return redirect("login")
+        
+        if request.method == "POST":
+            request.session['login_data'] = request.POST
+        
         return super().dispatch(request, *args, **kwargs)
+
 
 
 class RegisterView(FormView):
@@ -24,8 +52,8 @@ class RegisterView(FormView):
     template_name = "users/register.html"
 
     def get(self, request):
-        if self.request.user.is_authenticated:
-            return redirect("users:dashboard")
+        # if self.request.user.is_authenticated:
+        #     return redirect("users:dashboard")
 
         form = self.form_class()
         return render(request, self.template_name, {"form": form})
@@ -127,6 +155,7 @@ class DashBoard(View):
             top_partners = None
 
         context = {
+            "user": request.user,
             "title": "Dashboard",
             "recent_transactions": recent_transactions,
             "financial": financial,

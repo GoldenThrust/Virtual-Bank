@@ -98,7 +98,7 @@
         </span>
       {% endif %}
     </div>
-    <a href="#" class="bg-body-tertiary rounded-pill overflow-hidden profile profile-glow"><img src="{{ request.user.profile_picture.url }}" alt="profile" class="profile-image" title="profile" /></a>
+    <a href="#" class="bg-body-tertiary rounded-pill overflow-hidden profile profile-glow"><img src="{{ request.user.profile_picture.url }}" alt="profile" class="profile-image" title="{{ user.get_full_name }}" /></a>
     <!-- profile -->
   </div>
 </header>

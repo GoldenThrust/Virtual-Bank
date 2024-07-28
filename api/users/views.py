@@ -107,10 +107,10 @@ class UserCreate(generics.CreateAPIView):
 class Login(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
-
+        
         access_token = response.data.get("access")
         refresh_token = response.data.get("refresh")
-
+        
         if access_token:
             response.set_cookie("vb_token", access_token, httponly=True)
             response.set_cookie("vb_rtoken", refresh_token, httponly=True)

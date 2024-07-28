@@ -16,7 +16,6 @@ class UserTest(TestCase):
     def test_create_users(self):
         url = reverse('api:user_create')
         
-        self.assertIsNotNone('hello')
         for data in self.json_data:
             response = requests.post(f'{self.url}{url}', data=data)
             data = response.json()
