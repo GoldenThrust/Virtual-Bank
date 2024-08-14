@@ -100,7 +100,7 @@
                 <div class="partners d-flex mt-3">
                   {% for partner in top_partners %}
                     <span class="center justify-content-start">
-                      <img src="{{ partner.transaction_partner_account.user.profile_picture.url }}" alt="{{ partner.transaction_partner_account.user.get_full_name }} profile image" class="rounded-pill overflow-hidden profile-glow me-2" />
+                      <img src="{{ partner.transaction_partner_account.user.profile_picture.url }}" alt="{{ partner.transaction_partner_account.user.get_full_name }} profile image" class="rounded-pill overflow-hidden profile-glow me-2  profile-image" />
                       <span>
                         <div class="fw-bold fs-6">{{ partner.transaction_partner_account.user.get_full_name }}</div>
                         <div>

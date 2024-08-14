@@ -1,7 +1,18 @@
+:root {
+  --primary: #5E3FBE;
+  --secondary: #7f1ec4;
+}
+
 .center {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.profile-image {
+  width: 38px;
+  aspect-ratio: 1;
+  object-fit: cover;
 }
 
 .w-15 {

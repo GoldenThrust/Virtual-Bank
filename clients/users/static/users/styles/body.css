@@ -21,7 +21,7 @@ main {
 
 .quick-transaction button {
     aspect-ratio: 7/2;
-    border: 2px solid #5E3FBE;
+    border: 2px solid var(--primary);
     transition: all 0.1s ease-in-out;
 }
 
@@ -32,7 +32,7 @@ main {
 }
 
 .quick-transfer {
-    background-color: #5E3FBE;
+    background-color: var(--primary);
     color: #F4F4FE;
     margin-right: 80px;
 }
@@ -49,7 +49,7 @@ main {
 
 .account-cards .account-balance {
     font-family: "DM Serif";
-    color: #5E3FBE;
+    color: var(--primary);
 }
 
 .financial-overviews span {
@@ -98,7 +98,7 @@ main {
     color: #F4F0FD;
     font-size: 13px;
     font-family: 'Times New Roman', Times, serif;
-    background-color: #5E3FBE;
+    background-color: var(--primary);
     width: 280px;
     height: 65px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.514);
@@ -116,7 +116,7 @@ main {
 
 .recent-transactions .transactions > div:hover {
     box-shadow: 0 0 10px black;
-    border: 2px solid maroon;
+    border: 2px solid var(--secondary);
     transform: scale(1.1);
 }
 

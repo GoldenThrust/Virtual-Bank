@@ -52,14 +52,14 @@ class RegisterView(FormView):
     template_name = "users/register.html"
 
     def get(self, request):
-        # if self.request.user.is_authenticated:
-        #     return redirect("users:dashboard")
+        if self.request.user.is_authenticated:
+            return redirect("users:dashboard")
 
         form = self.form_class()
         return render(request, self.template_name, {"form": form})
 
     def post(self, request):
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, request.FILES)  # Include request.FILES
         if form.is_valid():
             user = form.save(commit=False)
             user.ip_address = get_client_ip(request)

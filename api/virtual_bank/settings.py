@@ -44,6 +44,7 @@ MEDIA_URL = "/media/"
 AUTH_USER_MODEL = "users.User"
 
 INSTALLED_APPS = [
+    "daphne",
     "corsheaders",
     "rest_framework",
     "rest_framework_simplejwt",
@@ -97,6 +98,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "virtual_bank.wsgi.application"
+ASGI_APPLICATION = "virtual_bank.asgi.application"
 
 
 # Database

@@ -3,11 +3,10 @@
 {% load static %}
 {% block content %}
     <div class="content-section my-2">
-        <div class="my-3">
-            <img src="{% static 'home/images/logo.svg' %}" alt="" srcset="" class="logo">
-            <span class="h3">Virtual Bank</span>
+        <div class="my-3 center">
+            <img src="{% static 'home/images/virtualbanklogo.png' %}" alt="" srcset="" class="logo">
         </div>
-        <form method="POST" class="border border-primary px-5 py-2 shadow p-3 mb-5 bg-body-tertiary rounded m-auto" style="width: 90%;">
+        <form method="POST" enctype="multipart/form-data" class="border border-primary px-5 py-2 shadow p-3 mb-5 bg-body-tertiary rounded m-auto" style="width: 90%;">
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Sign Up</legend>

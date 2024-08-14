@@ -9,6 +9,7 @@ class UserRegisterForm(UserCreationForm):
     last_name = forms.CharField(required=True)
     phone_number = forms.IntegerField(required=True)
     date_of_birth = forms.DateInput()
+    profile_picture = forms.ImageField(required=True)
     address = forms.CharField(required=False)
     city = forms.CharField(required=False)
     state = forms.CharField(required=False)
@@ -21,6 +22,7 @@ class UserRegisterForm(UserCreationForm):
             "first_name",
             "last_name",
             "phone_number",
+            "profile_picture",
             "email",
             "password1",
             "password2",

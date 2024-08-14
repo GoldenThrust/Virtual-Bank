@@ -42,6 +42,7 @@ MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'users.User'
 
 INSTALLED_APPS = [
+    'daphne',
     'corsheaders',
     'home.apps.HomeConfig',
     'users.apps.UsersConfig',
@@ -99,7 +100,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'virtual_bank.wsgi.application'
-
+ASGI_APPLICATION = 'virtual_bank.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

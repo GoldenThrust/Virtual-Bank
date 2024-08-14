@@ -27,12 +27,6 @@ header .profile {
     aspect-ratio: 1;
 }
 
-header .profile-image {
-    width: 38px;
-    aspect-ratio: 1;
-    object-fit: cover;
-}
-
 header .account_name {
     font-size: 15px;
 }
@@ -58,6 +52,7 @@ aside.main-nav {
     box-shadow: 5px 0 8px #00000046;
     border-radius: 10px;
     transition: all 0.5s ease-in-out;
+    border-right: 2px solid #5E3FBE;
 }
 
 aside.main-nav .icon {
