@@ -115,6 +115,19 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#   'default': {
+#     'ENGINE': 'django.db.backends.postgresql',
+#     'NAME': os.getenv('PGDATABASE'),
+#     'USER': os.getenv('PGUSER'),
+#     'PASSWORD': os.getenv('PGPASSWORD'),
+#     'HOST': os.getenv('PGHOST'),
+#     'PORT': os.getenv('PGPORT', 5432),
+#     'OPTIONS': {
+#       'sslmode': 'require',
+#     },
+#   }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -189,6 +202,7 @@ CORS_ALLOW_HEADERS = [
     "X-CSRFToken",
 ]
 
+# CSRF_TRUSTED_ORIGINS = ['http://0.0.0.0']
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=2),

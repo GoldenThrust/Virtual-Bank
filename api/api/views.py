@@ -6,6 +6,7 @@ from .serializers import URLSerializer
 
 class ListApiUrls(APIView):
     permission_classes = []
+    authentication_classes = [] 
 
     def get(self, request, format=None):
         from .urls import urlpatterns

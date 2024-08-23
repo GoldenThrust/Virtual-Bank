@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     # 'payments.apps.PaymentsConfig',
     'transactions.apps.TransactionsConfig',
     'transfers.apps.TransfersConfig',
+    'utils.apps.UtilsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,6 +77,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'users.middleware.VerifyToken'
 ]
 
 ROOT_URLCONF = 'virtual_bank.urls'

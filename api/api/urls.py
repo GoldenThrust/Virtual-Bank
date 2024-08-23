@@ -93,16 +93,16 @@ urlpatterns = [
     path('deposits/details/<uuid:identifier>/',
          deposits_views.UserDepositDetail.as_view(), name='user_deposits_detail'),
 
-    # merchants urlpattern (admin only)
-    path('merchants/', merchants_views.MerchantList.as_view(), name='merchants_list'),
-    path('merchants/<int:pk>/', merchants_views.MerchantDetail.as_view(),
-         name='merchants_detail'),
+#     # merchants urlpattern (admin only)
+#     path('merchants/', merchants_views.MerchantList.as_view(), name='merchants_list'),
+#     path('merchants/<int:pk>/', merchants_views.MerchantDetail.as_view(),
+#          name='merchants_detail'),
 
-    # (public API url)
-    path('merchants/create/', merchants_views.MerchantCreate.as_view(),
-         name='merchants_create'),
-    path('merchants/details/', merchants_views.MerchantDetails.as_view(),
-         name='merchants_details'),
+#     # (public API url)
+#     path('merchants/create/', merchants_views.MerchantCreate.as_view(),
+#          name='merchants_create'),
+#     path('merchants/details/', merchants_views.MerchantDetails.as_view(),
+#          name='merchants_details'),
 
     # notifications urlpattern (admin only)
     path('notifications/', notifications_views.NotificationList.as_view(),

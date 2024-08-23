@@ -6,10 +6,11 @@ export async function postData(url, form, reload = false, external = false) {
         method: 'POST',
         body: form,
         credentials: 'include'
-    }
+    };
 
     if (external) {
-        url = `http://localhost:8000${url}`;
+        const BASE_URL = 'http://localhost:8000'
+        url = `${BASE_URL}${url}`;
     } else {
         options.headers = {
             'X-CSRFToken': csrftoken
@@ -18,8 +19,19 @@ export async function postData(url, form, reload = false, external = false) {
 
     try {
         response = await fetch(url, options);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
         const data = await response.json();
-        if (reload) window.location.reload();
+
+        if (reload) {
+            window.location.reload();
+        } else {
+            console.log("Response data:", data);
+        }
+
         return data;
     } catch (err) {
         console.error('Error:', err);

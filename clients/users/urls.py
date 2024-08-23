@@ -8,6 +8,6 @@ app_name = 'users'
 urlpatterns = [
     path('register/', views.RegisterView.as_view(), name='register'),
     path('login/', views.LoginView.as_view(template_name='users/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    path('logout/', views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
     path('dashboard/', login_required(views.DashBoard.as_view()), name='dashboard'),
 ]
