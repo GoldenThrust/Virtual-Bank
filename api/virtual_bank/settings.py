@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     # 'payments.apps.PaymentsConfig',
     "transactions.apps.TransactionsConfig",
     "transfers.apps.TransfersConfig",
+    "websocket.apps.WebsocketConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -160,6 +161,15 @@ REST_FRAMEWORK = {
     ],
 }
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [os.getenv('REDIS_URL', 'redis://localhost:6379/0')],
+        },
+    },
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -202,7 +212,7 @@ CORS_ALLOW_HEADERS = [
     "X-CSRFToken",
 ]
 
-# CSRF_TRUSTED_ORIGINS = ['http://0.0.0.0']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8001']
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=2),

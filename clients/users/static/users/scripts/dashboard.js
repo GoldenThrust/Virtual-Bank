@@ -113,12 +113,25 @@ quickDeposit.addEventListener("click", () => {
 quickTransferBtn.addEventListener("click", async (e) => {
   const form = new FormData(e.target.closest('form'));
 
-  const response = await postData("/transfers/create/", form, true, true);
+  const response = await postData("/transfers/create/", form, false, true);
   console.log(response);
 });
 
 quickDepositBtn.addEventListener("click", (e) => {
   const form = new FormData(e.target.closest('form'));
 
-  postData("/deposits/create/", form, true, true);
+  postData("/deposits/create/", form, false, true);
 });
+
+
+
+const socket = new WebSocket('ws://localhost:8000/ws/transactions/');
+socket.addEventListener("open", (e)=> {
+  socket.send('{"hello": "world"}')
+})
+
+socket.addEventListener("message", (e)=>{
+  const data = JSON.parse(e.data);
+
+  console.log(data)
+})
