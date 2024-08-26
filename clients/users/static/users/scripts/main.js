@@ -29,7 +29,7 @@ export async function postData(url, form, reload = false, external = false) {
         if (reload) {
             window.location.reload();
         } else {
-            console.log("Response data:", data);
+            // console.log("Response data:", data);
         }
 
         return data;
@@ -53,4 +53,33 @@ function getCookie(name) {
     }
 
     return cookieValue;
+}
+
+
+
+export function createElement(
+    parent,
+    elem,
+    attribute = {},
+    content = null,
+    prepend = false
+) {
+    const element = document.createElement(elem);
+    if (content) {
+        element.innerText = content;
+    }
+
+    if (attribute) {
+        for (const key in attribute) {
+            element.setAttribute(key, attribute[key]);
+        }
+    }
+
+    if (prepend) {
+        parent.prepend(element)
+    } else {
+        parent.appendChild(element);
+    }
+
+    return element;
 }

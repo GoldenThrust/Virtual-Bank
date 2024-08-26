@@ -92,8 +92,14 @@
                   <span>{{ note.get_notification_type_display }}</span> -
                   <span>{{ note.created_date|timesince }}</span>
                 </div>
-              </div> <!-- unread notification count -->
+              </div>
             {% endfor %}
+          </span>
+        </span>
+      {% else %}
+        <span class="position-relative notification-icon"><div class="position-absolute notification-count rounded-circle bg-danger text-white d-flex justify-content-center align-items-center d-none">0</div> <!-- unread notification count --></span>
+        <span class="position-relative unread-notifications d-none">
+          <span class="position-absolute bg-white shadow-lg p-3 rounded-2">
           </span>
         </span>
       {% endif %}

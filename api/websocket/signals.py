@@ -20,7 +20,8 @@ def deposit_created(sender, instance, created, **kwargs):
             {
                 "type": "send_transaction",
                 "data": {
-                    "amount": float(instance.transaction.amount),
+                    "account_balance": f'{instance.transaction.account.balance:.2f}',
+                    "amount": f'{instance.transaction.amount:.2f}',
                     "date": instance.transaction.date.strftime("%Y-%m-%dT%H:%M:%S"),
                     "type": instance.transaction.transaction_type,
                 },
@@ -41,9 +42,12 @@ def transfer_created(sender, instance, created, **kwargs):
             {
                 "type": "send_transaction",
                 "data": {
-                    "amount": float(instance.transaction.amount),
+                    "account_balance": f'{instance.transaction.account.balance:.2f}',
+                    "account_number": instance.transaction.account.number,
+                    "amount": f'{instance.transaction.amount:.2f}',
                     "date": instance.transaction.date.strftime("%Y-%m-%dT%H:%M:%S"),
-                    "user": "You",
+                    "payer": "You",
+                    "payee": instance.transaction.transfer.transaction_partner_account.user.get_full_name(),
                     "type": instance.transaction.transaction_type,
                 },
             },
@@ -54,9 +58,12 @@ def transfer_created(sender, instance, created, **kwargs):
             {
                 "type": "send_transaction",
                 "data": {
-                    "amount": float(instance.transaction.amount),
+                    "account_balance": f'{instance.transaction.transfer.transaction_partner_account.balance:.2f}',
+                    "account_number": instance.transaction.transfer.transaction_partner_account.number,
+                    "amount": f'{instance.transaction.amount:.2f}',
                     "date": instance.transaction.date.strftime("%Y-%m-%dT%H:%M:%S"),
-                    "user": instance.transaction.account.user.get_full_name(),
+                    "payer": instance.transaction.account.user.get_full_name(),
+                    "payee": "You",
                     "type": instance.transaction.transaction_type,
                 },
             },
@@ -76,9 +83,11 @@ def debitcard_created(sender, instance, created, **kwargs):
             {
                 "type": "send_transaction",
                 "data": {
-                    "amount": float(instance.transaction.amount),
-                    "date": instance.transaction.date.strftime("%Y-%m-%dT%H:%M:%S"),
-                    "user": "You",
+                    "account_balance": f'{instance.transaction.account.balance:.2f}',
+                    "account_number": instance.transaction.account.number,
+                    "amount": f'{instance.transaction.amount:.2f}',
+                    "payer": instance.transaction.debit_card.transaction_partner_account.user.get_full_name(),
+                    "payee": "You",
                     "type": instance.transaction.transaction_type,
                 },
             },
@@ -89,9 +98,12 @@ def debitcard_created(sender, instance, created, **kwargs):
             {
                 "type": "send_transaction",
                 "data": {
-                    "amount": float(instance.transaction.amount),
+                    "account_balance": f'{instance.transaction.debit_card.transaction_partner_account.balance:.2f}',
+                    "account_number": instance.transaction.debit_card.transaction_partner_account.number,
+                    "amount": f'{instance.transaction.amount:.2f}',
                     "date": instance.transaction.date.strftime("%Y-%m-%dT%H:%M:%S"),
-                    "user": instance.transaction.account.user.get_full_name(),
+                    "payer": "You",
+                    "payee": instance.transaction_partner_account.user.get_full_name(),
                     "type": instance.transaction.transaction_type,
                 },
             },
@@ -99,7 +111,7 @@ def debitcard_created(sender, instance, created, **kwargs):
 
 
 @receiver(post_save, sender=Notification)
-def debitcard_created(sender, instance, created, **kwargs):
+def notification_created(sender, instance, created, **kwargs):
     channel_layer = get_channel_layer()
 
     user_id = instance.user.id
@@ -109,7 +121,8 @@ def debitcard_created(sender, instance, created, **kwargs):
         {
             "type": "send_notification",
             "message": {
-                "content": instance.content,
+                "id": instance.pk,
+                "notification": instance.content,
                 "notification_type": instance.get_notification_type_display(),
             },
         },

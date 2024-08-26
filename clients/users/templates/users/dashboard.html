@@ -72,7 +72,7 @@
                 <span class="text-secondary fs-6 fw-light">Available balance</span>
                 <span class="fs-6">{{ request.session.account.account_type }}</span>
               </div>
-              <div class="mx-5 fs-2 account-balance">{{ request.session.account.currency|currency_to_unicode|safe }}{{ request.session.account.balance }}</div>
+              <div class="mx-5 fs-2 account-balance">{{ request.session.account.currency|currency_to_unicode|safe }}<span>{{ request.session.account.balance }}</span></div>
               <div class="mx-5 account-number">{{ request.session.account.number }}</div>
             </div>
 

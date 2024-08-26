@@ -7,7 +7,7 @@ const accountForm = document.querySelector(".account-form");
 const accountType = document.querySelector("#account_type");
 const currency = document.querySelector("#currency");
 const CreateAccountBtn = document.querySelector("#create-account-btn");
-const unreadNotification = document.querySelectorAll(".unread-notification");
+const unreadNotification = document.querySelector(".unread-notifications > span");
 const unreadNotifications = document.querySelector(".unread-notifications");
 const notificationCount = document.querySelector(".notification-count");
 const CancelOverlayBtn = document.querySelectorAll(".cancel-overlay-btn");
@@ -47,7 +47,8 @@ if (addAccount.length) {
 }
 
 if (notificationCount) {
-  unreadNotification.forEach((element) => {
+  unreadNotification.addEventListener("click", (e) => {
+    const element = e.target.closest(".unread-notification");
     element.addEventListener("click", () => {
       const id = element
         .querySelector(".unread_notification_id")
