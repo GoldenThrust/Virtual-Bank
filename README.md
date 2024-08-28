@@ -4,7 +4,7 @@
 
 The **Virtual Bank API** and web application were created to provide developers with a platform for simulating banking transactions. Whether you're learning about APIs, testing e-commerce websites, or exploring payment integrations, Virtual Bank allows you to experiment without using real bank APIs. Built on Django, it offers a range of functionalities tailored for transaction simulation.
 
-
+![Virtual Bank Dasboard Screenshot](sample/sample.png)
 ## Table of Contents
 
 - [Installation](#installation)
@@ -265,7 +265,7 @@ socket.addEventListener("message", (e) => {
 
 The API is mostly finished, and I am currently working on the frontend. It is now possible to make transfers and deposits on the frontend with real-time updates and chart visualization of transactions.
 
-<!-- I will put video here -->
+![Virtual Bank Dashboard](sample/sample.gif)
 
 ## API Documentation
 
