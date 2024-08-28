@@ -8,9 +8,9 @@ class VerifyToken:
 
     def __call__(self, request):
         cookies = request.COOKIES
-        verification_response = requests.get(f'{api_url}users/verify', cookies=cookies)
+        verification_response = requests.get(f'{api_url}auth/verify/', cookies=cookies)
         
-        if verification_response.status_code != 200 and verification_response.json()['detail'] != 'success':
+        if verification_response.status_code != 200:
             print(f"Token verification failed: {verification_response.status_code}")
             logout(request)
         else:

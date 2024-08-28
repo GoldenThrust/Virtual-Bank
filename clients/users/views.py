@@ -11,12 +11,11 @@ from notifications.utils import process_notifications
 from transactions.models import Transaction
 from transfers.models import Transfer
 from django.db.models import Q, Sum
-import requests
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.contrib.auth import views as auth_views
-import requests
 from utils.constant import api_url
+import requests
 
 
 class LoginView(auth_views.LoginView):
@@ -24,9 +23,9 @@ class LoginView(auth_views.LoginView):
         if self.request.user.is_authenticated:
             if 'login_data' in request.session:
                 cookies = request.COOKIES
-                requests.get(f'{api_url}users/logout', cookies=cookies)
+                requests.get(f'{api_url}auth/logout', cookies=cookies)
                 login_data = request.session.pop('login_data')
-                response = requests.post(f'{api_url}users/login/', data=login_data)
+                response = requests.post(f'{api_url}auth/login/', data=login_data)
                 
                 if response.status_code == 200:
                     cookies = response.cookies
@@ -169,7 +168,7 @@ class DashBoard(View):
 class LogoutView(auth_views.LogoutView):
     def dispatch(self, request, *args, **kwargs):
         cookies = request.COOKIES
-        requests.get(f'{api_url}users/logout', cookies=cookies)
+        requests.get(f'{api_url}auth/logout', cookies=cookies)
         response = super().dispatch(request, *args, **kwargs)
         
         response.delete_cookie('vb_token')

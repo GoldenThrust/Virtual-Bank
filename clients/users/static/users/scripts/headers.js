@@ -30,7 +30,7 @@ if (addAccount.length) {
         form.append("account_type", accountType.value);
         form.append("currency", currency.value);
 
-        postData("/accounts/create-account/", form, true);
+        postData("/accounts/create/", form, true);
       };
       accountForm.classList.remove("d-none");
     });

@@ -40,17 +40,6 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAdminUser]
 
-
-class UserUserList(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [permissions.AllowAny]
-
-    def get_queryset(self):
-        user = self.request.user
-        return User.objects.filter(id=user.id)
-
-
 class UserGet(generics.RetrieveAPIView):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -88,6 +77,7 @@ class UserCreate(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.AllowAny]
+    authentication_classes = []
     user_ip = None
 
     def create(self, request, *args, **kwargs):

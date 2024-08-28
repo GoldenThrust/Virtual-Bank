@@ -6,6 +6,7 @@ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-
 sudo apt-get upgrade
 sudo apt-get update
 sudo apt-get -y install postgresql
+sudo apt install redis-server
 
 # install Python virtual environmen
 sudo apt install python3.10-venv
@@ -25,3 +26,6 @@ sudo apt-get update
 # Upgrade pip and install requirements within the virtual environment
 python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
+
+sudo service redis-server start
+sudo service postgresql start

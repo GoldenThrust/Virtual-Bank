@@ -86,4 +86,3 @@ class UserNotificationDetailListDetail(generics.RetrieveAPIView):
         notification.save()
 
         return notification
-    

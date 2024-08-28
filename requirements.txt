@@ -1,26 +1,57 @@
-asgiref==3.7.2
-certifi==2023.7.22
-charset-normalizer==3.3.2
-crispy-bootstrap5==2023.10
-Django==4.2.7
-django-cors-headers==4.3.0
-django-crispy-forms==2.1
-django-environ==0.11.2
-djangorestframework==3.14.0
-djangorestframework-simplejwt==5.3.1
-idna==3.4
-Pillow==10.1.0
-psycopg2-binary==2.9.9
-pyasn1==0.5.0
-pycparser==2.21
-pycrypto==2.6.1
-PyJWT==2.8.0
-python-dotenv==1.0.0
-python-keyczar==0.716
-pytz==2023.3.post1
-PyYAML==6.0.1
-requests==2.31.0
-sqlparse==0.4.4
-typing_extensions==4.8.0
-urllib3==2.1.0
-whitenoise==6.6.0
+Package                       Version
+----------------------------- ------------
+asgiref                       3.7.2
+async-timeout                 4.0.3
+attrs                         24.2.0
+autobahn                      24.4.2
+Automat                       22.10.0
+certifi                       2023.7.22
+cffi                          1.17.0
+channels                      4.1.0
+channels-redis                4.2.0
+charset-normalizer            3.3.2
+constantly                    23.10.4
+crispy-bootstrap5             2023.10
+cryptography                  43.0.0
+daphne                        4.1.2
+Django                        4.2.7
+django-cors-headers           4.3.0
+django-crispy-forms           2.1
+django-environ                0.11.2
+djangorestframework           3.14.0
+djangorestframework-simplejwt 5.3.1
+drf-yasg                      1.21.7
+hyperlink                     21.0.0
+idna                          3.4
+incremental                   24.7.2
+inflection                    0.5.1
+msgpack                       1.0.8
+packaging                     24.1
+Pillow                        10.1.0
+pip                           24.2
+psycopg2-binary               2.9.9
+pyasn1                        0.5.0
+pyasn1_modules                0.4.0
+pycparser                     2.21
+pycrypto                      2.6.1
+pycryptodome                  3.20.0
+PyJWT                         2.8.0
+pyOpenSSL                     24.2.1
+python-dotenv                 1.0.0
+python-keyczar                0.716
+pytz                          2023.3.post1
+PyYAML                        6.0.1
+redis                         5.0.8
+requests                      2.31.0
+service-identity              24.1.0
+setuptools                    72.1.0
+six                           1.16.0
+sqlparse                      0.4.4
+tomli                         2.0.1
+Twisted                       24.3.0
+txaio                         23.1.1
+typing_extensions             4.8.0
+uritemplate                   4.1.1
+urllib3                       2.1.0
+whitenoise                    6.6.0
+zope.interface                7.0.1

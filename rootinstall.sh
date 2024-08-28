@@ -6,6 +6,7 @@ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-
 sudo apt-get update
 sudo apt-get upgrade 
 sudo apt-get -y install postgresql
+sudo apt install redis-server
 
 # Clone the repository
 git clone https://github.com/GoldenThrust/Virtual-Bank.git
@@ -31,3 +32,6 @@ sudo apt-get update
 # Upgrade pip and install requirements within the virtual environment
 python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
+
+sudo service redis-server start
+sudo service postgresql start
