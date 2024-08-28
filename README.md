@@ -11,7 +11,7 @@ The **Virtual Bank API** and web application were created to provide developers 
 - [Authentication](#authentication)
 - [Usage](#usage)
 - [Project Status](#project-status)
-- [API Documentation](#virtual-bank-api-documentation)
+- [API Documentation](#api-documentation)
 - [Contributing](#Contributing)
 - [Licensing](#Licensing)
 - [Contact](#Contact)
