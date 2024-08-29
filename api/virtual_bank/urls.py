@@ -18,34 +18,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-
-
-schema_view = get_schema_view(
-    openapi.Info(
-        title="Virtual Bank API",
-        default_version='v1',
-        description="The Virtual Bank API is a RESTful API that provides endpoints for managing users, accounts, transactions, deposits, debit cards, transfers, and notifications. The API uses JWT authentication for securing certain endpoints and provides real-time transaction updates via WebSocket using Django Channels.",
-        terms_of_service="https://www.google.com/policies/terms/",
-        authentication_classes=('rest_framework_simplejwt.authentication.JWTAuthentication',),
-        contact=openapi.Contact(email="adenijiolajid01@gmail.com"),
-        license=openapi.License(name="BSD License"),
-    ),
-    public=True,
-    permission_classes=(permissions.AllowAny,),
-)
-
 
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('', include('api.urls'), name='api'),
     path('admin/', admin.site.urls),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
 
 if settings.DEBUG:

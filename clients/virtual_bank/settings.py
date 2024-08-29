@@ -106,27 +106,15 @@ ASGI_APPLICATION = 'virtual_bank.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-# DATABASES = {
-#     'default': {
-#         # 'ENGINE': 'django.db.backends.mysql',
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.getenv('DB_NAME'),
-#         'USER': os.getenv('DB_USER'),
-#         'PASSWORD': os.getenv('DB_PASSWORD'),
-#         'HOST': os.getenv('DB_HOST'),
-#         'PORT': os.getenv('DB_PORT'),
-#     }
-# }
-
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.postgresql',
-    'NAME': os.getenv('PGDATABASE'),
-    'USER': os.getenv('PGUSER'),
-    'PASSWORD': os.getenv('PGPASSWORD'),
-    'HOST': os.getenv('PGHOST'),
-    'PORT': os.getenv('PGPORT', 5432),
-    'OPTIONS': {
+    'NAME': os.getenv('DB_NAME') if DEBUG else os.getenv('PGDATABASE') ,
+    'USER': os.getenv('DB_USER')  if DEBUG else  os.getenv('PGUSER'),
+    'PASSWORD': os.getenv('DB_PASSWORD') if DEBUG else os.getenv('PGPASSWORD'),
+    'HOST':  os.getenv('DB_HOST') if DEBUG else os.getenv('PGHOST'),
+    'PORT':  os.getenv('DB_PORT') if DEBUG else os.getenv('PGPORT', 5432),
+    'OPTIONS': {} if DEBUG else {
       'sslmode': 'require',
     },
   }

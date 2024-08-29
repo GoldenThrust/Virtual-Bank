@@ -2,6 +2,7 @@ from django.db import models
 from accounts.models import Account
 import datetime
 from transactions.models import Transaction
+from transactions.utils import convert_currency
 
 
 class DebitCard(models.Model):
@@ -17,6 +18,13 @@ class DebitCard(models.Model):
 class DebitCardTransaction(models.Model):
     transaction = models.OneToOneField(Transaction, on_delete=models.CASCADE, related_name='debit_card')
     transaction_partner_account = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='transaction_partner_debit_card')
+    
+    
+    def get_transfer_currency_conversion(self):
+        source_currency = self.transaction_partner_account.currency
+        target_currency = self.transaction.account.currency
+        converted_amount = convert_currency(self.transaction.amount, source_currency, target_currency)
+        return converted_amount
 
     def __str__(self):
         return f"Debit Card Transansaction ID: {self.pk} - Receiver: {self.transaction.account.user.first_name} {self.transaction.account.user.last_name} - Transaction_partner: {self.transaction_partner_account.user.first_name} {self.transaction_partner_account.user.last_name} - Amount: {self.transaction.amount}"

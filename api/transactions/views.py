@@ -23,6 +23,7 @@ from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework import exceptions
 from .utils import convert_currency
+from accounts.utils import currency_to_unicode
 
 class DateError(Exception):
     pass
@@ -143,17 +144,25 @@ class TransactionTransferCreate(generics.CreateAPIView):
                 transaction_partner_account=transaction_partner_account,
             )
         
-            # notification
-            notification_message = f"The transfer of {transaction_amount} to {transaction_partner_account_name}'s account was successful."
-            process_notifications(
-                self.request.user, "transaction_notification", notification_message
-            )
+            if self.request.user == transaction_partner_account.user:
+                notification_message = f"The transfer of {currency_to_unicode(account.currency)}{transaction_amount} to {account.name} was successful."
+                process_notifications(
+                    self.request.user, "transaction_notification", notification_message
+                )
+            else:
+                # notification
+                notification_message = f"The transfer of {currency_to_unicode(account.currency)}{transaction_amount} to {transaction_partner_account_name}'s account was successful."
+                process_notifications(
+                    self.request.user, "transaction_notification", notification_message
+                )
+                
 
-            # notification
-            notification_message = f"{user_name} has sent {transaction_amount} to your account ({transaction_partner_account.number})."
-            process_notifications(
-                transaction_partner_account.user, "transaction_notification", notification_message
-            )
+                # notification
+                notification_message = f"{user_name} has sent {currency_to_unicode(account.currency)}{transaction_amount} to your account ({transaction_partner_account.number})."
+                process_notifications(
+                    transaction_partner_account.user, "transaction_notification", notification_message
+                )
+
         else:
             # notification
             notification_message = "The transfer could not be completed due to insufficient funds."
@@ -274,19 +283,24 @@ class TransactionDebitCardCreate(generics.CreateAPIView):
                 transaction=serializer.instance,
                 transaction_partner_account=card.account,
             )
+            
+            if self.request.user == card.account.user:
+                notification_message = f"You've successfully initiated a debit card transaction. {currency_to_unicode(card.account.currency)}{transaction_amount} was debited from your account and sent to {card.account.name} account."
+                process_notifications(
+                    self.request.user, "transaction_notification", notification_message
+                )
+            else:                    
+                # notification
+                notification_message = f"You've successfully initiated a debit card transaction. {currency_to_unicode(card.account.currency)}{transaction_amount} was debited from your account and sent to {user_name}'s account."
+                process_notifications(
+                    card.account.user, "transaction_notification", notification_message
+                )
 
-                    
-            # notification
-            notification_message = f"You've successfully initiated a debit card transaction. {transaction_amount} was debited from your account and sent to {user_name}'s account."
-            process_notifications(
-                card.account.user, "transaction_notification", notification_message
-            )
-
-            # notification
-            notification_message = f"You've received {transaction_amount} from {transaction_partner_account_name} through a debit card transaction."
-            process_notifications(
-                self.request.user, "transaction_notification", notification_message
-            )
+                # notification
+                notification_message = f"You've received {currency_to_unicode(card.account.currency)}{transaction_amount} from {transaction_partner_account_name} through a debit card transaction."
+                process_notifications(
+                    self.request.user, "transaction_notification", notification_message
+                )
         else:
             # notification
             notification_message = f"The debit card transaction from {user_name} could not be completed due to insufficient funds in their account."

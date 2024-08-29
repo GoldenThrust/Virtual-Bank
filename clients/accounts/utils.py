@@ -17,3 +17,15 @@ def update_account(account, session):
         deserialized_account = json.loads(serialized_account)
         session["account"] = deserialized_account[0]['fields']
         session["account"]['pk'] = deserialized_account[0]['pk']
+        
+def currency_to_unicode(currency_code):
+    currency_mapping = {
+        "USD": "$",   # US Dollar
+        "EUR": "€", # Euro
+        "GBP": "£",  # British Pound
+        "NGN": "₦", # Nigerian Naira
+        "JPY": "¥",  # Japanese Yen
+    }
+
+
+    return currency_mapping.get(currency_code, "")

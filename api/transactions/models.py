@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import Account
+from transactions.utils import convert_currency
 import uuid
 
 class Transaction(models.Model):
@@ -17,5 +18,11 @@ class Transaction(models.Model):
     identifier = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     date = models.DateTimeField(auto_now_add=True)
 
+    def get_currency_conversion(self, target_currency):
+        source_currency = self.account.currency
+        converted_amount = convert_currency(self.amount, source_currency, target_currency)
+        return converted_amount
+
     def __str__(self):
         return f"Transaction ID: {self.pk} - Type: {self.get_transaction_type_display()} - Amount: {self.amount}"
+    

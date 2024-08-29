@@ -18,7 +18,6 @@ let currentChartData = {
   debit_card_data: []
 };
 
-console.log(accountNumber.textContent)
 
 socket.addEventListener("message", (e) => {
   const data = JSON.parse(e.data);
@@ -59,6 +58,48 @@ socket.addEventListener("message", (e) => {
   }
 });
 
+let options = {
+  chart: {
+    type: "area",
+    animations: {
+      easing: "easeInOutQuad",
+    },
+  },
+  series: [],
+  stroke: {
+    curve: 'smooth',
+  },
+  tooltip: {
+    custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+      const data = w.globals.initialSeries[seriesIndex].data[dataPointIndex];
+      const date = new Date(data.x).toLocaleDateString();
+
+      return `
+      <div class="card p-2">
+        <ul class="list-unstyled mb-0">
+          <li><strong>Date: </strong> ${date}</li>
+          <li><strong>Amount: </strong> ${data.y}</li>
+          ${data.payer ? `<li><strong>Payer: </strong>${data.payer}</li>` : ''}
+          ${data.payee ? `<li><strong>Payee: </strong>${data.payee}</li>` : ''}
+        </ul>
+      </div>
+      `;
+    },
+  },
+  xaxis: {
+    type: 'datetime',
+  },
+  colors: ["#FF0000", "#00FF00", "#0000FF"],
+};
+
+const chart = new ApexCharts(lineChart, options);
+try {
+  chart.render();
+} catch (e) {
+  console.error(e);
+}
+
+
 const createSeriesData = (entries, hasUser = true) => {
   return entries.map(entry => ({
     x: new Date(entry.date),
@@ -98,46 +139,12 @@ function updateChart(newData) {
     { name: "Debit Card", data: debitCardData, color: '#0000FF' },
   ].filter(dataset => dataset.data.length > 0);
 
-  chart.updateSeries(datasets);
+  try {
+    chart.updateSeries(datasets);
+  } catch (e) {
+    console.log(e)
+  }
 }
-
-let options = {
-  chart: {
-    type: "area",
-    animations: {
-      easing: "easeInOutQuad",
-    },
-  },
-  series: [],
-  stroke: {
-    curve: 'smooth',
-  },
-  tooltip: {
-    custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-      const data = w.globals.initialSeries[seriesIndex].data[dataPointIndex];
-      const date = new Date(data.x).toLocaleDateString();
-
-      return `
-      <div class="card p-2">
-        <ul class="list-unstyled mb-0">
-          <li><strong>Date: </strong> ${date}</li>
-          <li><strong>Amount: </strong> ${data.y}</li>
-          ${data.payer ? `<li><strong>Payer: </strong>${data.payer}</li>` : ''}
-          ${data.payee ? `<li><strong>Payee: </strong>${data.payee}</li>` : ''}
-        </ul>
-      </div>
-      `;
-    },
-  },
-  xaxis: {
-    type: 'datetime',
-  },
-  colors: ["#FF0000", "#00FF00", "#0000FF"],
-};
-
-const chart = new ApexCharts(lineChart, options);
-chart.render();
-
 
 const addAccount = document.querySelectorAll(".add-account");
 const WelcomeCreateAccountBtn = document.querySelector(

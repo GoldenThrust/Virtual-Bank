@@ -15,12 +15,33 @@ from transfers import views as transfers_views
 from .views import ListApiUrls
 
 from rest_framework_simplejwt.views import TokenVerifyView
+from rest_framework import permissions
+
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Virtual Bank API",
+        default_version='v1',
+        description="The Virtual Bank API is a RESTful API that provides endpoints for managing users, accounts, transactions, deposits, debit cards, transfers, and notifications. The API uses JWT authentication for securing certain endpoints and provides real-time transaction updates via WebSocket using Django Channels.",
+        terms_of_service="https://www.google.com/policies/terms/",
+        authentication_classes=('rest_framework_simplejwt.authentication.JWTAuthentication',),
+        contact=openapi.Contact(email="adenijiolajid01@gmail.com"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 
 app_name = "api"
 
 urlpatterns = [
     path("", ListApiUrls.as_view(), name="api_overview"),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     # User management (admin only)
     path("admin/users/", users_views.UserList.as_view(), name="admin_user_list"),
     path(
