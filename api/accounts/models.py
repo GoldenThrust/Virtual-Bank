@@ -17,7 +17,7 @@ class Account(models.Model):
     number = models.BigIntegerField(unique=True, editable=False)
     currency = models.CharField(
         max_length=3,
-        choices=[("USD", "USD"), ("EUR", "EUR"), ("GBP", "GBP"), ("NGN", "NGN")],
+        choices=[("USD", "USD"), ("EUR", "EUR"), ("GBP", "GBP"), ("NGN", "NGN"), ("JPY", "JPY")],
         default="NGN",
     )
     created_date = models.DateTimeField(auto_now_add=True)

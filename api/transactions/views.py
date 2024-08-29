@@ -22,7 +22,7 @@ from debit_cards.models import DebitCardTransaction, DebitCard
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework import exceptions
-
+from .utils import convert_currency
 
 class DateError(Exception):
     pass
@@ -124,6 +124,7 @@ class TransactionTransferCreate(generics.CreateAPIView):
                 self.request.user, "transaction_notification", notification_message
             )
             raise exceptions.NotFound("Transaction partner Account not found")
+        
 
         if account.balance >= transaction_amount:
             transaction_partner_account_name = f'{transaction_partner_account.user.first_name} {transaction_partner_account.user.last_name}'
@@ -131,7 +132,7 @@ class TransactionTransferCreate(generics.CreateAPIView):
 
             # Update Account Balances
             account.balance -= transaction_amount
-            transaction_partner_account.balance += transaction_amount
+            transaction_partner_account.balance += convert_currency(transaction_amount, account.currency, transaction_partner_account.currency)
 
             account.save()
             transaction_partner_account.save()
@@ -263,7 +264,7 @@ class TransactionDebitCardCreate(generics.CreateAPIView):
 
             # Update Account Balances
             card.account.balance -= transaction_amount
-            account.balance += transaction_amount
+            account.balance += convert_currency(transaction_amount, card.account.currency, account.currency)
 
             card.account.save()
             account.save()
