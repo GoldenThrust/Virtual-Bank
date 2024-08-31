@@ -239,6 +239,7 @@ Make sure to replace `your_jwt_access_token` with the actual token you received 
 ## WebSocket Integration
 
 The API also supports WebSocket connections for real-time transaction and notification updates using Django Channels. Whenever a transaction is saved, a Django signal triggers a WebSocket event, providing instant updates to connected clients.
+> Note: Due to recent changes, WebSocket connections may not function as expected.
 
 **Endpoint**: `/ws/transactions/`
 
@@ -263,7 +264,7 @@ socket.addEventListener("message", (e) => {
 
 ## Project Status
 
-The API is mostly finished, and I am currently working on the frontend which might not work due to recent changes.
+The API is mostly finished, and I am currently working on the frontend, which might not work as expected due to recent changes.
 <!-- It is now possible to make transfers and deposits on the frontend with real-time updates and chart visualization of transactions. -->
 
 ![Virtual Bank Dashboard](sample/sample.gif)
