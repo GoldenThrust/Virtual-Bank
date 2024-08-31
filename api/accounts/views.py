@@ -5,7 +5,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import exceptions
 from debit_cards.models import DebitCard
-from credit_cards.serializers import generate_cvv, generate_valid_credit_card_number
+from debit_cards.serializers import generate_cvv, generate_valid_credit_card_number
 import datetime
 from notifications.utils import process_notifications
 
@@ -30,12 +30,12 @@ class AccountCreate(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        account_name = self.request.data.get("account_type")
+        account_name = self.request.data.get("name")
         account_type = self.request.data.get("account_type")
 
         existing_account = Account.objects.filter(user=self.request.user, name=account_name).exists()
         if existing_account:
-            raise exceptions.PermissionDenied('Account with this name already exists for the user')
+            raise exceptions.PermissionDenied('Account with this name already exists')
 
         account = serializer.save(user=self.request.user)
 

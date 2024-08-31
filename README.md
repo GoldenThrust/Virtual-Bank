@@ -1,4 +1,4 @@
-# Virtual Bank Web Application and API
+# Virtual Bank API
 
 ## Introduction
 
@@ -263,7 +263,8 @@ socket.addEventListener("message", (e) => {
 
 ## Project Status
 
-The API is mostly finished, and I am currently working on the frontend. It is now possible to make transfers and deposits on the frontend with real-time updates and chart visualization of transactions.
+The API is mostly finished, and I am currently working on the frontend which might not work due to recent changes.
+<!-- It is now possible to make transfers and deposits on the frontend with real-time updates and chart visualization of transactions. -->
 
 ![Virtual Bank Dashboard](sample/sample.gif)
 
@@ -292,12 +293,46 @@ Or send the token has cookie
   - **Description:** Create a users or returns a list of all users (admin only).
   - **Authorization:** Bearer Token (Admin)
   - **Method:** GET, POST
+  - **Request Body:** 
+  ```json
+  {
+    "username": "string",
+    "first_name": "string",
+    "last_name": "string",
+    "password": "string",
+    "email": "user@example.com",
+    "address": "string",
+    "city": "string",
+    "state": "string",
+    "country": "string",
+    "date_of_birth": "2019-08-24T14:15:22Z",
+    "phone_number": -9223372036854776000,
+    "date_joined": "2019-08-24T14:15:22Z"
+  }
+  ```
 
 - **User Detail**  
   - **Endpoint:** `GET /admin/users/{id}/`
   - **Description:** Retrieves, delete, or update details of a specific user by their `id` (admin only).
   - **Authorization:** Bearer Token (Admin)
   - **Method:** GET, PUT, DELETE
+  - **Request Body:** 
+  ```json
+  {
+    "username": "string",
+    "first_name": "string",
+    "last_name": "string",
+    "password": "string",
+    "email": "user@example.com",
+    "address": "string",
+    "city": "string",
+    "state": "string",
+    "country": "string",
+    "date_of_birth": "2019-08-24T14:15:22Z",
+    "phone_number": -9223372036854776000,
+    "date_joined": "2019-08-24T14:15:22Z"
+  }
+  ```
 
 ##### Accounts Management
 - **List Accounts**  
@@ -305,50 +340,30 @@ Or send the token has cookie
   - **Description:** Create Account or returns a list of all accounts (admin only).
   - **Authorization:** Bearer Token (Admin)
   - **Method:** GET, POST
+  - **Request Body:** 
+  ```json
+  {
+    "name": "string",
+    "account_type": "SAVINGS",
+    "balance": "string",
+    "currency": "USD"
+  }
+  ```
 
 - **Account Detail**  
   - **Endpoint:** `GET /admin/accounts/{id}/`
   - **Description:** Retrieves details of a specific account by its `id` (admin only).
   - **Authorization:** Bearer Token (Admin)
   - **Method:** GET, PUT, DELETE
-
-##### Debit Cards Management
-- **List Debit Cards**  
-  - **Endpoint:** `GET /admin/debit-cards/`
-  - **Description:** Create Debit Card or returns a list of all debit cards (admin only).
-  - **Authorization:** Bearer Token (Admin)
-  - **Method:** GET, POST
-
-- **Debit Card Detail**  
-  - **Endpoint:** `GET /admin/debit-cards/{id}/`
-  - **Description:** Retrieves, delete, or update details of a specific debit card by its `id` (admin only).
-  - **Authorization:** Bearer Token (Admin)
-  - **Method:** GET, PUT, DELETE
-
-- **List Debit Card Transactions**  
-  - **Endpoint:** `GET /admin/debit-cards/transactions/`
-  - **Description:** Create a Debit Card or returns a list of all debit card transactions (admin only).
-  - **Authorization:** Bearer Token (Admin)
-  - **Method:** GET, POST
-
-- **Debit Card Transaction Detail**  
-  - **Endpoint:** `GET /admin/debit-cards/transactions/{id}/`
-  - **Description:** Retrieves, delete, or update details of a specific debit card transaction by its `id` (admin only).
-  - **Authorization:** Bearer Token (Admin)
-  - **Method:** GET, PUT, DELETE
-
-##### Deposits Management
-- **List Deposits**  
-  - **Endpoint:** `GET /admin/deposits/`
-  - **Description:** Create Deposits or returns a list of all deposits (admin only).
-  - **Authorization:** Bearer Token (Admin)
-  - **Method:** GET, POST
-
-- **Deposit Detail**  
-  - **Endpoint:** `GET /admin/deposits/{id}/`
-  - **Description:** Retrieves, delete, or update details of a specific deposit by its `id` (admin only).
-  - **Authorization:** Bearer Token (Admin)
-  - **Method:** GET, PUT, DELETE
+  - **Request Body:** 
+  ```json
+  {
+    "name": "string",
+    "account_type": "SAVINGS",
+    "balance": "string",
+    "currency": "USD"
+  }
+  ```
 
 ##### Notifications Management
 - **List Notifications**  
@@ -356,12 +371,30 @@ Or send the token has cookie
   - **Description:** Create Notifications or returns a list of all notifications (admin only).
   - **Authorization:** Bearer Token (Admin)
   - **Method:** GET, POST
+  - **Request Body:** 
+  ```json
+  {
+    "user": 0,
+    "notification_type": "USER_NOTIFICATION",
+    "content": "string",
+    "status": "READ"
+  }
+  ```
 
 - **Notification Detail**  
   - **Endpoint:** `GET /admin/notifications/{id}/`
   - **Description:** Retrieves, delete, or update details of a specific notification by its `id` (admin only).
   - **Authorization:** Bearer Token (Admin)
   - **Method:** GET, PUT, DELETE
+  - **Request Body:** 
+  ```json
+  {
+    "user": 0,
+    "notification_type": "USER_NOTIFICATION",
+    "content": "string",
+    "status": "READ"
+  }
+  ```
 
 ##### Transactions Management
 - **List Transactions**  
@@ -369,25 +402,41 @@ Or send the token has cookie
   - **Description:** create or returns a list of all transactions (admin only).
   - **Authorization:** Bearer Token (Admin)
   - **Method:** GET, POST
+  - **Request Body:** 
+  ```json
+  {
+    "transaction_type": "DEPOSIT",
+    "amount_sent": "string",
+    "amount_received": "string",
+    "currency_sent": "USD",
+    "currency_received": "USD",
+    "rate": "string",
+    "account": 0,
+    "payer": 0,
+    "payee": 0
+  }
+  ```
 
 - **Transaction Detail**  
   - **Endpoint:** `GET /admin/transactions/{id}/`
   - **Description:** Retrieves, delete, or update details of a specific transaction by its `id` (admin only).
   - **Authorization:** Bearer Token (Admin)
   - **Method:** GET, PUT, DELETE
-
-##### Transfers Management
-- **List Transfers**  
-  - **Endpoint:** `GET /admin/transfers/`
-  - **Description:** Create or returns a list of all transfers (admin only).
-  - **Authorization:** Bearer Token (Admin)
-  - **Method:** GET, POST
-
-- **Transfer Detail**  
-  - **Endpoint:** `GET /admin/transfers/{id}/`
-  - **Description:** Retrieves, delete, or update details of a specific transfer by its `id` (admin only).
-  - **Authorization:** Bearer Token (Admin)
-  - **Method:** GET, PUT, DELETE
+  - **Request Body:** 
+  - **Request Body:** 
+  ```json
+  {
+    "transaction_type": "DEPOSIT",
+    "amount_sent": "string",
+    "amount_received": "string",
+    "currency_sent": "USD",
+    "currency_received": "USD",
+    "rate": "string",
+    "account": 0,
+    "payer": 0,
+    "payee": 0
+  }
+  ```
 
 ---
 
@@ -398,16 +447,72 @@ Or send the token has cookie
   - **Endpoint:** `POST /auth/token/verify/`
   - **Description:** Verifies the provided JWT token.
   - **Method:** POST
+  - **Request Body:** 
+  ```json
+  {
+    "token": "jwt_access_token"
+  }
+  ```
 
-- **Register User**  
+- **Register User** 
+  Note: profile_picture can be  
   - **Endpoint:** `POST /auth/register/`
   - **Description:** Registers a new user.
   - **Method:** POST
+  - **Request Body:** 
+  ```json
+  {
+    "username": "string",
+    "first_name": "string",
+    "last_name": "string",
+    "password": "string",
+    "email": "user@example.com",
+    "address": "string",
+    "city": "string",
+    "state": "string",
+    "country": "string",
+    "profile_picture": "string"
+    "date_of_birth": "2019-08-24T14:15:22Z",
+    "phone_number": -9223372036854776000,
+    "date_joined": "2019-08-24T14:15:22Z"
+  }
+  ```
+  - Notes:
+      The profile_picture field is optional. If included, it should be uploaded as a file in the form-data.
+
+      For file uploads, ensure that your server is configured to handle multipart/form-data and save the uploaded files properly.
+
+      If profile_picture is omitted, the user will be registered without a profile picture.
+  
+  - Handling File Uploads:
+      As URL: Provide the URL of the image in the profile_picture field.
+      
+      As Base64 String: Provide the base64-encoded image string in the profile_picture field.
+      
+      As File Upload: Use multipart/form-data to include the file in the profile_picture field.
+
 
 - **Update User**  
   - **Endpoint:** `PUT /auth/update/`
   - **Description:** Updates user information.
   - **Method:** PUT
+  - **Request Body:** 
+  ```json
+  {
+    "username": "string",
+    "first_name": "string",
+    "last_name": "string",
+    "password": "string",
+    "email": "user@example.com",
+    "address": "string",
+    "city": "string",
+    "state": "string",
+    "country": "string",
+    "date_of_birth": "2019-08-24T14:15:22Z",
+    "phone_number": -9223372036854776000,
+    "date_joined": "2019-08-24T14:15:22Z"
+  }
+  ```
 
 - **Verify User**  
   - **Endpoint:** `GET /auth/verify/`
@@ -418,11 +523,24 @@ Or send the token has cookie
   - **Endpoint:** `POST /auth/login/`
   - **Description:** Logs in a user and returns a JWT token.
   - **Method:** POST
+  - **Request Body:** 
+  ```json
+  {
+    "username": "string",
+    "password": "string"
+  }
+  ```
 
 - **Refresh Token**  
   - **Endpoint:** `POST /auth/token/refresh/`
   - **Description:** Refreshes the JWT token.
-  - **Method:** POST
+  - **Method:** POST'
+  - **Request Body:** 
+  ```json
+  {
+    "refresh": "jwt_refresh_token"
+  }
+  ```
 
 - **Logout**  
   - **Endpoint:** `GET /auth/logout/`
@@ -439,6 +557,15 @@ Or send the token has cookie
   - **Endpoint:** `POST /accounts/create/`
   - **Description:** Creates a new account for the authenticated user.
   - **Method:** POST
+  - **Request Body:** 
+  ```json
+  {
+    "name": "string",
+    "account_type": "SAVINGS | CURRENT",
+    "balance": "string",
+    "currency": "USD"
+  }
+  ```
 
 - **Account Detail**  
   - **Endpoint:** `GET /accounts/{account_number}/`
@@ -460,16 +587,28 @@ Or send the token has cookie
   - **Endpoint:** `GET /debit-cards/transactions/`
   - **Description:** Returns a list of transactions for the authenticated user's debit cards.
   - **Method:** GET
+  - **Query Parameters:**:
+    `role` (required): The role of the authenticated user in the transaction (`payer`, `payee`).
 
 - **Debit Card Transaction Detail**  
   - **Endpoint:** `GET /debit-cards/transactions/{transaction_id}/`
-  - **Description:** Retrieves details of a specific debit card transaction by its `transaction_id`.
+  - **Description:** Retrieves details of a specific debit card transaction by its `transaction_identifier`.
   - **Method:** GET
 
 - **Make Payment**  
   - **Endpoint:** `POST /debit-cards/payment/`
   - **Description:** Makes a payment using a debit card.
   - **Method:** POST
+  - **Request Body:** 
+  ```json
+  {
+      "amount": 0,
+      "payee_account_number": 000000000,
+      "card_number": 0000000000,
+      "cvv": 000,
+      "expiration_date": "22/08"
+  }
+  ```
 
 ##### Deposits
 - **List User Deposits**  
@@ -481,6 +620,13 @@ Or send the token has cookie
   - **Endpoint:** `POST /deposits/create/`
   - **Description:** Creates a new deposit for the authenticated user.
   - **Method:** POST
+  - **Request Body:** 
+  ```json
+  {
+      "amount": 0,
+      "account_number": 00000000000
+  }
+  ```
 
 - **Deposit Detail**  
   - **Endpoint:** `GET /deposits/{deposit_id}/`
@@ -488,6 +634,8 @@ Or send the token has cookie
   - **Method:** GET
 
 ##### Notifications
+  `type: user | account | transaction | security`
+
 - **List User Notifications**  
   - **Endpoint:** `GET /notifications/`
   - **Description:** Returns a list of notifications for the authenticated user.
@@ -498,9 +646,14 @@ Or send the token has cookie
   - **Description:** Returns notifications filtered by their type.
   - **Method:** GET
 
+- **Notification Type by ID**  
+  - **Endpoint:** `GET /notifications/{type}/`
+  - **Description:** Returns notifications filtered by their type and identifier.
+  - **Method:** GET
+
 - **Notification Detail**  
-  - **Endpoint:** `GET /notifications/{notification_id}/`
-  - **Description:** Retrieves a specific notification by its `notification_id`.
+  - **Endpoint:** `GET /notifications/{id}/`
+  - **Description:** Retrieves a specific notification by its `id`.
   - **Method:** GET
 
 ##### Transactions
@@ -508,10 +661,12 @@ Or send the token has cookie
   - **Endpoint:** `GET /transactions/`
   - **Description:** Returns the transaction history for the authenticated user.
   - **Method:** GET
+  - **Query Parameters:**:
+  - `role` (required): The role of the authenticated user in the transaction (`payer`, `payee`).
 
 - **Transaction Detail**  
   - **Endpoint:** `GET /transactions/{transaction_id}/`
-  - **Description:** Retrieves details of a specific transaction by its `transaction_id`.
+  - **Description:** Retrieves details of a specific transaction by its `transaction_identifier`.
   - **Method:** GET
 
 ##### Transfers
@@ -519,15 +674,25 @@ Or send the token has cookie
   - **Endpoint:** `GET /transfers/`
   - **Description:** Returns a list of all transfers made by the authenticated user.
   - **Method:** GET
+  - **Query Parameters:**:
+    `role` (required): The role of the authenticated user in the transaction (`payer`, `payee`).
 
 - **Create Transfer**  
   - **Endpoint:** `POST /transfers/create/`
   - **Description:** Creates a new transfer for the authenticated user.
   - **Method:** POST
+  - **Request Body:** 
+  ```json
+  {
+    "amount": 0,
+    "payer_account_number": 000000000,
+    "payee_account_number": 000000000
+  }
+  ```
 
 - **Transfer Detail**  
   - **Endpoint:** `GET /transfers/{transfer_id}/`
-  - **Description:** Retrieves details of a specific transfer by its `transfer_id`.
+  - **Description:** Retrieves details of a specific transfer by its `transfer_identifier`.
   - **Method:** GET
 
 ## Contributing

@@ -27,8 +27,6 @@ source venv/bin/activate
 # install pip
 sudo apt install python3-pip
 
-sudo apt-get update
-
 # Upgrade pip and install requirements within the virtual environment
 python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt

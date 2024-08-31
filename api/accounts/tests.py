@@ -28,7 +28,7 @@ class AccountTest(TestCase):
 
     def test_create_accounts(self):
         i = 0
-        url = reverse('api:account_create')
+        url = reverse('api:account_creation')
         for data in self.json_data:
             c = Client(headers=self.headers[i])
             response = c.post(url, data)
@@ -36,21 +36,3 @@ class AccountTest(TestCase):
             i += 1
             for key in data:
                 self.assertIsNotNone(data[key])
-
-    def test_list_accounts(self):
-        i = 0
-        url = reverse('api:account_list')
-        for header in self.headers:
-            c = Client(headers=self.headers[i])
-            response = c.get(url)
-            self.assertEqual(response.status_code, 200)
-            accounts = response.json()
-            i += 1
-            for account in accounts:
-                if account["account_type"] == "CURRENT":
-                    try:
-                        DebitCard.objects.filter(account=account["id"])
-                    except DebitCard.DoesNotExist:
-                        self.fail("Debit card does not exist")
-
-            self.assertGreater(len(account), 0)

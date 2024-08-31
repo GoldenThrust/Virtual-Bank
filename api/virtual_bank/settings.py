@@ -18,7 +18,7 @@ from datetime import timedelta
 # Load environment variables from .env
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -29,13 +29,13 @@ load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
 
 # Define the path where media files will be stored
-MEDIA_ROOT = os.path.join(ROOT_DIR, "clients", "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Define the URL prefix to access media files
 MEDIA_URL = "/media/"
@@ -51,14 +51,10 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     "users.apps.UsersConfig",
     "accounts.apps.AccountsConfig",
-    "credit_cards.apps.CreditCardsConfig",
     "debit_cards.apps.DebitCardsConfig",
-    "deposits.apps.DepositsConfig",
     "merchants.apps.MerchantsConfig",
     "notifications.apps.NotificationsConfig",
-    # 'payments.apps.PaymentsConfig',
     "transactions.apps.TransactionsConfig",
-    "transfers.apps.TransfersConfig",
     "websocket.apps.WebsocketConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -78,7 +74,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "virtual_bank.middleware.JWTAuthenticationMiddleware"
+    "virtual_bank.middleware.JWTAuthenticationMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "virtual_bank.urls"
@@ -175,6 +172,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
+
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"

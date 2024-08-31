@@ -15,7 +15,7 @@
             {% if top_partners.all|length > 0 %}
             <datalist name="transaction_partner_account_number" id="quick-account_number-list">
               {% for partner in top_partners %}
-                <option value="{{ partner.transaction_partner_account.number }}">{{ partner.transaction_partner_account.user.get_full_name|title }}</option>
+                <option value="{{ partner.transaction_partner_account.number }}">{{ partner.payee.user.get_full_name|title }}</option>
               {% endfor %}
             </datalist>
             {% else %}
@@ -93,7 +93,7 @@
               </span>
             </div>
 
-            {% comment %} Warning: Don't do this {% if (top_partners.all|length) > 0 %} avoid adding bracket {% endcomment %}
+            {% comment %} Warning: Don't do this {% if (top_partners.all|length) > 0 %} avoid wrapping in bracket {% endcomment %}
             {% if top_partners.all|length > 0 %}
               <div class="transaction-partners mt-4">
                 <h2>Send money to</h2>
@@ -102,9 +102,9 @@
                     <span class="center justify-content-start">
                       <img src="{{ partner.transaction_partner_account.user.profile_picture.url }}" alt="{{ partner.transaction_partner_account.user.get_full_name }} profile image" class="rounded-pill overflow-hidden profile-glow me-2  profile-image" />
                       <span>
-                        <div class="fw-bold fs-6">{{ partner.transaction_partner_account.user.get_full_name }}</div>
+                        <div class="fw-bold fs-6">{{ partner.payee.user.get_full_name }}</div>
                         <div>
-                          <span class="fw-semibold">Acct No.:</span>{{ partner.transaction_partner_account.number }}
+                          <span class="fw-semibold">Acct No.:</span>{{ partner.payee.number }}
                         </div>
                       </span>
                     </span>
@@ -113,7 +113,7 @@
               </div>
             {% endif %}
             
-            {% comment %} Warning: Don't do this {% if (recent_transactions.all|length) > 0 %}  avoid adding bracket {% endcomment %}
+            {% comment %} Warning: Don't do this {% if (recent_transactions.all|length) > 0 %}  avoid wrapping in bracket {% endcomment %}
             {% if recent_transactions.all|length > 0 %}
               <div class="recent-transactions mt-3">
                 <h2>Recent Transactions</h2>
@@ -127,7 +127,7 @@
                           </div>
                           <div>
                             {% if transaction.account.pk == request.session.account.pk %}
-                              <div class="fw-semibold">{{ transaction.transfer.transaction_partner_account.user.get_full_name }}</div>
+                              <div class="fw-semibold">{{ transaction.payee.user.get_full_name }}</div>
                             {% else %}
                               <div class="fw-semibold">{{ transaction.account.user.get_full_name }}</div>
                             {% endif %}
@@ -136,9 +136,9 @@
                         </span>
                         <span>
                           {% if transaction.account.pk == request.session.account.pk %}
-                            <div class="text-end">-{{ transaction.amount }}</div>
+                            <div class="text-end">-{{ transaction.amount_sent }}</div>
                           {% else %}
-                            <div class="text-end">+{{ transaction.amount }}</div>
+                            <div class="text-end">+{{ transaction.amount_received }}</div>
                           {% endif %}
                           <div class="text-end id">{{ transaction.get_transaction_type_display }}</div>
                         </span>
@@ -149,7 +149,7 @@
                           </div>
                           <div>
                             {% if transaction.account.pk == request.session.account.pk %}
-                              <div class="fw-semibold">{{ transaction.debit_card.transaction_partner_account.user.get_full_name }}</div>
+                              <div class="fw-semibold">{{ transaction.debit_card.payer.user.get_full_name }}</div>
                             {% else %}
                               <div class="fw-semibold">{{ transaction.account.user.get_full_name }}</div>
                             {% endif %}
@@ -158,9 +158,9 @@
                         </span>
                         <span>
                           {% if transaction.account.pk == request.session.account.pk %}
-                            <div class="text-end">+{{ transaction.amount }}</div>
+                            <div class="text-end">+{{ transaction.amount_received }}</div>
                           {% else %}
-                            <div class="text-end">-{{ transaction.amount }}</div>
+                            <div class="text-end">-{{ transaction.amount_sent }}</div>
                           {% endif %}
                           <div class="text-end id">{{ transaction.get_transaction_type_display }}</div>
                         </span>

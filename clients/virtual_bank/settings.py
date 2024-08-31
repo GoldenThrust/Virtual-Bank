@@ -48,15 +48,10 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'accounts.apps.AccountsConfig',
     'accounts.templatetags.accounts_tags',
-    'credit_cards.apps.CreditCardsConfig',
     'debit_cards.apps.DebitCardsConfig',
-    'deposits.apps.DepositsConfig',
-    'merchants.apps.MerchantsConfig',
     'notifications.apps.NotificationsConfig',
     'notifications.templatetags.notifications_tags',
-    # 'payments.apps.PaymentsConfig',
     'transactions.apps.TransactionsConfig',
-    'transfers.apps.TransfersConfig',
     'utils.apps.UtilsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -77,7 +72,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'virtual_bank.middleware.VerifyToken'
+    'virtual_bank.middleware.VerifyToken',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'virtual_bank.urls'

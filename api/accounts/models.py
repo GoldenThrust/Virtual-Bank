@@ -8,6 +8,14 @@ class Account(models.Model):
         ("CURRENT", "Current"),
     ]
 
+    CURRENCY_CHOICES = [
+        ("USD", "USD"),
+        ("EUR", "EUR"),
+        ("GBP", "GBP"),
+        ("NGN", "NGN"),
+        ("JPY", "JPY"),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, unique=False)
     account_type = models.CharField(
@@ -17,7 +25,7 @@ class Account(models.Model):
     number = models.BigIntegerField(unique=True, editable=False)
     currency = models.CharField(
         max_length=3,
-        choices=[("USD", "USD"), ("EUR", "EUR"), ("GBP", "GBP"), ("NGN", "NGN"), ("JPY", "JPY")],
+        choices=CURRENCY_CHOICES,
         default="NGN",
     )
     created_date = models.DateTimeField(auto_now_add=True)

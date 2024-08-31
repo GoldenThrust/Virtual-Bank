@@ -14,7 +14,7 @@ class UserTest(TestCase):
             self.json_data = json.load(f)
 
     def test_create_users(self):
-        url = reverse('api:user_create')
+        url = reverse('api:user_registration')
         
         for data in self.json_data:
             response = requests.post(f'{self.url}{url}', data=data)

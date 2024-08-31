@@ -16,6 +16,6 @@ def convert_currency(amount, source_currency, target_currency):
     
     converted_amount = amount_in_usd * exchange_rates[target_currency]
     
-    return converted_amount
+    return (converted_amount, exchange_rates[source_currency], exchange_rates[target_currency])
 
 
