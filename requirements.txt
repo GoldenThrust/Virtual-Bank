@@ -37,7 +37,6 @@ pycryptodome==3.20.0  # Updated library
 PyJWT==2.8.0
 pyOpenSSL==24.2.1
 python-dotenv==1.0.0
-python-keyczar==0.716
 pytz==2023.3.post1
 PyYAML==6.0.1
 redis==5.0.8
