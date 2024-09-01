@@ -3,6 +3,10 @@ from .models import Transaction
 from accounts.serializers import AccountSerializer
 
 class TransactionSerializer(serializers.ModelSerializer):
+    account = AccountSerializer()
+    payer = AccountSerializer()
+    payee = AccountSerializer()
+
     class Meta:
         model = Transaction
         fields = '__all__'

@@ -56,7 +56,7 @@ class CreateDepositTransaction(generics.CreateAPIView):
         if account.user != self.request.user:
             raise exceptions.PermissionDenied("Account does not belong to this user")
 
-        serializer.save(account=account, payer=account, payee=account, amount_sent=transaction_amount, amount_received=transaction_amount)
+        serializer.save(account=account, payer=account, payee=account, amount_sent=transaction_amount, amount_received=transaction_amount, transaction_type="DEPOSIT", currency_sent=account.currency, currency_received=account.currency, rate=1)
 
         # Update Account Balance
         account.balance += transaction_amount

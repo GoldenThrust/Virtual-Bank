@@ -39,7 +39,7 @@ To set up the Virtual Bank project locally, follow these steps:
    Add the Redis URL to your .env file: After setting up your Redis Cloud account, add the Redis connection URL to your .env file:
 
    ```ini
-   REDIS_URL=redis://your_redis_cloud_url:6379
+   REDIS_URL=redis://your_redis_cloud_url:6379/0
    ```
 
 4. **Rename `.env-example` file in the root directory and edit environment variables**:
@@ -58,7 +58,7 @@ To set up the Virtual Bank project locally, follow these steps:
    PGUSER='vb_owner'
    PGPASSWORD='*********'
 
-   REDIS_URL=redis-cloud.com
+   REDIS_URL=redis://your_redis_cloud_url:6379/0
    ```
 
    ### Local Database Configuration:

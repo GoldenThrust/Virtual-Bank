@@ -18,14 +18,14 @@ class Transaction(models.Model):
     ]
 
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
-    payer = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='payer', null=True, blank=True)
-    payee = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='payee', null=True, blank=True)
+    payer = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='payer')
+    payee = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='payee')
     transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPES, default="DEPOSIT")
     amount_sent = models.DecimalField(max_digits=15, decimal_places=2)
     amount_received = models.DecimalField(max_digits=15, decimal_places=2)
-    currency_sent = models.CharField(max_length=3, choices=CURRENCY_CHOICES, null=True, blank=True)
-    currency_received = models.CharField(max_length=3, choices=CURRENCY_CHOICES, null=True, blank=True)
-    rate = models.DecimalField(max_digits=15, decimal_places=6, null=True, blank=True)
+    currency_sent = models.CharField(max_length=3, choices=CURRENCY_CHOICES)
+    currency_received = models.CharField(max_length=3, choices=CURRENCY_CHOICES)
+    rate = models.DecimalField(max_digits=15, decimal_places=6)
     identifier = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     date = models.DateTimeField(auto_now_add=True)
 

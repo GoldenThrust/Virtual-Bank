@@ -8,7 +8,7 @@ const notificationCount = document.querySelector(".notification-count");
 const unreadNotifications = document.querySelector('.unread-notifications');
 const notification = document.querySelector('.unread-notifications > span');
 
-const socket = new WebSocket('ws://localhost:8000/ws/transactions/');
+const socket = new WebSocket('ws://localhost:8000/ws/data/');
 socket.addEventListener("open", (e) => {
   socket.send('{"hello": "world"}')
 })

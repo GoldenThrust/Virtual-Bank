@@ -2,9 +2,10 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 import json
 
-class TransactionConsumer(AsyncWebsocketConsumer):
+class Consumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.user = self.scope['user']
+        print(self.user)
         
         if self.user.is_authenticated:
             self.group_name = f"user_{self.user.id}"
@@ -30,18 +31,18 @@ class TransactionConsumer(AsyncWebsocketConsumer):
         data = json.loads(text_data)
         print(data)
 
-    async def send_notification(self, event):
-        message = event['data']
-        
-        await self.send(text_data=json.dumps({
-            'content': message,
-            'event': 'notification'
-        }))
-        
     async def send_transaction(self, event):
         data = event['data']
         
         await self.send(text_data=json.dumps({
             'content': data,
-            'event': 'transaction'
+            'type': 'transaction'
+        }))
+        
+    async def send_notification(self, event):
+        message = event['data']
+        
+        await self.send(text_data=json.dumps({
+            'content': message,
+            'type': 'notification'
         }))

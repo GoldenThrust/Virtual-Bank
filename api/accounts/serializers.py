@@ -1,12 +1,13 @@
 from rest_framework import serializers
 from .models import Account
 from .utils import generate_account_number
+from users.serializers import UserSerializer
 
 
 class AccountSerializer(serializers.ModelSerializer):
     number = serializers.CharField(read_only=True)
     created_date = serializers.DateTimeField(read_only=True)
-    user = serializers.SerializerMethodField()
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Account
@@ -23,10 +24,6 @@ class AccountSerializer(serializers.ModelSerializer):
             "created_date",
         ]
 
-        extra_kwargs = {
-            "user": {"read_only": True},
-        }
-
     def get_user(self, obj):
         return (f"{obj.user.first_name} {obj.user.last_name}") if obj.user else None
 
@@ -39,7 +36,7 @@ class AccountSerializer(serializers.ModelSerializer):
 class AccountCreateSerializer(serializers.ModelSerializer):
     number = serializers.CharField(read_only=True)
     created_date = serializers.DateTimeField(read_only=True)
-    user = serializers.SerializerMethodField()
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Account
