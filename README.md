@@ -524,6 +524,7 @@ Or send the token has cookie
     "amount_received": "string",
     "currency_sent": "USD",
     "currency_received": "USD",
+    "description": "string",
     "rate": "string",
     "account": 0,
     "payer": 0,
@@ -545,6 +546,7 @@ Or send the token has cookie
     "amount_received": "string",
     "currency_sent": "USD",
     "currency_received": "USD",
+    "description": "string",
     "rate": "string",
     "account": 0,
     "payer": 0,
@@ -717,10 +719,11 @@ Or send the token has cookie
   ```json
   {
       "amount": 0,
-      "payee_account_number": 000000000,
-      "card_number": 0000000000,
-      "cvv": 000,
-      "expiration_date": "22/08"
+      "payee_account_number": 100000000,
+      "card_number": 1000000000,
+      "cvv": 100,
+      "expiration_date": "22/08",
+      "description": "string",
   }
   ```
 
@@ -738,7 +741,8 @@ Or send the token has cookie
   ```json
   {
       "amount": 0,
-      "account_number": 00000000000
+      "account_number": 10000000000,
+      "description": "string",
   }
   ```
 
@@ -799,8 +803,9 @@ Or send the token has cookie
   ```json
   {
     "amount": 0,
-    "payer_account_number": 000000000,
-    "payee_account_number": 000000000
+    "payer_account_number": 100000000,
+    "payee_account_number": 100000000,
+    "description": "string"
   }
   ```
 
