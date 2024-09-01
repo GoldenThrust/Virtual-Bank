@@ -5,16 +5,42 @@
 The **Virtual Bank API** and web application were created to provide developers with a platform for simulating banking transactions. Whether you're learning about APIs, testing e-commerce websites, or exploring payment integrations, Virtual Bank allows you to experiment without using real bank APIs. Built on Django, it offers a range of functionalities tailored for transaction simulation.
 
 ![Virtual Bank Dasboard Screenshot](sample/sample.png)
-## Table of Contents
+# Table of Contents
+- [Virtual Bank API](#virtual-bank-api)
+  - [Introduction](#introduction)
+- [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+    - [Local Database Configuration:](#local-database-configuration)
+    - [Neon Database Configuration (for Deployment)](#neon-database-configuration-for-deployment)
+  - [Authentication (JWT and Cookies)](#authentication-jwt-and-cookies)
+  - [Usage](#usage)
+    - [Running the Development Server](#running-the-development-server)
+    - [Create User](#create-user)
+    - [Obtain JWT Token](#obtain-jwt-token)
+    - [Create Account (using JWT token)](#create-account-using-jwt-token)
+  - [WebSocket Integration](#websocket-integration)
+  - [Project Status](#project-status)
+  - [API Documentation](#api-documentation)
+    - [Overview](#overview)
+    - [Authentication](#authentication)
+    - [Endpoints](#endpoints)
+      - [**Admin Endpoints**](#admin-endpoints)
+        - [Users Management](#users-management)
+        - [Accounts Management](#accounts-management)
+        - [Notifications Management](#notifications-management)
+        - [Transactions Management](#transactions-management)
+      - [**Public Endpoints**](#public-endpoints)
+        - [Authentication](#authentication-1)
+        - [Accounts](#accounts)
+        - [Debit Cards](#debit-cards)
+        - [Deposits](#deposits)
+        - [Notifications](#notifications)
+        - [Transactions](#transactions)
+        - [Transfers](#transfers)
+  - [Contributing](#contributing)
+  - [Licensing](#licensing)
+  - [Contact](#contact)
 
-- [Installation](#installation)
-- [Authentication](#authentication)
-- [Usage](#usage)
-- [Project Status](#project-status)
-- [API Documentation](#api-documentation)
-- [Contributing](#Contributing)
-- [Licensing](#Licensing)
-- [Contact](#Contact)
 
 ## Installation
 
@@ -26,12 +52,69 @@ To set up the Virtual Bank project locally, follow these steps:
    cd virtual-bank
    ```
 
-2. **Run the installation script**:
-   ```bash
-   chmod +x install.sh
-   ./install.sh
-   ```
-3. 5 **Redis Setup for Django Channels**
+2. **Create and activate a Python virtual environment:**
+
+    #### For Linux (Ubuntu):
+    Install the necessary packages, create and activate the virtual environment:
+    ```bash
+    sudo apt install python3.10-venv
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
+    ### For macOS:
+    Install Python 3 if not already installed (you can use Homebrew to install it), then create and activate the virtual environment:
+
+    ``` bash
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
+    
+    If you don’t have Homebrew installed, you can install it by running:
+
+    ```bash
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    brew install python
+    ```
+    ### For Windows:
+    Open the command prompt (or PowerShell) as an administrator.
+    Run the following commands to create and activate the virtual environment:
+    ```bash
+    python -m venv venv
+    venv\Scripts\activate
+    ```
+    Install pip (if necessary) and upgrade it:
+    For all platforms (Linux, macOS, Windows):
+
+    ```bash
+    python3 -m pip install --upgrade pip
+    ```
+
+    Install project dependencies:
+    Inside the activated virtual environment, run:
+
+    ```bash
+    python3 -m pip install -r requirements.txt
+    ```
+    ---
+    **or**
+    ---
+    Run the installation script:
+    ### For Linux/macOS:
+    Make the installation script executable and run it:
+
+    ```bash
+    chmod +x install.sh
+    ./install.sh
+    ```
+
+    ### For Windows:
+    You may need to run the script manually if .sh files are not supported:
+
+    ```bash
+    bash install.sh
+    ```
+
+3. **Redis Setup for Django Channels**
    Register on Redis Cloud: Go to [Redis.io](https://redis.io) and register for a free Redis Cloud account. After registration, create a new Redis database instance and retrieve the connection URL.
 
    This URL will be used to configure Redis in your Django project.
@@ -239,26 +322,17 @@ Make sure to replace `your_jwt_access_token` with the actual token you received 
 ## WebSocket Integration
 
 The API also supports WebSocket connections for real-time transaction and notification updates using Django Channels. Whenever a transaction is saved, a Django signal triggers a WebSocket event, providing instant updates to connected clients.
-> Note: Due to recent changes, WebSocket connections may not function as expected.
 
-**Endpoint**: `/ws/transactions/`
+**Endpoint**: `/ws/socket/`
 
 **Example Frontend WebSocket Listener**:
 ```javascript
-const socket = new WebSocket("ws://localhost:8000/ws/transactions/");
+const socket = new WebSocket("ws://localhost:8000/ws/socket/");
 
 socket.addEventListener("message", (e) => {
   const data = JSON.parse(e.data);
 
-  if (data.event === "transaction") {
-    if (accountNumber.textContent === data.content.account_number) {
-      if (data.content.payer === "You") {
-      } else {
-      }
-      console.log('Transaction: ', data)
-  } else if (data.event === "notification") {
-    console.log("Notification",data)
-  }
+  console.log(data.content, data.event);
 });
 ```
 
