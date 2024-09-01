@@ -28,8 +28,9 @@ load_dotenv()
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY")
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True if os.getenv("DEV", "False") == "True" else False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -151,7 +152,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [os.getenv('REDIS_URL', 'redis://localhost:6379/0')],
+            "hosts": ['redis://localhost:6379' if DEBUG else os.getenv('REDIS_URL', 'redis://localhost:6379')],
         },
     },
 }
@@ -199,7 +200,13 @@ CORS_ALLOW_HEADERS = [
     "X-CSRFToken",
 ]
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8001']
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8000',
+    'http://localhost:8001',
+    'http://127.0.0.1:8000',
+    'http://127.0.0.1:8001',
+    'https://virtualbank.tech',
+]
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=2),
