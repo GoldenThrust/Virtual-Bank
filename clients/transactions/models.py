@@ -26,6 +26,7 @@ class Transaction(models.Model):
     currency_sent = models.CharField(max_length=3, choices=CURRENCY_CHOICES)
     currency_received = models.CharField(max_length=3, choices=CURRENCY_CHOICES)
     rate = models.DecimalField(max_digits=15, decimal_places=6)
+    description = models.TextField(blank=True)
     identifier = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     date = models.DateTimeField(auto_now_add=True)
 

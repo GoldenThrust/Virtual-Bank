@@ -29,6 +29,7 @@ class DepositSerializer(serializers.ModelSerializer):
             "amount_received",
             "account_number",
             "transaction_type",
+            "description",
             "identifier",
             "date",
         ]
@@ -69,6 +70,7 @@ class TransferSerializer(serializers.ModelSerializer):
             "rate",
             "payer_account_number",
             "payee_account_number",
+            "description",
             "transaction_type",
             "identifier",
             "date",
@@ -112,6 +114,7 @@ class DebitCardTransactionSerializer(serializers.ModelSerializer):
             "expiration_date",  
             "rate",
             "transaction_type",
+            "description",
             "identifier",
             "date",
         ]
