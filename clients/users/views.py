@@ -91,11 +91,7 @@ class DashBoard(View):
             recent_transactions = Transaction.objects.filter(
                 Q(account=request.session.get("account")["pk"])
                 | Q(payer=request.session.get("account")["pk"])
-                | Q(
-                    payee=request.session.get(
-                        "account"
-                    )["pk"]
-                )
+                | Q(payee=request.session.get("account")["pk"])
             ).order_by("-date")[:10]
 
             financial = {
@@ -109,21 +105,21 @@ class DashBoard(View):
                 ).aggregate(Sum("amount_received"))["amount_received__sum"]
                 or 0,
                 "outgoing": Transaction.objects.filter(
-                        ~Q(transaction_type="DEPOSIT"),
-                        payer=request.session.get("account")[
-                            "pk"
-                        ]
+                    ~Q(transaction_type="DEPOSIT"),
+                    payer=request.session.get("account")["pk"],
                 ).aggregate(Sum("amount_sent"))["amount_sent__sum"]
                 or 0,
             }
 
             # transaction partner
             top_partners = (
-                Transaction.objects.filter(transaction_type="TRANSFER")
-                .order_by("-amount_sent")
-                .distinct("transaction_partner_account")[:10]
+                Transaction.objects.filter(
+                    transaction_type="TRANSFER",
+                    account=request.session.get("account")["pk"],
+                )
+                .order_by("payee", "-amount_sent")
+                .distinct("payee")[:10]
             )
-
         else:
             recent_transactions = None
             financial = None

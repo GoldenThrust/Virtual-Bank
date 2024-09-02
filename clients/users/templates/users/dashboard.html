@@ -13,20 +13,21 @@
           <div class="mb-3">
             <label for="quick-account_number" class="form-label">Account Number</label>  
             {% if top_partners.all|length > 0 %}
-            <datalist name="transaction_partner_account_number" id="quick-account_number-list">
+            <datalist name="payee_account_number" id="quick-account_number-list">
               {% for partner in top_partners %}
-                <option value="{{ partner.transaction_partner_account.number }}">{{ partner.payee.user.get_full_name|title }}</option>
+                <option value="{{ partner.payee.number }}">{{ partner.payee.user.get_full_name|title }}</option>
               {% endfor %}
             </datalist>
             {% else %}
             {% endif %}
-            <input type="number" list="quick-account_number-list" name="transaction_partner_account_number" class="numberinput form-control" id="quick-account_number" />
+            <input type="number" list="quick-account_number-list" name="payee_account_number" class="numberinput form-control" id="quick-account_number" />
           </div>
           <div class="mb-3">
             <label for="quick-amount" class="form-label">Amount</label>
             <input type="number" name="amount" class="numberinput form-control" id="quick-amount" />
           </div>
 
+          <input type="hidden" name="payer_account_number" value="{{ request.session.account.number }}">
           <input type="hidden" name="account_number" value="{{ request.session.account.number }}">
 
           <div class="form-group mb-3 d-flex flex-row gap-1">
@@ -100,7 +101,7 @@
                 <div class="partners d-flex mt-3">
                   {% for partner in top_partners %}
                     <span class="center justify-content-start">
-                      <img src="{{ partner.transaction_partner_account.user.profile_picture.url }}" alt="{{ partner.transaction_partner_account.user.get_full_name }} profile image" class="rounded-pill overflow-hidden profile-glow me-2  profile-image" />
+                      <img src="{{ partner.payee.user.profile_picture.url }}" alt="{{ partner.payee.user.get_full_name }} profile image" class="rounded-pill overflow-hidden profile-glow me-2  profile-image" />
                       <span>
                         <div class="fw-bold fs-6">{{ partner.payee.user.get_full_name }}</div>
                         <div>
@@ -136,9 +137,9 @@
                         </span>
                         <span>
                           {% if transaction.account.pk == request.session.account.pk %}
-                            <div class="text-end">-{{ transaction.amount_sent }}</div>
+                            <div class="text-end">-{{ request.session.account.currency|currency_to_unicode|safe }}{{ transaction.amount_sent }}</div>
                           {% else %}
-                            <div class="text-end">+{{ transaction.amount_received }}</div>
+                            <div class="text-end">+{{ request.session.account.currency|currency_to_unicode|safe }}{{ transaction.amount_received }}</div>
                           {% endif %}
                           <div class="text-end id">{{ transaction.get_transaction_type_display }}</div>
                         </span>
@@ -158,9 +159,9 @@
                         </span>
                         <span>
                           {% if transaction.account.pk == request.session.account.pk %}
-                            <div class="text-end">+{{ transaction.amount_received }}</div>
+                            <div class="text-end">+{{ request.session.account.currency|currency_to_unicode|safe }}{{ transaction.amount_received }}</div>
                           {% else %}
-                            <div class="text-end">-{{ transaction.amount_sent }}</div>
+                            <div class="text-end">-{{ request.session.account.currency|currency_to_unicode|safe }}{{ transaction.amount_sent }}</div>
                           {% endif %}
                           <div class="text-end id">{{ transaction.get_transaction_type_display }}</div>
                         </span>
@@ -175,7 +176,7 @@
                           </div>
                         </span>
                         <span>
-                          <div class="text-end">+{{ transaction.amount }}</div>
+                          <div class="text-end">+{{ request.session.account.currency|currency_to_unicode|safe }}{{ transaction.amount }}</div>
                           <div class="text-end type">{{ transaction.get_transaction_type_display }}</div>
                         </span>
                       {% endif %}
@@ -197,6 +198,6 @@
     </div>
   </main>
   {% include 'users/includes/footer.html' %}
-  <script type="module" src="{% static 'users/scripts/test.js' %}"></script>
-  <!-- <script type="module" src="{% static 'users/scripts/dashboard.js' %}"></script> -->
+  <script type="module" src="{% static 'users/scripts/dashboard.js' %}"></script>
+  <script type="module" src="{% static 'users/scripts/chart.js' %}"></script>
 {% endblock %}

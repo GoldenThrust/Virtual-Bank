@@ -124,6 +124,14 @@ class CreateTransferTransaction(generics.CreateAPIView):
             )
             received_amount = currency[0]
             rate = currency[1] / currency[2]
+
+            # Update Account Balances
+            account.balance -= transaction_amount
+            payee_account.balance += received_amount
+
+            account.save()
+            payee_account.save()
+
             serializer.save(
                 account=account,
                 payer=account,
@@ -135,13 +143,6 @@ class CreateTransferTransaction(generics.CreateAPIView):
                 rate=rate,
                 transaction_type="TRANSFER"
             )
-
-            # Update Account Balances
-            account.balance -= transaction_amount
-            payee_account.balance += received_amount
-
-            account.save()
-            payee_account.save()
 
             if self.request.user == payee_account.user:
                 notification_message = f"The transfer of {currency_to_unicode(account.currency)}{transaction_amount} to {account.name} was successful."
@@ -251,6 +252,14 @@ class CreateDebitCardTransaction(generics.CreateAPIView):
             )
             received_amount = currency[0]
             rate = currency[1] / currency[2]
+            
+            # Update Account Balances
+            card.account.balance -= transaction_amount
+            account.balance += currency[0]
+
+            card.account.save()
+            account.save()
+
             serializer.save(
                 account=account,
                 payer=payer_account,
@@ -262,13 +271,6 @@ class CreateDebitCardTransaction(generics.CreateAPIView):
                 rate=rate,
                 transaction_type="DEBIT_CARD"
             )
-
-            # Update Account Balances
-            card.account.balance -= transaction_amount
-            account.balance += currency[0]
-
-            card.account.save()
-            account.save()
 
             if self.request.user == card.account.user:
                 notification_message = f"You've successfully initiated a debit card transaction. {currency_to_unicode(card.account.currency)}{transaction_amount} was debited from your account and sent to {card.account.name} account."
@@ -309,16 +311,32 @@ class TransactionHistory(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         role = self.request.query_params.get('role', None)
+        account_number = self.request.query_params.get('account_number', None)
+
+        queryset = Transaction.objects.all()
 
         if role == "payer":
-            return Transaction.objects.filter(payer__user=user)
+            queryset = queryset.filter(payer__user=user)
+            if account_number:
+                queryset = queryset.filter(payer__number=account_number)
         elif role == "payee":
-            return Transaction.objects.filter(payee__user=user)
+            queryset = queryset.filter(payee__user=user)
+            if account_number:
+                queryset = queryset.filter(payee__number=account_number)
         else:
-            return Transaction.objects.filter(
-                Q(account__user=user) | Q(payer__user=user) | Q(payee__user=user)
+            queryset = queryset.filter(
+                Q(account__user=user) |
+                Q(payer__user=user) |
+                Q(payee__user=user)
             )
+            if account_number:
+                queryset = queryset.filter(
+                    Q(account__number=account_number) |
+                    Q(payer__number=account_number) |
+                    Q(payee__number=account_number)
+                )
 
+        return queryset
 
 class TransactionDetail(generics.RetrieveAPIView):
     serializer_class = TransactionSerializer
@@ -397,7 +415,6 @@ class DepositDetail(generics.RetrieveAPIView):
             )
         return deposit
 
-
 class TransferHistory(generics.ListAPIView):
     serializer_class = TransferSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -405,23 +422,32 @@ class TransferHistory(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         role = self.request.query_params.get('role', None)
+        account_number = self.request.query_params.get('account_number', None)
+
+        queryset = Transaction.objects.filter(transaction_type="TRANSFER")
 
         if role == "payer":
-            return Transaction.objects.filter(payer__user=user, transaction_type="TRANSFER")
+            queryset = queryset.filter(payer__user=user)
+            if account_number:
+                queryset = queryset.filter(payer__number=account_number)
         elif role == "payee":
-            return Transaction.objects.filter(payee__user=user, transaction_type="TRANSFER")
+            queryset = queryset.filter(payee__user=user)
+            if account_number:
+                queryset = queryset.filter(payee__number=account_number)
         else:
-            return Transaction.objects.filter(
-                Q(account__user=user) | Q(payer__user=user) | Q(payee__user=user), transaction_type="TRANSFER"
+            queryset = queryset.filter(
+                Q(account__user=user) |
+                Q(payer__user=user) |
+                Q(payee__user=user)
             )
+            if account_number:
+                queryset = queryset.filter(
+                    Q(account__number=account_number) |
+                    Q(payer__number=account_number) |
+                    Q(payee__number=account_number)
+                )
 
-class TransferList(generics.ListAPIView):
-    serializer_class = TransactionSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_queryset(self):
-        user = self.request.user
-
+        return queryset
 
 
 class TransferDetails(generics.RetrieveAPIView):
@@ -462,6 +488,7 @@ class TransferDetails(generics.RetrieveAPIView):
         return transfer
 
 
+
 class DebitCardHistory(generics.ListAPIView):
     serializer_class = TransferSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -469,15 +496,32 @@ class DebitCardHistory(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         role = self.request.query_params.get('role', None)
+        account_number = self.request.query_params.get('account_number', None)
+
+        queryset = Transaction.objects.filter(transaction_type="DEBIT_CARD")
 
         if role == "payer":
-            return Transaction.objects.filter(payer__user=user, transaction_type="DEBIT_CARD")
+            queryset = queryset.filter(payer__user=user)
+            if account_number:
+                queryset = queryset.filter(payer__number=account_number)
         elif role == "payee":
-            return Transaction.objects.filter(payee__user=user, transaction_type="DEBIT_CARD")
+            queryset = queryset.filter(payee__user=user)
+            if account_number:
+                queryset = queryset.filter(payee__number=account_number)
         else:
-            return Transaction.objects.filter(
-                Q(account__user=user) | Q(payer__user=user) | Q(payee__user=user), transaction_type="DEBIT_CARD"
+            queryset = queryset.filter(
+                Q(account__user=user) |
+                Q(payer__user=user) |
+                Q(payee__user=user)
             )
+            if account_number:
+                queryset = queryset.filter(
+                    Q(account__number=account_number) |
+                    Q(payer__number=account_number) |
+                    Q(payee__number=account_number)
+                )
+
+        return queryset
 
 
 class DebitCardDetails(generics.RetrieveAPIView):

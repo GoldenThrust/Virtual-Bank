@@ -1,6 +1,15 @@
 :root {
-  --primary: #5E3FBE;
+  --primary: black;
   --secondary: #7f1ec4;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  color: maroon;
 }
 
 .center {

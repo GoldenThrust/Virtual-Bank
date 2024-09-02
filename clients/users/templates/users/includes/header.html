@@ -50,10 +50,10 @@
         <div class="d-flex flex-column">
           {% for account in request.user.account_set.all %}
             {% if account.name != request.session.account.name %}
-              <div class="d-flex justify-content-between align-items-center hover-pointer account-details w-100 p-2 rounded-1">
-                <a href="{% url 'accounts:switch_account' account.pk %}" class="account-name fw-semibold text-decoration-none text-black">{{ account.name }}</a> - <span class="account-balance">{{ account.currency|currency_to_unicode|safe }}{{ account.balance }}</span>
+              <a href="{% url 'accounts:switch_account' account.pk %}" class="d-flex justify-content-between align-items-center hover-pointer account-details w-100 p-2 rounded-1">
+                <span class="account-name fw-semibold text-decoration-none text-black">{{ account.name }}</span> - <span class="account-balance">{{ account.currency|currency_to_unicode|safe }}{{ account.balance }}</span>
                 <!-- account lists -->
-              </div>
+              </a>
               <hr class="mx-0 my-0" />
             {% endif %}
           {% endfor %}

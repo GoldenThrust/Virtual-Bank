@@ -101,7 +101,7 @@ urlpatterns = [
     path("auth/logout/", users_views.Logout.as_view(), name="user_logout"),
     # Public account API
     path(
-        "accounts/", accounts_views.UserAccountList.as_view(), name="user_account_list"
+        "accounts/", accounts_views.UserAccountList.as_view(), name="account_list"
     ),
     path(
         "accounts/create/",
@@ -117,7 +117,7 @@ urlpatterns = [
     path(
         "debit-cards/",
         debit_cards_views.UserDebitCardList.as_view(),
-        name="user_debit_card_list",
+        name="debit_card_list",
     ),
     path(
         "debit-cards/<int:number>/<int:cvv>/",
@@ -127,7 +127,7 @@ urlpatterns = [
     path(
         "debit-cards/transactions/",
         transactions_views.DebitCardHistory.as_view(),
-        name="user_debit_card_transactions_history",
+        name="debit_card_transactions_history",
     ),
     path(
         "debit-cards/transactions/<uuid:identifier>/",
@@ -141,7 +141,7 @@ urlpatterns = [
     ),
     # Public deposit API
     path(
-        "deposits/", transactions_views.DepositList.as_view(), name="user_deposit_list"
+        "deposits/", transactions_views.DepositList.as_view(), name="deposit_list"
     ),
     path(
         "deposits/create/",
@@ -157,22 +157,22 @@ urlpatterns = [
     path(
         "notifications/",
         notifications_views.UserNotificationList.as_view(),
-        name="user_notification_list",
+        name="notification_list",
     ),
     path(
         "notifications/<type>/",
         notifications_views.UserNotificationDetailList.as_view(),
-        name="user_notification_detail_list",
+        name="notification_detail_list",
     ),
     path(
         "notifications/<type>/<int:notification_number>/",
         notifications_views.UserNotificationDetailListDetail.as_view(),
-        name="user_notification_detail",
+        name="notification_detail",
     ),
     path(
         "notifications/<int:notification_number>/",
         notifications_views.UserNotificationDetail.as_view(),
-        name="user_notification_detail_single",
+        name="notification_detail_single",
     ),
     # Public transactions API
     path(
@@ -189,7 +189,7 @@ urlpatterns = [
     path(
         "transfers/",
         transactions_views.TransferHistory.as_view(),
-        name="user_transfer_history",
+        name="transfer_history",
     ),
     path(
         "transfers/create/",

@@ -372,13 +372,16 @@ socket.addEventListener("message", (e) => {
   const data = JSON.parse(e.data);
 
   console.log(data.content, data.event);
+  
+  if (data.event === "transaction") {
+  } else if (data.event === "notification") {
+  }
 });
 ```
 
 ## Project Status
 
-The API is mostly finished, and I am currently working on the frontend, which might not work as expected due to recent changes.
-<!-- It is now possible to make transfers and deposits on the frontend with real-time updates and chart visualization of transactions. -->
+The API is mostly finished, and I am currently working on the frontend. It is now possible to make transfers and deposits on the frontend with real-time updates and chart visualization of transactions.
 
 ![Virtual Bank Dashboard](sample/sample.gif)
 
@@ -704,7 +707,8 @@ Or send the token has cookie
   - **Description:** Returns a list of transactions for the authenticated user's debit cards.
   - **Method:** GET
   - **Query Parameters:**:
-    `role` (required): The role of the authenticated user in the transaction (`payer`, `payee`).
+    `role` (optional): The role of the authenticated user in the transaction (`payer`, `payee`).
+    `account_number` (optional): Filters the transactions based on the specified account number.
 
 - **Debit Card Transaction Detail**  
   - **Endpoint:** `GET /debit-cards/transactions/{transaction_id}/`
@@ -745,6 +749,8 @@ Or send the token has cookie
       "description": "string",
   }
   ```
+  - **Query Parameters:**:
+    `account_number` (optional): Filters the transactions based on the specified account number.
 
 - **Deposit Detail**  
   - **Endpoint:** `GET /deposits/{deposit_id}/`
@@ -780,7 +786,8 @@ Or send the token has cookie
   - **Description:** Returns the transaction history for the authenticated user.
   - **Method:** GET
   - **Query Parameters:**:
-  - `role` (required): The role of the authenticated user in the transaction (`payer`, `payee`).
+    `role` (optional): The role of the authenticated user in the transaction (`payer`, `payee`).
+    `account_number` (optional): Filters the transactions based on the specified account number.
 
 - **Transaction Detail**  
   - **Endpoint:** `GET /transactions/{transaction_id}/`
@@ -793,7 +800,8 @@ Or send the token has cookie
   - **Description:** Returns a list of all transfers made by the authenticated user.
   - **Method:** GET
   - **Query Parameters:**:
-    `role` (required): The role of the authenticated user in the transaction (`payer`, `payee`).
+    `role` (optional): The role of the authenticated user in the transaction (`payer`, `payee`).
+    `account_number` (optional): Filters the transactions based on the specified account number.
 
 - **Create Transfer**  
   - **Endpoint:** `POST /transfers/create/`

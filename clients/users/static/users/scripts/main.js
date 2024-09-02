@@ -39,6 +39,46 @@ export async function postData(url, form, reload = false, external = false) {
     }
 }
 
+export async function getData(url, external = false) {
+    let response = null;
+    const csrftoken = getCookie('csrftoken');
+
+    const options = {
+        method: 'GET',
+        credentials: 'include'
+    };
+
+    if (external) {
+        const BASE_URL = 'http://localhost:8000'
+        url = `${BASE_URL}${url}`;
+    } else {
+        options.headers = {
+            'X-CSRFToken': csrftoken
+        };
+    }
+
+    try {
+        response = await fetch(url, options);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (err) {
+        console.error('Error:', err);
+        return err;
+    }
+}
+
+export const currency_mapping = {
+    USD: "$",   // US Dollar
+    EUR: "€",  // Euro
+    GBP: "£",  // British Pound
+    NGN: "₦", // Nigerian Naira
+    JPY: "¥", // Japanese Yen
+}
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
