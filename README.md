@@ -251,7 +251,13 @@ To set up the Virtual Bank project locally, follow these steps:
    python3 manage.py migrate
    ```
 
-6. **Start the development server**:
+   **Clients**:
+   ```bash
+   cd clients/
+   python3 manage.py makemigrations
+   ```
+
+7. **Start the development server**:
    **API**:
    ```bash
    cd api/
