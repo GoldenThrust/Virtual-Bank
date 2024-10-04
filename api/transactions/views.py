@@ -23,6 +23,7 @@ from rest_framework import exceptions
 from .utils import convert_currency
 from accounts.utils import currency_to_unicode
 
+from .paginations import TransactionPagination
 
 class DateError(Exception):
     pass
@@ -307,6 +308,7 @@ class CreateDebitCardTransaction(generics.CreateAPIView):
 class TransactionHistory(generics.ListAPIView):
     serializer_class = TransactionSerializer
     permission_classes = [permissions.IsAuthenticated]
+    pagination_class = TransactionPagination
 
     def get_queryset(self):
         user = self.request.user
@@ -335,6 +337,7 @@ class TransactionHistory(generics.ListAPIView):
                     Q(payer__number=account_number) |
                     Q(payee__number=account_number)
                 )
+                
 
         return queryset
 
@@ -378,6 +381,7 @@ class TransactionDetail(generics.RetrieveAPIView):
 class DepositList(generics.ListAPIView):
     serializer_class = TransactionSerializer
     permission_classes = [permissions.IsAuthenticated]
+    pagination_class = TransactionPagination
 
     def get_queryset(self):
         user = self.request.user
@@ -418,13 +422,14 @@ class DepositDetail(generics.RetrieveAPIView):
 class TransferHistory(generics.ListAPIView):
     serializer_class = TransferSerializer
     permission_classes = [permissions.IsAuthenticated]
+    pagination_class = TransactionPagination
 
     def get_queryset(self):
         user = self.request.user
         role = self.request.query_params.get('role', None)
         account_number = self.request.query_params.get('account_number', None)
 
-        queryset = Transaction.objects.filter(transaction_type="TRANSFER")
+        queryset = Transaction.objects.filter(transaction_type="TRANSFER").reverse()
 
         if role == "payer":
             queryset = queryset.filter(payer__user=user)
@@ -446,6 +451,7 @@ class TransferHistory(generics.ListAPIView):
                     Q(payer__number=account_number) |
                     Q(payee__number=account_number)
                 )
+        
 
         return queryset
 
@@ -492,6 +498,7 @@ class TransferDetails(generics.RetrieveAPIView):
 class DebitCardHistory(generics.ListAPIView):
     serializer_class = TransferSerializer
     permission_classes = [permissions.IsAuthenticated]
+    pagination_class = TransactionPagination
 
     def get_queryset(self):
         user = self.request.user
@@ -520,6 +527,8 @@ class DebitCardHistory(generics.ListAPIView):
                     Q(payer__number=account_number) |
                     Q(payee__number=account_number)
                 )
+                
+            queryset = queryset.reverse()
 
         return queryset
 

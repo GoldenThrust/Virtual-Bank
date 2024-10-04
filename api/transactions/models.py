@@ -29,6 +29,9 @@ class Transaction(models.Model):
     identifier = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     description = models.TextField(blank=True)
     date = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+      ordering = ('-date', )
 
     def __str__(self):
         return f"Transaction ID: {self.pk} - Type: {self.get_transaction_type_display()} - Amount: {self.amount_received}"

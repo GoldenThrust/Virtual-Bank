@@ -715,6 +715,8 @@ Or send the token has cookie
   - **Query Parameters:**:
     `role` (optional): The role of the authenticated user in the transaction (`payer`, `payee`).
     `account_number` (optional): Filters the transactions based on the specified account number.
+    `limit` (optional): The maximum number of results to return per page. Defaults to 10.
+    `page_num` (optional): The page number to retrieve. Defaults to the first page.
 
 - **Debit Card Transaction Detail**  
   - **Endpoint:** `GET /debit-cards/transactions/{transaction_id}/`
@@ -794,6 +796,8 @@ Or send the token has cookie
   - **Query Parameters:**:
     `role` (optional): The role of the authenticated user in the transaction (`payer`, `payee`).
     `account_number` (optional): Filters the transactions based on the specified account number.
+    `limit` (optional): The maximum number of results to return per page. Defaults to 10.
+    `page_num` (optional): The page number to retrieve. Defaults to the first page.
 
 - **Transaction Detail**  
   - **Endpoint:** `GET /transactions/{transaction_id}/`
@@ -808,6 +812,8 @@ Or send the token has cookie
   - **Query Parameters:**:
     `role` (optional): The role of the authenticated user in the transaction (`payer`, `payee`).
     `account_number` (optional): Filters the transactions based on the specified account number.
+    `limit` (optional): The maximum number of results to return per page. Defaults to 10.
+    `page_num` (optional): The page number to retrieve. Defaults to the first page.
 
 - **Create Transfer**  
   - **Endpoint:** `POST /transfers/create/`
