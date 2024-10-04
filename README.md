@@ -216,35 +216,35 @@ To set up the Virtual Bank project locally, follow these steps:
 
    ```ini
    # .env file for Neon PostgreSQL
-   PGHOST='example.us-east-2.aws.neon.tech'  # The host address of your Neon database
-   PGDATABASE='virtualbank'                  # The name of your PostgreSQL database
-   PGUSER='vb_owner'                         # The PostgreSQL user with access to the database
-   PGPASSWORD='your_password_here'           # The password for the database user
+   DB_HOST='example.us-east-2.aws.neon.tech'  # The host address of your Neon database
+   DB_NAME='virtualbank'                  # The name of your PostgreSQL database
+   DB_USER='vb_owner'                         # The PostgreSQL user with access to the database
+   DB_PASSWORD='your_password_here'           # The password for the database user
    ```
-   - **PGHOST**: The host address provided by Neon for your PostgreSQL instance.
-   - **PGDATABASE**: The name of the database you created (e.g., virtualbank).
-   - **PGUSER**: The username associated with your PostgreSQL instance. Typically, this is the owner of the database (e.g., vb_owner).
-   - **PGPASSWORD**: The password that was set during the creation of the PostgreSQL instance.
+   - **DB_HOST**: The host address provided by Neon for your PostgreSQL instance.
+   - **DB_NAME**: The name of the database you created (e.g., virtualbank).
+   - **DB_USER**: The username associated with your PostgreSQL instance. Typically, this is the owner of the database (e.g., vb_owner).
+   - **DB_PASSWORD**: The password that was set during the creation of the PostgreSQL instance.
 
    Modify Django Database Settings: In your Django settings.py file, you will need to use the above environment variables to configure the connection to Neon PostgreSQL. Modify your DATABASES configuration like this:
    
    ```python
    # For Neon PostgreSQL (deployment)
-   DATABASES = {
-      'default': {
+  DATABASES = {
+    'default': {
       'ENGINE': 'django.db.backends.postgresql',
-      'NAME': os.getenv('PGDATABASE'),
-      'USER': os.getenv('PGUSER'),
-      'PASSWORD': os.getenv('PGPASSWORD'),
-      'HOST': os.getenv('PGHOST'),
-      'PORT': os.getenv('PGPORT', 5432),
+      'NAME': os.getenv('DB_NAME'),
+      'USER': os.getenv('DB_USER'),
+      'PASSWORD': os.getenv('DB_PASSWORD'),
+      'HOST':  os.getenv('DB_HOST'),
+      'PORT':  os.getenv('DB_PORT'),
       'OPTIONS': {
-         'sslmode': 'require',
-         },
-      }
-   }
+        'sslmode': 'require',
+      },
+    }
+  }
    ```
-5. **Run migrations**:
+1. **Run migrations**:
    ```bash
    cd api/
    python3 manage.py makemigrations
@@ -257,7 +257,7 @@ To set up the Virtual Bank project locally, follow these steps:
    python3 manage.py makemigrations
    ```
 
-7. **Start the development server**:
+2. **Start the development server**:
    **API**:
    ```bash
    cd api/

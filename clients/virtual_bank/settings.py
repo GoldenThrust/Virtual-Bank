@@ -105,11 +105,11 @@ ASGI_APPLICATION = 'virtual_bank.asgi.application'
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.postgresql',
-    'NAME': os.getenv('DB_NAME') if DEBUG else os.getenv('PGDATABASE') ,
-    'USER': os.getenv('DB_USER')  if DEBUG else  os.getenv('PGUSER'),
-    'PASSWORD': os.getenv('DB_PASSWORD') if DEBUG else os.getenv('PGPASSWORD'),
-    'HOST':  os.getenv('DB_HOST') if DEBUG else os.getenv('PGHOST'),
-    'PORT':  os.getenv('DB_PORT') if DEBUG else os.getenv('PGPORT', 5432),
+    'NAME': os.getenv('DB_NAME'),
+    'USER': os.getenv('DB_USER'),
+    'PASSWORD': os.getenv('DB_PASSWORD'),
+    'HOST':  os.getenv('DB_HOST'),
+    'PORT':  os.getenv('DB_PORT'),
     'OPTIONS': {} if DEBUG else {
       'sslmode': 'require',
     },
