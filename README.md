@@ -596,7 +596,7 @@ Or send the token has cookie
     "city": "string",
     "state": "string",
     "country": "string",
-    "profile_picture": "string"
+    "profile_picture": "file",
     "date_of_birth": "2019-08-24T14:15:22Z",
     "phone_number": -9223372036854776000,
     "date_joined": "2019-08-24T14:15:22Z"
