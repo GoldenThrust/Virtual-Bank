@@ -31,25 +31,24 @@ class UserDebitCardList(generics.ListAPIView):
         user = self.request.user
         return DebitCard.objects.filter(account__user=user)
 
+
 class UserDebitCardDetail(generics.RetrieveAPIView):
     queryset = DebitCard.objects.all()
     serializer_class = DebitCardSerializer
     permission_classes = [permissions.IsAuthenticated]
-    lookup_field = "number"
 
     def get_object(self):
         user = self.request.user
         number = self.kwargs["number"]
 
-        debit_card = DebitCard.objects.filter(
-            account__number=number, user=user
-        ).first()
+        debit_card = DebitCard.objects.filter(card_number=number, account__user=user).first()
+
 
         if not debit_card:
             raise exceptions.NotFound()
 
         return debit_card
 
+
 # def renewDebitCard():
 #     pass
-    

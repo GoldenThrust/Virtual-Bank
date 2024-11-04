@@ -596,14 +596,14 @@ Or send the token has cookie
     "city": "string",
     "state": "string",
     "country": "string",
-    "profile_picture": "file",
+    "profile_picture": "image_file",
     "date_of_birth": "2019-08-24T14:15:22Z",
     "phone_number": -9223372036854776000,
     "date_joined": "2019-08-24T14:15:22Z"
   }
   ```
   - Notes:
-      The profile_picture field is optional. If included, it should be uploaded as a file in the form-data.
+      The profile_picture field is optional. If included, it should be uploaded as an image file in the form-data.
 
       For file uploads, ensure that your server is configured to handle multipart/form-data and save the uploaded files properly.
 
@@ -715,8 +715,9 @@ Or send the token has cookie
   - **Query Parameters:**:
     `role` (optional): The role of the authenticated user in the transaction (`payer`, `payee`).
     `account_number` (optional): Filters the transactions based on the specified account number.
-    `limit` (optional): The maximum number of results to return per page. Defaults to 10.
-    `page_num` (optional): The page number to retrieve. Defaults to the first page.
+    `page` (optional): The page number to retrieve. Defaults to 1 (the first page).
+    `size` (optional): The number of results to return per page. Defaults to 100.
+
 
 - **Debit Card Transaction Detail**  
   - **Endpoint:** `GET /debit-cards/transactions/{transaction_id}/`
@@ -759,6 +760,9 @@ Or send the token has cookie
   ```
   - **Query Parameters:**:
     `account_number` (optional): Filters the transactions based on the specified account number.
+    `page` (optional): The page number to retrieve. Defaults to 1 (the first page).
+    `size` (optional): The number of results to return per page. Defaults to 100.
+
 
 - **Deposit Detail**  
   - **Endpoint:** `GET /deposits/{deposit_id}/`
@@ -766,22 +770,16 @@ Or send the token has cookie
   - **Method:** GET
 
 ##### Notifications
-  `type: user | account | transaction | security`
 
 - **List User Notifications**  
   - **Endpoint:** `GET /notifications/`
   - **Description:** Returns a list of notifications for the authenticated user.
   - **Method:** GET
+  - **Query Parameters:**:
+    `type` (optional): The type of notification to return. `user | account | transaction | security`
+    `page` (optional): The page number to retrieve. Defaults to 1 (the first page).
+    `size` (optional): The number of results to return per page. Defaults to 100.
 
-- **Notification Detail by Type**  
-  - **Endpoint:** `GET /notifications/{type}/`
-  - **Description:** Returns notifications filtered by their type.
-  - **Method:** GET
-
-- **Notification Type by ID**  
-  - **Endpoint:** `GET /notifications/{type}/`
-  - **Description:** Returns notifications filtered by their type and identifier.
-  - **Method:** GET
 
 - **Notification Detail**  
   - **Endpoint:** `GET /notifications/{id}/`
@@ -796,8 +794,9 @@ Or send the token has cookie
   - **Query Parameters:**:
     `role` (optional): The role of the authenticated user in the transaction (`payer`, `payee`).
     `account_number` (optional): Filters the transactions based on the specified account number.
-    `limit` (optional): The maximum number of results to return per page. Defaults to 10.
-    `page_num` (optional): The page number to retrieve. Defaults to the first page.
+    `page` (optional): The page number to retrieve. Defaults to 1 (the first page).
+    `size` (optional): The number of results to return per page. Defaults to 100.
+
 
 - **Transaction Detail**  
   - **Endpoint:** `GET /transactions/{transaction_id}/`
@@ -812,8 +811,9 @@ Or send the token has cookie
   - **Query Parameters:**:
     `role` (optional): The role of the authenticated user in the transaction (`payer`, `payee`).
     `account_number` (optional): Filters the transactions based on the specified account number.
-    `limit` (optional): The maximum number of results to return per page. Defaults to 10.
-    `page_num` (optional): The page number to retrieve. Defaults to the first page.
+    `page` (optional): The page number to retrieve. Defaults to 1 (the first page).
+    `size` (optional): The number of results to return per page. Defaults to 100.
+
 
 - **Create Transfer**  
   - **Endpoint:** `POST /transfers/create/`

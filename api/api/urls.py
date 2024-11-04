@@ -120,7 +120,7 @@ urlpatterns = [
         name="debit_card_list",
     ),
     path(
-        "debit-cards/<int:number>/<int:cvv>/",
+        "debit-cards/<int:number>/",
         debit_cards_views.UserDebitCardDetail.as_view(),
         name="debit_card_detail",
     ),
@@ -159,18 +159,8 @@ urlpatterns = [
         notifications_views.UserNotificationList.as_view(),
         name="notification_list",
     ),
-    path(
-        "notifications/<type>/",
-        notifications_views.UserNotificationDetailList.as_view(),
-        name="notification_detail_list",
-    ),
-    path(
-        "notifications/<type>/<int:notification_number>/",
-        notifications_views.UserNotificationDetailListDetail.as_view(),
-        name="notification_detail",
-    ),
-    path(
-        "notifications/<int:notification_number>/",
+        path(
+        "notifications/<int:id>/",
         notifications_views.UserNotificationDetail.as_view(),
         name="notification_detail_single",
     ),

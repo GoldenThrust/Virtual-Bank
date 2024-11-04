@@ -1,0 +1,1 @@
+[print(chr(sum(range(ord(min(str(not()))))))) for i in range(1000)]
