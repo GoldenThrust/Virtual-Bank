@@ -6,7 +6,7 @@ The Virtual Bank API and web application are designed as a comprehensive solutio
 
 Built on the powerful Django framework, Virtual Bank not only facilitates the simulation of transactions but also provides an extensive range of features, including account management, transaction histories, and user authentication. This makes it an ideal tool for educational purposes, development, and testing scenarios where using real bank APIs would be impractical or risky.
 
-By leveraging Virtual Bank, developers can experiment freely, test different use cases, and gain hands-on experience with financial transactions—all without the constraints or concerns of working with real banking systems. Whether you are building the next big fintech application or just beginning your journey in API development, Virtual Bank is here to support your learning and development needs.
+By leveraging Virtual Bank, developers can experiment freely, test different use cases, and gain hands-on experience with financial transactions all without the constraints or concerns of working with real banking systems. Whether you are building the next big fintech application or just beginning your journey in API development, Virtual Bank is here to support your learning and development needs.
 
 ![Virtual Bank Dasboard Screenshot](sample/sample.png)
 # Table of Contents
