@@ -41,7 +41,7 @@ python-dotenv==1.0.0
 pytz==2023.3.post1
 PyYAML==6.0.1
 redis==5.0.8
-requests==2.32.3
+requests==2.32.4
 service-identity==24.1.0
 six==1.16.0
 sqlparse==0.5.1
