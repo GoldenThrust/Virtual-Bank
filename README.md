@@ -15,6 +15,7 @@ By leveraging Virtual Bank, developers can experiment freely, test different use
 - [Table of Contents](#table-of-contents)
   - [Use Cases](#use-cases)
   - [Installation](#installation)
+    - [Using Docker (Recommended)](#using-docker-recommended)
     - [Local Database Configuration:](#local-database-configuration)
     - [Neon Database Configuration (for Deployment)](#neon-database-configuration-for-deployment)
   - [Authentication (JWT and Cookies)](#authentication-jwt-and-cookies)
@@ -82,6 +83,69 @@ Here are some potential ways the Virtual Bank API can be used, implemented, or i
 
 ## Installation
 
+### Using Docker (Recommended)
+
+The easiest way to get started with Virtual Bank is using Docker:
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/GoldenThrust/Virtual-Bank.git
+   cd Virtual-Bank
+   ```
+
+2. **Set up environment variables**:
+   ```bash
+   cp .env.example .env
+   ```
+   Edit the `.env` file with your preferred settings.
+
+3. **Start the Docker containers**:
+   ```bash
+   docker-compose up -d
+   ```
+   This will start PostgreSQL, Redis, and the Virtual Bank API server.
+
+   **Troubleshooting Docker Connectivity Issues**:
+   
+   If you're experiencing network issues when trying to pull Docker images:
+   
+   a. **Configure alternative DNS**:
+      ```powershell
+      # For Windows
+      mkdir -p .docker
+      @'
+      {
+        "dns": ["8.8.8.8", "8.8.4.4"]
+      }
+      '@ | Out-File -FilePath .docker\config.json -Encoding utf8
+      
+      # Restart Docker Desktop
+      ```
+   
+   b. **Alternative: Set up local PostgreSQL and Redis**:
+      ```bash
+      # Run the setup script to install local PostgreSQL and Redis
+      ./setup.sh
+      
+      # Then start the Django app directly
+      source venv/bin/activate  # On Windows: .\venv\Scripts\activate
+      cd api
+      python manage.py migrate
+      python manage.py runserver 0.0.0.0:8030
+      ```
+
+4. **Access the application**:
+   - API: http://localhost:8030/api/
+   - API Documentation: http://localhost:8030/swagger/
+   - Admin Interface: http://localhost:8030/admin/
+
+5. **Create a superuser** (optional):
+   ```bash
+   docker-compose exec web python manage.py createsuperuser
+   ```
+   
+### Local Installation
+
 To set up the Virtual Bank project locally, follow these steps:
 
 1. **Clone the repository**:
@@ -103,7 +167,7 @@ To set up the Virtual Bank project locally, follow these steps:
     Install Python 3 if not already installed (you can use Homebrew to install it), then create and activate the virtual environment:
 
     ``` bash
-    python3 -m venv venv
+    python -m venv venv
     source venv/bin/activate
     ```
     
@@ -124,14 +188,14 @@ To set up the Virtual Bank project locally, follow these steps:
     For all platforms (Linux, macOS, Windows):
 
     ```bash
-    python3 -m pip install --upgrade pip
+    python -m pip install --upgrade pip
     ```
 
     Install project dependencies:
     Inside the activated virtual environment, run:
 
     ```bash
-    python3 -m pip install -r requirements.txt
+    python -m pip install -r requirements.txt
     ```
     ---
     **or**
@@ -247,27 +311,27 @@ To set up the Virtual Bank project locally, follow these steps:
 1. **Run migrations**:
    ```bash
    cd api/
-   python3 manage.py makemigrations
-   python3 manage.py migrate
+   python manage.py makemigrations
+   python manage.py migrate
    ```
 
    **Clients**:
    ```bash
    cd clients/
-   python3 manage.py makemigrations
+   python manage.py makemigrations
    ```
 
 2. **Start the development server**:
    **API**:
    ```bash
    cd api/
-   python3 manage.py runserver
+   python manage.py runserver
    ```
 
    **Clients**:
    ```bash
    cd clients/
-   python3 manage.py runserver 8001
+   python manage.py runserver 8001
    ```
 
    Access the application in your browser at [http://localhost:8000/](http://localhost:8000/) or [http://localhost:8001/](http://localhost:8001/) for clients.
@@ -297,13 +361,13 @@ To start the development server, navigate to the corresponding directories and r
 **For API**:
 ```bash
 cd api/
-python3 manage.py runserver
+python manage.py runserver
 ```
 
 **For Clients**:
 ```bash
 cd clients/
-python3 manage.py runserver 8001
+python manage.py runserver 8001
 ```
 
 ### Create User

@@ -10,7 +10,7 @@ channels-redis==4.2.0
 charset-normalizer==3.3.2
 constantly==23.10.4
 crispy-bootstrap5==2023.10
-cryptography==44.0.1
+cryptography<44
 daphne==4.1.2
 Django==5.1.4
 django-cors-headers==4.3.0

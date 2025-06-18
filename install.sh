@@ -19,3 +19,10 @@ fi
 
 python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
+
+# Create .env file if it doesn't exist
+if [ ! -f .env ]; then
+    echo "Creating .env file from .env.example..."
+    cp .env.example .env
+    echo "Please update the .env file with your configuration"
+fi

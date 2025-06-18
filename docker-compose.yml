@@ -1,8 +1,6 @@
-version: '3.9'
-
 services:
   db:
-    image: postgres:15
+    image: postgres:latest
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -13,25 +11,40 @@ services:
       - "5432:5432"
     env_file:
       - .env
-
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      
   redis:
-    image: redis:7
+    image: redis:latest 
     command: redis-server
     ports:
       - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/app
+      - ./api:/app/api
+      - ./media:/app/media
     ports:
-      - "8000:8000"
+      - "8030:8030"
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     env_file:
       - .env
+    environment:
+      - DB_HOST=db
+      - REDIS_HOST=redis
 
 volumes:
   postgres_data:
