@@ -2,6 +2,13 @@
 
 set -e
 
+# Wait for API service to be ready
+echo "Waiting for API service..."
+until curl -s http://api:8030/api/ > /dev/null 2>&1; do
+  echo "API service is unavailable - sleeping"
+  sleep 2
+done
+
 # Wait for database to be ready
 echo "Waiting for database..."
 python -c "
@@ -32,13 +39,13 @@ sys.exit(1)
 "
 
 # Apply database migrations
-echo "Applying database migrations..."
+echo "Applying database migrations for client app..."
 python manage.py makemigrations --noinput
 python manage.py migrate --noinput
 
 # Create superuser if DJANGO_SUPERUSER_* environment variables are set
 if [[ -n "${DJANGO_SUPERUSER_USERNAME}" && -n "${DJANGO_SUPERUSER_PASSWORD}" && -n "${DJANGO_SUPERUSER_EMAIL}" ]]; then
-    echo "Creating superuser..."
+    echo "Creating superuser for client app..."
     python manage.py createsuperuser --noinput || true
 fi
 

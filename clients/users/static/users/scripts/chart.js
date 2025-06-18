@@ -8,7 +8,7 @@ const notificationCount = document.querySelector(".notification-count");
 const unreadNotifications = document.querySelector('.unread-notifications');
 const notification = document.querySelector('.unread-notifications > span');
 const root = document.documentElement;
-const socket = new WebSocket('ws://localhost:8000/ws/socket/');
+const socket = new WebSocket('ws://localhost:8030/ws/socket/');
 
 
 

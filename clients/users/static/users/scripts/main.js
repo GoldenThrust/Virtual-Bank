@@ -9,7 +9,7 @@ export async function postData(url, form, reload = false, external = false) {
     };
 
     if (external) {
-        const BASE_URL = 'http://localhost:8000'
+        const BASE_URL = 'http://localhost:8030'
         url = `${BASE_URL}${url}`;
     } else {
         options.headers = {
@@ -49,7 +49,7 @@ export async function getData(url, external = false) {
     };
 
     if (external) {
-        const BASE_URL = 'http://localhost:8000'
+        const BASE_URL = 'http://localhost:8030'
         url = `${BASE_URL}${url}`;
     } else {
         options.headers = {

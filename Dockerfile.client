@@ -7,7 +7,7 @@ WORKDIR /app
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    libpq-dev gcc curl --no-install-recommends \
+    libpq-dev gcc --no-install-recommends \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user for security
@@ -23,21 +23,21 @@ COPY --chown=appuser:appuser . .
 # Switch to appuser
 USER appuser
 
-# Set working directory for API
-WORKDIR /app/api
+# Set working directory for Clients
+WORKDIR /app/clients
 
-# Run collectstatic (comment out if using volumes in development)
+# Run collectstatic for client app
 RUN python manage.py collectstatic --noinput
 
-# Expose port for the application
-EXPOSE 8030
+# Expose port for the client application
+EXPOSE 8040
 
-# Set the entrypoint script
-COPY --chown=appuser:appuser docker-entrypoint.sh /app/docker-entrypoint.sh
-RUN chmod +x /app/docker-entrypoint.sh
+# Create client entrypoint script
+COPY --chown=appuser:appuser docker-client-entrypoint.sh /app/docker-client-entrypoint.sh
+RUN chmod +x /app/docker-client-entrypoint.sh
 
 # Use the entrypoint script
-ENTRYPOINT ["/app/docker-entrypoint.sh"]
+ENTRYPOINT ["/app/docker-client-entrypoint.sh"]
 
 # Default command (can be overridden by docker-compose)
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8030"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8040"]

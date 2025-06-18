@@ -6,7 +6,7 @@ from django.urls import reverse
 
 class UserTest(TestCase):
     def setUp(self):
-        self.url =  'http://localhost:8000'
+        self.url =  'http://localhost:8030'
 
         # Path to your JSON file containing test data
         file_path = os.path.join("..", "json", "users.json")

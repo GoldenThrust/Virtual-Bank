@@ -1,5 +1,5 @@
 
-const socket = new WebSocket('ws://localhost:8000/ws/socket/');
+const socket = new WebSocket('ws://localhost:8030/ws/socket/');
 socket.addEventListener("open", (e) => {
   // socket.send('{"hello": "world"}')
 })

@@ -7,8 +7,8 @@ from debit_cards.models import DebitCard
 
 class AccountTest(TestCase):
     def setUp(self):
-        self.url = "http://localhost:8000/api/v1/"
-        self.main_url = "http://localhost:8000/api/v1/accounts/"
+        self.url = "http://localhost:8030/api/v1/"
+        self.main_url = "http://localhost:8030/api/v1/accounts/"
         self.headers = [
             {"Authorization": "Basic dXNlcl8xMjM6cGFzczEyMzQ="},
             {"Authorization": "Basic amFuZV9kb2U6amFuZWRvZTE="},

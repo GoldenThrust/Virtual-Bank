@@ -6,8 +6,8 @@ from django.test import TestCase
 
 class UserTest(TestCase):
     def setUp(self):
-        self.url = "http://localhost:8000/api/v1/"
-        self.main_url = "http://localhost:8000/api/v1/users/"
+        self.url = "http://localhost:8030/api/v1/"
+        self.main_url = "http://localhost:8030/api/v1/users/"
         self.headers = {"Authorization": "Basic dXNlcl8xMjM6cGFzczEyMzQ="}
 
         # Path to your JSON file containing test data

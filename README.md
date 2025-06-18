@@ -16,6 +16,14 @@ By leveraging Virtual Bank, developers can experiment freely, test different use
   - [Use Cases](#use-cases)
   - [Installation](#installation)
     - [Using Docker (Recommended)](#using-docker-recommended)
+    - [Docker Repository Overview](#docker-repository-overview)
+      - [Repository Details](#repository-details)
+      - [Image Features](#image-features)
+      - [Image Tags](#image-tags)
+      - [Using the Docker Image](#using-the-docker-image)
+      - [Image Architecture](#image-architecture)
+    - [Running Both API and Client Web Interface](#running-both-api-and-client-web-interface)
+    - [Local Installation](#local-installation)
     - [Local Database Configuration:](#local-database-configuration)
     - [Neon Database Configuration (for Deployment)](#neon-database-configuration-for-deployment)
   - [Authentication (JWT and Cookies)](#authentication-jwt-and-cookies)
@@ -93,13 +101,18 @@ The easiest way to get started with Virtual Bank is using Docker:
    cd Virtual-Bank
    ```
 
-2. **Set up environment variables**:
+2. **Use the Official Docker Image**:
+   ```bash
+   docker pull goldenthrust/virtual-bank
+   ```
+
+3. **Set up environment variables**:
    ```bash
    cp .env.example .env
    ```
    Edit the `.env` file with your preferred settings.
 
-3. **Start the Docker containers**:
+4. **Start the Docker containers**:
    ```bash
    docker-compose up -d
    ```
@@ -118,32 +131,118 @@ The easiest way to get started with Virtual Bank is using Docker:
         "dns": ["8.8.8.8", "8.8.4.4"]
       }
       '@ | Out-File -FilePath .docker\config.json -Encoding utf8
-      
-      # Restart Docker Desktop
-      ```
-   
-   b. **Alternative: Set up local PostgreSQL and Redis**:
-      ```bash
-      # Run the setup script to install local PostgreSQL and Redis
-      ./setup.sh
-      
-      # Then start the Django app directly
-      source venv/bin/activate  # On Windows: .\venv\Scripts\activate
-      cd api
-      python manage.py migrate
-      python manage.py runserver 0.0.0.0:8030
       ```
 
-4. **Access the application**:
-   - API: http://localhost:8030/api/
-   - API Documentation: http://localhost:8030/swagger/
-   - Admin Interface: http://localhost:8030/admin/
+### Docker Repository Overview
 
-5. **Create a superuser** (optional):
+The Virtual Bank project provides an official Docker image available on Docker Hub to make deployment and testing easier for everyone.
+
+#### Repository Details
+
+- **Docker Hub Repository**: [goldenthrust/virtual-bank](https://hub.docker.com/r/goldenthrust/virtual-bank)
+- **Latest Image**: `goldenthrust/virtual-bank:latest`
+
+#### Image Features
+
+- **All-in-One Solution**: Contains both API backend and client web frontend
+- **Pre-configured**: Ready to connect to PostgreSQL and Redis
+- **Environment Variables**: Fully customizable through environment variables
+- **Production-Ready**: Optimized for both development and production use
+- **Documentation**: Includes Swagger API documentation
+
+#### Image Tags
+
+- `latest`: Always points to the most recent stable release
+- `x.y.z` (e.g., `1.0.0`): Version-specific tags for reproducible deployments
+
+#### Using the Docker Image
+
+The image can be used in various ways:
+
+1. **Basic Usage**:
    ```bash
-   docker-compose exec web python manage.py createsuperuser
+   docker run -p 8030:8030 -p 8040:8040 goldenthrust/virtual-bank
+   ```
+
+2. **With Environment Variables**:
+   ```bash
+   docker run -p 8030:8030 -p 8040:8040 \
+     -e DB_HOST=my-postgres \
+     -e DB_NAME=virtualbank \
+     -e REDIS_HOST=my-redis \
+     goldenthrust/virtual-bank
+   ```
+
+3. **With Docker Compose** (recommended):
+   ```yaml
+   # Sample docker-compose.yml snippet
+   services:
+     api:
+       image: goldenthrust/virtual-bank
+       ports:
+         - "8030:8030"
+       environment:
+         - DB_HOST=db
+         - REDIS_HOST=redis
+       # ...other configuration
+   ```
+
+#### Image Architecture
+
+The Docker image is based on Python 3.12 and includes:
+- Django REST framework for the API
+- Django for the client web application
+- PostgreSQL client libraries
+- Redis client libraries
+- All required Python dependencies
+
+### Running Both API and Client Web Interface
+
+To run both the API backend and the client web frontend in Docker:
+
+1. **Use the helper script**:
+   
+   **For Linux/macOS**:
+   ```bash
+   chmod +x start_app.sh
+   ./start_app.sh
    ```
    
+   **For Windows**:
+   ```powershell
+   .\start_app.ps1
+   ```
+
+2. **Or manually with Docker Compose**:
+   ```bash
+   docker-compose up -d
+   ```
+
+3. **Access the applications**:
+   - API: http://localhost:8030/api/
+   - API Documentation: http://localhost:8030/swagger/
+   - API Admin Interface: http://localhost:8030/admin/
+   - Client Web Interface: http://localhost:8040/
+
+4. **Create superusers** (optional):
+   ```bash
+   # For API
+   docker-compose exec api python manage.py createsuperuser
+   
+   # For client web app
+   docker-compose exec client python manage.py createsuperuser
+   ```
+
+5. **View logs**:
+   ```bash
+   # View logs for all services
+   docker-compose logs -f
+   
+   # View logs for specific service
+   docker-compose logs -f api
+   docker-compose logs -f client
+   ```
+
 ### Local Installation
 
 To set up the Virtual Bank project locally, follow these steps:
@@ -331,10 +430,10 @@ To set up the Virtual Bank project locally, follow these steps:
    **Clients**:
    ```bash
    cd clients/
-   python manage.py runserver 8001
+   python manage.py runserver 8040
    ```
 
-   Access the application in your browser at [http://localhost:8000/](http://localhost:8000/) or [http://localhost:8001/](http://localhost:8001/) for clients.
+   Access the application in your browser at [http://localhost:8030/](http://localhost:8030/) or [http://localhost:8040/](http://localhost:8040/) for clients.
 
 ## Authentication (JWT and Cookies)
 
@@ -367,14 +466,14 @@ python manage.py runserver
 **For Clients**:
 ```bash
 cd clients/
-python manage.py runserver 8001
+python manage.py runserver 8040
 ```
 
 ### Create User
 
 To create a new user, use the following `curl` command:
 ```bash
-curl -X POST http://localhost:8000/api/users/create/ \
+curl -X POST http://localhost:8030/api/users/create/ \
 -H 'Content-Type: application/json' \
 -d '{
     "username": "max_miller",
@@ -395,7 +494,7 @@ curl -X POST http://localhost:8000/api/users/create/ \
 
 After creating a user, obtain the JWT token by logging in:
 ```bash
-curl -X POST http://localhost:8000/api/users/login/ \
+curl -X POST http://localhost:8030/api/users/login/ \
 -H 'Content-Type: application/json' \
 -d '{
     "username": "max_miller",
@@ -415,7 +514,7 @@ The response will contain the access token, which you can use for authenticated 
 
 To create an account, use the JWT token obtained from the login step. Include the token in the Authorization header:
 ```bash
-curl -X POST http://localhost:8000/api/accounts/create/ \
+curl -X POST http://localhost:8030/api/accounts/create/ \
 -H 'Content-Type: application/json' \
 -H 'Authorization: Bearer your_jwt_access_token' \
 -d '{
@@ -436,7 +535,7 @@ The API also supports WebSocket connections for real-time transaction and notifi
 
 **Example Frontend WebSocket Listener**:
 ```javascript
-const socket = new WebSocket("ws://localhost:8000/ws/socket/");
+const socket = new WebSocket("ws://localhost:8030/ws/socket/");
 
 socket.addEventListener("message", (e) => {
   const data = JSON.parse(e.data);

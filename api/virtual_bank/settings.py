@@ -201,10 +201,10 @@ CORS_ALLOW_HEADERS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:8000',
-    'http://localhost:8001',
-    'http://127.0.0.1:8000',
-    'http://127.0.0.1:8001',
+    'http://localhost:8030',
+    'http://localhost:8040',
+    'http://127.0.0.1:8030',
+    'http://127.0.0.1:8040',
     'https://virtualbank.tech',
 ]
 

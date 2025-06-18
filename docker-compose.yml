@@ -28,8 +28,10 @@ services:
       timeout: 5s
       retries: 5
 
-  web:
-    build: .
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     volumes:
       - ./api:/app/api
       - ./media:/app/media
@@ -45,6 +47,30 @@ services:
     environment:
       - DB_HOST=db
       - REDIS_HOST=redis
+      - DJANGO_SETTINGS_MODULE=virtual_bank.settings
+    command: python manage.py runserver 0.0.0.0:8030
+
+  client:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.client
+    volumes:
+      - ./clients:/app/clients
+      - ./media:/app/media
+    ports:
+      - "8040:8040"
+    depends_on:
+      - api
+      - db
+      - redis
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=db
+      - REDIS_HOST=redis
+      - DJANGO_SETTINGS_MODULE=virtual_bank.settings
+      - API_URL=http://api:8030
+    command: python manage.py runserver 0.0.0.0:8040
 
 volumes:
   postgres_data:
