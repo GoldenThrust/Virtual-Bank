@@ -3,11 +3,13 @@ import json
 import requests
 from django.test import TestCase
 
+from api.virtual_bank.settings import API_URL
+
 
 class UserTest(TestCase):
     def setUp(self):
-        self.url = "http://localhost:8030/api/v1/"
-        self.main_url = "http://localhost:8030/api/v1/users/"
+        self.url = f"{API_URL}/api/v1/"
+        self.main_url = f"{API_URL}/api/v1/users/"
         self.headers = {"Authorization": "Basic dXNlcl8xMjM6cGFzczEyMzQ="}
 
         # Path to your JSON file containing test data

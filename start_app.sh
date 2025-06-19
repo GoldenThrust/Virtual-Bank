@@ -17,10 +17,10 @@ echo "Starting Virtual Bank API and Client application..."
 docker-compose up -d
 
 echo "Services started:"
-echo "- API: http://localhost:8030/api/"
-echo "- API Documentation: http://localhost:8030/swagger/"
-echo "- API Admin: http://localhost:8030/admin/"
-echo "- Client Web Interface: http://localhost:8040/"
+echo "- API: http://localhost:${API_PORT:-8030}/api/"
+echo "- API Documentation: http://localhost:${API_PORT:-8030}/swagger/"
+echo "- API Admin: http://localhost:${API_PORT:-8030}/admin/"
+echo "- Client Web Interface: http://localhost:${CLIENT_PORT:-8040}/"
 
 echo ""
 echo "Use the following command to see service logs:"

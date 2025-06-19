@@ -27,10 +27,19 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if os.getenv("DEV", "False") == "True" else False
 
 ALLOWED_HOSTS = ['*']
 
+# API Configuration
+API_HOST = os.getenv("API_HOST", "localhost")
+API_PORT = os.getenv("API_PORT", "8030")
+API_URL = os.getenv("API_URL", f"http://{API_HOST}:{API_PORT}")
+
+# CLIENT Configuration
+CLIENT_HOST = os.getenv("CLIENT_HOST", "localhost")
+CLIENT_PORT = os.getenv("CLIENT_PORT", "8040")
+CLIENT_URL = os.getenv("CLIENT_URL", f"http://{CLIENT_HOST}:{CLIENT_PORT}")
 
 # Define the path where media files will be stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -92,6 +101,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'utils.context_processors.api_url_config',
             ],
         },
     },
@@ -110,9 +120,10 @@ DATABASES = {
     'PASSWORD': os.getenv('DB_PASSWORD'),
     'HOST':  os.getenv('DB_HOST'),
     'PORT':  os.getenv('DB_PORT'),
-    'OPTIONS': {} if DEBUG else {
-      'sslmode': 'require',
-    },
+    'OPTIONS': {}
+    # if DEBUG else {
+    #   'sslmode': 'require',
+    # },
   }
 }
 
@@ -167,7 +178,8 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8040",
+    API_URL,
+    CLIENT_URL,
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True

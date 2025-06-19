@@ -2,13 +2,14 @@ import os
 import json
 import requests
 from django.test import TestCase
+from api.virtual_bank.settings import API_URL
 from debit_cards.models import DebitCard
 
 
 class AccountTest(TestCase):
     def setUp(self):
-        self.url = "http://localhost:8030/api/v1/"
-        self.main_url = "http://localhost:8030/api/v1/accounts/"
+        self.url = f"{API_URL}/api/v1/"
+        self.main_url = f"{API_URL}/api/v1/accounts/"
         self.headers = [
             {"Authorization": "Basic dXNlcl8xMjM6cGFzczEyMzQ="},
             {"Authorization": "Basic amFuZV9kb2U6amFuZWRvZTE="},

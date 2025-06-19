@@ -1,5 +1,9 @@
 
-const socket = new WebSocket('ws://localhost:8030/ws/socket/');
+// Convert API_BASE_URL from http to ws for WebSocket connection
+const wsUrl = window.WEBSOCKET_URL ? 
+    window.WEBSOCKET_URL + '/ws/socket/' : 
+    'ws://localhost:8030/ws/socket/';
+const socket = new WebSocket(wsUrl);
 socket.addEventListener("open", (e) => {
   // socket.send('{"hello": "world"}')
 })

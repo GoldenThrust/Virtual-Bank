@@ -34,6 +34,15 @@ DEBUG = True if os.getenv("DEV", "False") == "True" else False
 
 ALLOWED_HOSTS = ["*"]
 
+# API Configuration
+API_HOST = os.getenv("API_HOST", "localhost")
+API_PORT = os.getenv("API_PORT", "8030")
+API_URL = os.getenv("API_URL", f"http://{API_HOST}:{API_PORT}")
+
+# CLIENT Configuration
+CLIENT_HOST = os.getenv("CLIENT_HOST", "localhost")
+CLIENT_PORT = os.getenv("CLIENT_PORT", "8040")
+CLIENT_URL = os.getenv("CLIENT_URL", f"http://{CLIENT_HOST}:{CLIENT_PORT}")
 
 # Define the path where media files will be stored
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -110,9 +119,10 @@ DATABASES = {
     'PASSWORD': os.getenv('DB_PASSWORD'),
     'HOST':  os.getenv('DB_HOST'),
     'PORT':  os.getenv('DB_PORT'),
-    'OPTIONS': {} if DEBUG else {
-      'sslmode': 'require',
-    },
+    'OPTIONS': {}
+    # if DEBUG else {
+    #   'sslmode': 'require',
+    # },
   }
 }
 
@@ -200,12 +210,15 @@ CORS_ALLOW_HEADERS = [
     "X-CSRFToken",
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    API_URL,
+    CLIENT_URL,
+]
+
+
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:8030',
-    'http://localhost:8040',
-    'http://127.0.0.1:8030',
-    'http://127.0.0.1:8040',
-    'https://virtualbank.tech',
+    API_URL,
+    CLIENT_URL,
 ]
 
 SIMPLE_JWT = {

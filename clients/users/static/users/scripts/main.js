@@ -6,10 +6,8 @@ export async function postData(url, form, reload = false, external = false) {
         method: 'POST',
         body: form,
         credentials: 'include'
-    };
-
-    if (external) {
-        const BASE_URL = 'http://localhost:8030'
+    };    if (external) {
+        const BASE_URL = window.API_BASE_URL || 'http://localhost:8030';
         url = `${BASE_URL}${url}`;
     } else {
         options.headers = {
@@ -41,15 +39,13 @@ export async function postData(url, form, reload = false, external = false) {
 
 export async function getData(url, external = false) {
     let response = null;
-    const csrftoken = getCookie('csrftoken');
-
-    const options = {
+    const csrftoken = getCookie('csrftoken');    const options = {
         method: 'GET',
         credentials: 'include'
     };
 
     if (external) {
-        const BASE_URL = 'http://localhost:8030'
+        const BASE_URL = window.API_BASE_URL || 'http://localhost:8030';
         url = `${BASE_URL}${url}`;
     } else {
         options.headers = {

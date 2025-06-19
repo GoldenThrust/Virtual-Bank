@@ -4,9 +4,12 @@ import requests
 from django.test import TestCase
 from django.urls import reverse
 
+from api.virtual_bank.settings import API_URL
+
+
 class UserTest(TestCase):
     def setUp(self):
-        self.url =  'http://localhost:8030'
+        self.url =  API_URL
 
         # Path to your JSON file containing test data
         file_path = os.path.join("..", "json", "users.json")

@@ -26,7 +26,7 @@ USER appuser
 # Set working directory for API
 WORKDIR /app/api
 
-# Run collectstatic (comment out if using volumes in development)
+# Run collectstatic
 RUN python manage.py collectstatic --noinput
 
 # Expose port for the application

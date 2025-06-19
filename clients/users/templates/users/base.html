@@ -56,10 +56,16 @@
     <link rel="stylesheet" href="{% static 'users/styles/headers.css' %}" />
     <link rel="stylesheet" href="{% static 'users/styles/background.css' %}" />
     <link rel="stylesheet" href="{% static 'users/styles/body.css' %}" />
-    <link rel="stylesheet" href="{% static 'users/styles/footer.css' %}" />
-
+    <link rel="stylesheet" href="{% static 'users/styles/footer.css' %}" /> 
     <!-- load chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts" defer></script>
+    
+    <!-- Expose API URL as a global variable -->
+    <script>
+      // Make API URL available to all JavaScript files
+      window.API_BASE_URL = "{{ API_URL }}";
+      window.WEBSOCKET_URL = window.API_BASE_URL.replace(/^http/, 'ws');
+    </script>
   </head>
   <body>
       {% block content %}
