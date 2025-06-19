@@ -26,6 +26,10 @@ USER appuser
 # Set working directory for Clients
 WORKDIR /app/clients
 
+# Create staticfiles directory and ensure permissions are correct
+RUN mkdir -p staticfiles && \
+    chmod -R 755 staticfiles
+
 # Run collectstatic for client app
 RUN python manage.py collectstatic --noinput
 

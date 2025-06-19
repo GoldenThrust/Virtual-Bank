@@ -31,10 +31,16 @@ for i in range(30):  # Try for 30 seconds
 sys.exit(1)
 "
 
+
 # Apply database migrations
 echo "Applying database migrations..."
 python manage.py makemigrations --noinput
 python manage.py migrate --noinput
+
+# Ensure staticfiles directory exists and run collectstatic again
+echo "Ensuring staticfiles directory exists and collecting static files..."
+mkdir -p /app/api/staticfiles
+python manage.py collectstatic --noinput --clear
 
 # Create superuser if DJANGO_SUPERUSER_* environment variables are set
 if [[ -n "${DJANGO_SUPERUSER_USERNAME}" && -n "${DJANGO_SUPERUSER_PASSWORD}" && -n "${DJANGO_SUPERUSER_EMAIL}" ]]; then

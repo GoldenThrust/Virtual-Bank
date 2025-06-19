@@ -167,5 +167,5 @@ staticfiles/
 
 *_initial.py
 profile_pics/
-bootstrap-5.3.3-dist/
+# bootstrap-5.3.3-dist/
 migrations/

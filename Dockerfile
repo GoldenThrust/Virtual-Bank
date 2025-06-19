@@ -26,6 +26,10 @@ USER appuser
 # Set working directory for API
 WORKDIR /app/api
 
+# Create staticfiles directory and ensure permissions are correct
+RUN mkdir -p staticfiles && \
+    chmod -R 755 staticfiles
+
 # Run collectstatic
 RUN python manage.py collectstatic --noinput
 

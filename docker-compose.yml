@@ -34,6 +34,7 @@ services:
     volumes:
       - ./api:/app/api
       - ./media:/app/media
+      - api_staticfiles:/app/api/staticfiles
     ports:
       - "${API_PORT:-8030}:${API_PORT:-8030}"
     depends_on:
@@ -58,6 +59,7 @@ services:
     volumes:
       - ./clients:/app/clients
       - ./media:/app/media
+      - client_staticfiles:/app/clients/staticfiles
     ports:
       - "${CLIENT_PORT:-8040}:${CLIENT_PORT:-8040}"
     depends_on:
@@ -78,3 +80,5 @@ services:
 
 volumes:
   postgres_data:
+  api_staticfiles:
+  client_staticfiles:
